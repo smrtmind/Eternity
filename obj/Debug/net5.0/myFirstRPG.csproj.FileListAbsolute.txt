@@ -1,0 +1,16 @@
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\myFirstRPG.exe
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\myFirstRPG.deps.json
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\myFirstRPG.runtimeconfig.json
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\myFirstRPG.runtimeconfig.dev.json
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\myFirstRPG.dll
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\ref\myFirstRPG.dll
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\bin\Debug\net5.0\myFirstRPG.pdb
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.AssemblyInfoInputs.cache
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.AssemblyInfo.cs
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.csproj.CoreCompileInputs.cache
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.dll
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\ref\myFirstRPG.dll
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.pdb
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.genruntimeconfig.cache
+D:\OneDrive\Code\C#\MyProjects\myFirstRPG\obj\Debug\net5.0\myFirstRPG.csproj.AssemblyReference.cache
