@@ -25,13 +25,13 @@ namespace myFirstRPG
             Random random = new Random();
             Player player = new Player();
 
+            int ggMaxHealth = 0;
+            int enemyMaxHealth = 0;
             bool numberIsFound = false;
-            int ggHit = 0, enemyHit = 0;
             int healingPower = 0;
             int remainingAids = 0;
 
             int exp = 0, gold = 0;
-            int maxHealth = 0;
             int smallAid = 1, mediumAid = 0, bigAid = 0;
             int choice = 0;
 
@@ -117,34 +117,36 @@ namespace myFirstRPG
                 Print(" [3] ".PadLeft(37, ' '), ConsoleColor.Green);
                 Print("mage\n\n");
 
-                while (choice != 1 || choice != 2 || choice != 3)
-                {
+                //while (ggClassChoosing != 1 || ggClassChoosing != 2 || ggClassChoosing != 3)
+                //{
                     Console.Write("choose class: ".PadLeft(47, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
                     keyBoardInput = Console.ReadLine();
                     int.TryParse(keyBoardInput, out ggClassChoosing);
                     Console.ResetColor();
 
-                    if (ggClassChoosing == 1)
-                    {
-                        player = new Player("warrior", 200, lvlOfPower: 1, ggName);
-                        break;
-                    }
+                    player = new Player(ggClassChoosing, ggName);
 
-                    if (ggClassChoosing == 2)
-                    {
-                        player = new Player("archer", 160, lvlOfPower: 2, ggName);
-                        break;
-                    }
+                    //if (ggClassChoosing == 1)
+                    //{
+                    //    player = new Player("warrior", 200, lvlOfPower: 1, ggName);
+                    //    break;
+                    //}
 
-                    if (ggClassChoosing == 3)
-                    {
-                        player = new Player("mage", 120, lvlOfPower: 3, ggName);
-                        break;
-                    }
+                    //if (ggClassChoosing == 2)
+                    //{
+                    //    player = new Player("archer", 160, lvlOfPower: 2, ggName);
+                    //    break;
+                    //}
 
-                    else Print("incorrect format".PadLeft(63, ' ') + "\n", ConsoleColor.Red);
-                }
+                    //if (ggClassChoosing == 3)
+                    //{
+                    //    player = new Player("mage", 120, lvlOfPower: 3, ggName);
+                    //    break;
+                    //}
+
+                    //else Print("incorrect format".PadLeft(63, ' ') + "\n", ConsoleColor.Red);
+                //}
 
                 Console.Clear();
 
@@ -214,9 +216,21 @@ namespace myFirstRPG
 
             //GetPressEnter();
 
+            
+
             do
             {
-                Enemy enemy = new Enemy(random.Next(1, 4));
+
+                int enemyType = random.Next(1, 4);
+                Enemy enemy = new Enemy(enemyType);
+                enemyMaxHealth = enemy.Health;
+
+                player = new Player(ggClassChoosing, ggName);
+                ggMaxHealth = player.MaxHealth;
+
+                //int enemyType = random.Next(1, 4);
+                //Enemy enemy = new Enemy(enemyType);
+                //enemyMaxHealth = enemy.Health;
                 //Enemy enemy = new Enemy(name: "Rat", health: 20, lvlOfPower: 1);
 
                 //Console.ForegroundColor = ConsoleColor.Blue;
@@ -235,6 +249,9 @@ namespace myFirstRPG
 
                 while (choice != 1 || choice != 2 || choice != 3)
                 {
+                    enemy = new Enemy(enemyType, enemyMaxHealth);
+                    player = new Player(ggClassChoosing, ggName, ggMaxHealth);
+
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
                     keyBoardInput = Console.ReadLine();
@@ -243,16 +260,14 @@ namespace myFirstRPG
 
                     if (battleChoice == 1)
                     {
-                        if (player.LvlOfPower == 1) ggHit = random.Next(1, 4);
-                        if (player.LvlOfPower == 2) ggHit = random.Next(2, 5);
-                        if (player.LvlOfPower == 3) ggHit = random.Next(3, 6);
-                        enemy.Health -= ggHit;
+                        //if (player.LvlOfPower == 1) ggHit = random.Next(1, 4);
+                        //if (player.LvlOfPower == 2) ggHit = random.Next(2, 5);
+                        //if (player.LvlOfPower == 3) ggHit = random.Next(3, 6);
+                        enemyMaxHealth -= player.Damage;
+                        ggMaxHealth -= enemy.Damage;
 
-                        if (enemy.LvlOfPower == 1) enemyHit = random.Next(1, 4);
-                        player.CurrentHealth -= enemyHit;
-
-                        Print($"\n\t{player.Name} atacked with {ggHit} damage, {enemy.Name} has {enemy.Health} now\n");
-                        Print($"\t{enemy.Name} atacked with {enemyHit} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                        Print($"\n\t{player.Name} atacked with {player.Damage} damage, {enemy.Name} has {enemyMaxHealth} now\n");
+                        Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {ggMaxHealth} now\n\n");
 
                         if (enemy.Health <= 0)
                         {
@@ -261,12 +276,12 @@ namespace myFirstRPG
                             gold += 5;
                             exp += 15;
 
-                            GetStatus(player.CurrentHealth, ref gold, ref exp);
+                            GetStatus(ggMaxHealth, ref gold, ref exp);
 
                             break;
                         }
 
-                        else if (player.CurrentHealth <= 0) break;
+                        else if (ggMaxHealth <= 0) break;
                         continue;
                     }
 
@@ -333,10 +348,10 @@ namespace myFirstRPG
 
                             else Print($"\n\tYou don't have {aid} aids\n");
 
-                            enemy.Health -= ggHit;
-                            player.CurrentHealth -= enemyHit;
+                            enemyMaxHealth -= player.Damage;
+                            player.CurrentHealth -= enemy.Damage;
 
-                            Print($"\t{enemy.Name} atacked with {enemy.LvlOfPower} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                            Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                         }
                         while (choice != 1 && choice != 2 && choice != 3);
                     }
@@ -374,12 +389,14 @@ namespace myFirstRPG
                     if (yesNo == "y")
                     {
                         Console.Clear();
+                        enemyType = 0;
                         break;
                     }
 
                     if (yesNo == "n")
                     {
                         Console.Clear();
+                        enemyType = 0;
                         break;
                     }
 
@@ -394,7 +411,7 @@ namespace myFirstRPG
             }
             while (yesNo.ToLower() != "y");
 
-            GetLevelUp(ref exp, player.MaxHealth, player.CurrentHealth, player.LvlOfPower, ref ggClassChoosing);
+            //GetLevelUp(ref exp, player.MaxHealth, player.CurrentHealth, player.LvlOfPower, ref ggClassChoosing);
 
             Print("You see the shop. Move in to buy aids?");
             GetYesNo();
