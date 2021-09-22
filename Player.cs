@@ -6,86 +6,67 @@ using System.Threading.Tasks;
 
 namespace myFirstRPG
 {
-    public class Player
+    public class Player : GameCharacter
     {
-        public Random random = new Random();
-        public string HeroClass { get; set; }
-        public int Damage { get; set; }
-        public string Name { get; set; }
-        public int HeroType { get; set; }
-        public int MaxHealth { get; set; }
-        public int CurrentHealth { get; set; }
+        public int PlayerType { get; set; }
+        public string PlayerClass { get; set; }    
 
         public Player() { }
 
-        //public Player(string classOfHero, int maxHealth, int lvlOfPower, string name = "Sam")
-        //{
-        //    HeroClass = classOfHero;
-        //    MaxHealth = maxHealth;
-        //    CurrentHealth = maxHealth;
-        //    LvlOfPower = lvlOfPower;
-        //    Name = name;
-        //}
-
-        public Player(int heroType, string name, int health)
+        public Player(int playerType, string name)
         {
-            HeroType = heroType;
+            PlayerType = playerType;
 
-            switch (HeroType)
+            switch (PlayerType)
             {
                 case 1:
                     Name = name;
-                    HeroClass = "warrior";
-                    MaxHealth = health;
-                    CurrentHealth = MaxHealth;
+                    PlayerClass = "warrior";
+                    Health = 200;
+                    CurrentHealth = Health;
                     Damage = random.Next(1, 4);
                     break;
 
                 case 2:
                     Name = name;
-                    HeroClass = "archer";
-                    MaxHealth = health;
-                    CurrentHealth = MaxHealth;
+                    PlayerClass = "archer";
+                    Health = 160;
+                    CurrentHealth = Health;
                     Damage = random.Next(2, 5);
                     break;
 
                 case 3:
                     Name = name;
-                    HeroClass = "mage";
-                    MaxHealth = health;
-                    CurrentHealth = MaxHealth;
+                    PlayerClass = "mage";
+                    Health = 120;
+                    CurrentHealth = Health;
                     Damage = random.Next(3, 6);
                     break;
             }
         }
 
-        public Player(int heroType, string name)
+        public Player(int playerType, string name, int currentHealth) : this (playerType, name)
         {
-            HeroType = heroType;
-
-            switch (HeroType)
+            switch (PlayerType)
             {
                 case 1:
-                    Name = name;
-                    HeroClass = "warrior";
-                    MaxHealth = 200;
-                    CurrentHealth = MaxHealth;
+                    PlayerClass = "warrior";
+                    Health = 200;
+                    CurrentHealth = currentHealth;
                     Damage = random.Next(1, 4);
                     break;
 
                 case 2:
-                    Name = name;
-                    HeroClass = "archer";
-                    MaxHealth = 160;
-                    CurrentHealth = MaxHealth;
+                    PlayerClass = "archer";
+                    Health = 160;
+                    CurrentHealth = currentHealth;
                     Damage = random.Next(2, 5);
                     break;
 
                 case 3:
-                    Name = name;
-                    HeroClass = "mage";
-                    MaxHealth = 120;
-                    CurrentHealth = MaxHealth;
+                    PlayerClass = "mage";
+                    Health = 120;
+                    CurrentHealth = currentHealth;
                     Damage = random.Next(3, 6);
                     break;
             }

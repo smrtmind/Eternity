@@ -25,8 +25,6 @@ namespace myFirstRPG
             Random random = new Random();
             Player player = new Player();
 
-            int ggMaxHealth = 0;
-            int enemyMaxHealth = 0;
             bool numberIsFound = false;
             int healingPower = 0;
             int remainingAids = 0;
@@ -35,161 +33,112 @@ namespace myFirstRPG
             int smallAid = 1, mediumAid = 0, bigAid = 0;
             int choice = 0;
 
-            int ggClassChoosing = 0;
-            string ggName = string.Empty, enemyName = string.Empty;
+            int playerClass = 0;
+            string playerName = string.Empty, enemyName = string.Empty;
 
             string sex = string.Empty, ggClass = string.Empty;
 
-            string keyBoardInput = string.Empty, yesNo = string.Empty, yesNo2 = string.Empty;
+            string keyBoardInput = string.Empty, yesNo = string.Empty;
 
-            while (yesNo.ToLower() != "y")
-            {
-                ggName = string.Empty;
+            //while (yesNo.ToLower() != "y")
+            //{
+            //    yesNo = string.Empty;
+            //    playerName = string.Empty;
 
-                while (true)
-                {
-                    Console.Clear();
-                    Print("Do you want to change your name?");
-                    GetYesNo();
+            //    while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
+            //    {
+            //        Console.Clear();
+            //        Print("Do you want to change your name?");
+            //        GetYesNo();
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    yesNo = Console.ReadLine();
-                    Console.ResetColor();
+            //        Console.ForegroundColor = ConsoleColor.Green;
+            //        yesNo = Console.ReadLine();
+            //        Console.ResetColor();
 
-                    if (yesNo.ToLower() == "y")
-                    {
-                        Print("\n");
-                        while (ggName.Length == 0)
-                        {
-                            Print("enter your new name: ");
+            //        if (yesNo.ToLower() == "y")
+            //        {
+            //            Print("\n");
+            //            while (playerName.Length == 0)
+            //            {
+            //                Print("enter your new name: ");
 
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            ggName = Console.ReadLine();
-                            Console.ResetColor();
-                        }
-                        break;
-                    }
+            //                Console.ForegroundColor = ConsoleColor.Green;
+            //                playerName = Console.ReadLine();
+            //                Console.ResetColor();
+            //            }
+            //        }
 
-                    if (yesNo.ToLower() == "n")
-                    {
-                        ggName = "Sam";
-                        break;
-                    }
+            //        if (yesNo.ToLower() == "n") playerName = "Sam";
+            //    }
 
-                    else continue;
-                }
+            //    Print("\nChoose your character's gender: ");
+            //    Print(" [1] ", ConsoleColor.Green);
+            //    Print("male\n");
+            //    Print(" [2] ".PadLeft(37, ' '), ConsoleColor.Green);
+            //    Print("female\n\n");
 
-                Print("\nChoose your character's gender: ");
+            //    choice = 0;
 
-                Print(" [1] ", ConsoleColor.Green);
-                Print("male\n");
-                Print(" [2] ".PadLeft(37, ' '), ConsoleColor.Green);
-                Print("female\n\n");
+            //    while (choice != 1 && choice != 2)
+            //    {
+            //        Console.Write("choose gender: ".PadLeft(48, ' '));
+            //        Console.ForegroundColor = ConsoleColor.Green;
+            //        keyBoardInput = Console.ReadLine();
+            //        int.TryParse(keyBoardInput, out choice);
+            //        Console.ResetColor();
 
-                while (choice != 1 || choice != 2)
-                {
-                    Console.Write("choose gender: ".PadLeft(48, ' '));
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    keyBoardInput = Console.ReadLine();
-                    int.TryParse(keyBoardInput, out choice);
-                    Console.ResetColor();
+            //        if (choice == 1) sex = "male";
+            //        if (choice == 2) sex = "female";
+            //    }
 
-                    if (choice == 1)
-                    {
-                        sex = "male";
-                        break;
-                    }
+            //    Print("\nChoose your character's class: ");
+            //    Print("  [1] ", ConsoleColor.Green);
+            //    Print("warrior\n");
+            //    Print(" [2] ".PadLeft(37, ' '), ConsoleColor.Green);
+            //    Print("archer\n");
+            //    Print(" [3] ".PadLeft(37, ' '), ConsoleColor.Green);
+            //    Print("mage\n\n");
 
-                    if (choice == 2)
-                    {
-                        sex = "female";
-                        break;
-                    }
+            //    playerClass = 0;
 
-                    else Print("incorrect format".PadLeft(64, ' ') + "\n", ConsoleColor.Red);
-                }
+            //    while (playerClass != 1 && playerClass != 2 && playerClass != 3)
+            //    {
+            //        Console.Write("choose class: ".PadLeft(47, ' '));
+            //        Console.ForegroundColor = ConsoleColor.Green;
+            //        keyBoardInput = Console.ReadLine();
+            //        int.TryParse(keyBoardInput, out playerClass);
+            //        Console.ResetColor();
 
-                Print("\nChoose your character's class: ");
-                Print("  [1] ", ConsoleColor.Green);
-                Print("warrior\n");
-                Print(" [2] ".PadLeft(37, ' '), ConsoleColor.Green);
-                Print("archer\n");
-                Print(" [3] ".PadLeft(37, ' '), ConsoleColor.Green);
-                Print("mage\n\n");
+            //        player = new Player(playerClass, playerName);
+            //    }
 
-                //while (ggClassChoosing != 1 || ggClassChoosing != 2 || ggClassChoosing != 3)
-                //{
-                    Console.Write("choose class: ".PadLeft(47, ' '));
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    keyBoardInput = Console.ReadLine();
-                    int.TryParse(keyBoardInput, out ggClassChoosing);
-                    Console.ResetColor();
+            //    Console.Clear();
 
-                    player = new Player(ggClassChoosing, ggName);
+            //    Print("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
+            //    Print("Your character\n", ConsoleColor.DarkYellow);
+            //    Print("name:\t");
+            //    Print($"{player.Name}\n", ConsoleColor.Green);
+            //    Print("gender:\t");
+            //    Print($"{sex}\n", ConsoleColor.Green);
+            //    Print("class:\t");
+            //    Print($"{player.PlayerClass}\n", ConsoleColor.Green);
+            //    Print("".PadLeft(25, '<') + "\n\n", ConsoleColor.Magenta);
 
-                    //if (ggClassChoosing == 1)
-                    //{
-                    //    player = new Player("warrior", 200, lvlOfPower: 1, ggName);
-                    //    break;
-                    //}
+            //    yesNo = string.Empty;
 
-                    //if (ggClassChoosing == 2)
-                    //{
-                    //    player = new Player("archer", 160, lvlOfPower: 2, ggName);
-                    //    break;
-                    //}
+            //    while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
+            //    {
+            //        Print("Are you ready to start the adventure with this character?");
+            //        GetYesNo();
 
-                    //if (ggClassChoosing == 3)
-                    //{
-                    //    player = new Player("mage", 120, lvlOfPower: 3, ggName);
-                    //    break;
-                    //}
+            //        Console.ForegroundColor = ConsoleColor.Green;
+            //        yesNo = Console.ReadLine();
+            //        Console.ResetColor();
+            //    }
+            //    Console.Clear();
+            //}
 
-                    //else Print("incorrect format".PadLeft(63, ' ') + "\n", ConsoleColor.Red);
-                //}
-
-                Console.Clear();
-
-                Print("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
-                Print("Your character\n", ConsoleColor.DarkYellow);
-                Print("name:\t");
-                Print($"{player.Name}\n", ConsoleColor.Green);
-                Print("gender:\t");
-                Print($"{sex}\n", ConsoleColor.Green);
-                Print("class:\t");
-                Print($"{player.HeroClass}\n", ConsoleColor.Green);
-                Print("".PadLeft(25, '<') + "\n", ConsoleColor.Magenta);
-
-                while (true)
-                {
-                    Print("\nAre you ready to start the adventure with this character?");
-                    GetYesNo();
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    yesNo = Console.ReadLine();
-                    Console.ResetColor();
-
-                    if (yesNo == "y")
-                    {
-                        Console.Clear();
-                        break;
-                    }
-
-                    if (yesNo == "n")
-                    {
-                        Console.Clear();
-                        break;
-                    }
-
-                    else
-                    {
-                        Print("incorrect format".PadLeft(86, ' '), ConsoleColor.Red);
-                        continue;
-                    }
-                }
-            }
-
-            Console.Clear();
+            //Console.Clear();
 
             //Console.WriteLine("The adventure begins");
 
@@ -216,22 +165,18 @@ namespace myFirstRPG
 
             //GetPressEnter();
 
-            
+            player = new Player(playerClass = 3, playerName = "Oleg");
 
-            do
+
+
+            yesNo = string.Empty;
+
+            while (yesNo.ToLower() != "n")
             {
+                yesNo = string.Empty;
 
-                int enemyType = random.Next(1, 4);
+                int enemyType = random.Next(1, 2);
                 Enemy enemy = new Enemy(enemyType);
-                enemyMaxHealth = enemy.Health;
-
-                player = new Player(ggClassChoosing, ggName);
-                ggMaxHealth = player.MaxHealth;
-
-                //int enemyType = random.Next(1, 4);
-                //Enemy enemy = new Enemy(enemyType);
-                //enemyMaxHealth = enemy.Health;
-                //Enemy enemy = new Enemy(name: "Rat", health: 20, lvlOfPower: 1);
 
                 //Console.ForegroundColor = ConsoleColor.Blue;
                 //GetLoading("".PadLeft(random.Next(35, 115), '|'));
@@ -239,18 +184,12 @@ namespace myFirstRPG
 
                 Print($"\nBut suddenly, you see the enemy.It is a big {enemy.Name}\n\n");
 
-                Print("What are you going to do?");
-                Print(" [1] ", ConsoleColor.Green);
-                Print("fight\n");
-                Print(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Print("heal\n");
-                Print(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Print("try to run away\n\n");
+                PrintOptions(1);
 
                 while (choice != 1 || choice != 2 || choice != 3)
                 {
-                    enemy = new Enemy(enemyType, enemyMaxHealth);
-                    player = new Player(ggClassChoosing, ggName, ggMaxHealth);
+                    enemy = new Enemy(enemyType, enemy.CurrentHealth);
+                    player = new Player(playerClass, playerName, player.CurrentHealth);
 
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -260,41 +199,46 @@ namespace myFirstRPG
 
                     if (battleChoice == 1)
                     {
-                        //if (player.LvlOfPower == 1) ggHit = random.Next(1, 4);
-                        //if (player.LvlOfPower == 2) ggHit = random.Next(2, 5);
-                        //if (player.LvlOfPower == 3) ggHit = random.Next(3, 6);
-                        enemyMaxHealth -= player.Damage;
-                        ggMaxHealth -= enemy.Damage;
-
-                        Print($"\n\t{player.Name} atacked with {player.Damage} damage, {enemy.Name} has {enemyMaxHealth} now\n");
-                        Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {ggMaxHealth} now\n\n");
-
-                        if (enemy.Health <= 0)
+                        enemy.CurrentHealth -= player.Damage;
+                        
+                        if (enemy.CurrentHealth <= 0)
                         {
-                            Print("Victory. You have earned 5 gold and 15 exp\n\n", ConsoleColor.DarkYellow);
+                            Print($"\n\t{player.Name} atacked with {player.Damage} damage, {enemy.Name} has {enemy.CurrentHealth} now\n");
+                            Print("\n\tVictory. You have earned 5 gold and 15 exp\n", ConsoleColor.DarkYellow);
 
                             gold += 5;
                             exp += 15;
 
-                            GetStatus(ggMaxHealth, ref gold, ref exp);
-
+                            GetStatus(player.CurrentHealth, ref gold, ref exp);
                             break;
                         }
 
-                        else if (ggMaxHealth <= 0) break;
+                        player.CurrentHealth -= enemy.Damage;
+
+                        if (player.CurrentHealth <= 0)
+                        {
+                            Print($"\n\t{player.Name} atacked with {player.Damage} damage, {enemy.Name} has {enemy.CurrentHealth} now\n");
+                            Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+
+                            Print("".PadLeft(26, ' '));
+                            Print("Y O U   D I E D\n", ConsoleColor.Red, slowText: true);
+                            Print("your journey is over :(".PadLeft(45, ' ') + "\n", ConsoleColor.Red);
+
+                            break;
+                        }
+                        
+                        else
+                        {
+                            Print($"\n\t{player.Name} atacked with {player.Damage} damage, {enemy.Name} has {enemy.CurrentHealth} now\n");
+                            Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                        }
+
                         continue;
                     }
 
                     if (battleChoice == 2)
                     {
-                        Print("\n");
-                        Print("Choose the aid:".PadLeft(25, ' '));
-                        Print(" [1] ", ConsoleColor.Green);
-                        Print("small\n");
-                        Print(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                        Print("medium\n");
-                        Print(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                        Print("big\n\n");
+                        PrintOptions(2);
 
                         do
                         {
@@ -339,77 +283,70 @@ namespace myFirstRPG
                                 player.CurrentHealth += healingPower;
                                 remainingAids--;
 
-                                if (player.CurrentHealth > player.MaxHealth)
+                                if (player.CurrentHealth > player.Health)
                                 {
-                                    player.CurrentHealth = player.MaxHealth;
-                                    Print("\tmax health \n");
+                                    player.CurrentHealth = player.Health;
+                                    Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
                                 }
+
+                                else
+                                {
+                                    Print($"\n\t+{healingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                player.CurrentHealth -= enemy.Damage;
+                                Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                             }
 
-                            else Print($"\n\tYou don't have {aid} aids\n");
+                            else
+                            {
+                                Print($"\n\tYou don't have {aid} aids\n\n", ConsoleColor.DarkRed);
 
-                            enemyMaxHealth -= player.Damage;
-                            player.CurrentHealth -= enemy.Damage;
-
-                            Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                                player.CurrentHealth -= enemy.Damage;
+                                Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                            }
                         }
                         while (choice != 1 && choice != 2 && choice != 3);
                     }
 
                     if (battleChoice == 3)
                     {
-                        Print("You have run away...\n");
-                        gold -= 5;
+                        int tryToEscape = random.Next(0, 100);
 
-                        if (gold <= 0) gold = 0;
+                        if (tryToEscape > 20)
+                        {
+                            Print("\n\tYou escaped successfully\n\n", ConsoleColor.DarkGreen);
+                            gold -= 5;
 
-                        break;
+                            if (gold <= 0) gold = 0;
+
+                            break;
+                        }
+
+                        else
+                        {
+                            player.CurrentHealth -= enemy.Damage * 2;
+                            Print($"\n\t{enemy.Name} made a ");
+                            Print("CRITICAL ", ConsoleColor.Red);
+                            Print($"attack {enemy.Damage * 2} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+
+                            continue;
+                        }
                     }
-
-                    else Print("incorrect format".PadLeft(57, ' ') + "\n", ConsoleColor.Red);
                 }
 
-                do
+                while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
                 {
-                    if (player.CurrentHealth <= 0)
-                    {
-                        Print("".PadLeft(26, ' '));
-                        Print("Y O U   D I E D\n", ConsoleColor.Red, slowText: true);
-                        Print("your journey is over :(".PadLeft(45, ' ') + "\n", ConsoleColor.Red);
-                        break;
-                    }
-
-                    Print("Move forward?");
+                    Print("Farm more?");
                     GetYesNo();
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     yesNo = Console.ReadLine();
                     Console.ResetColor();
-
-                    if (yesNo == "y")
-                    {
-                        Console.Clear();
-                        enemyType = 0;
-                        break;
-                    }
-
-                    if (yesNo == "n")
-                    {
-                        Console.Clear();
-                        enemyType = 0;
-                        break;
-                    }
-
-                    else
-                    {
-                        Print("y - go".PadLeft(32, ' ') + "\n", ConsoleColor.Red);
-                        Print("n - farm a little bit more\n".PadLeft(53, ' '), ConsoleColor.Red);
-                        continue;
-                    }
                 }
-                while (yesNo.ToLower() != "y" || yesNo.ToLower() != "n");
+                Console.Clear();
             }
-            while (yesNo.ToLower() != "y");
+            
 
             //GetLevelUp(ref exp, player.MaxHealth, player.CurrentHealth, player.LvlOfPower, ref ggClassChoosing);
 
@@ -512,6 +449,32 @@ namespace myFirstRPG
                 Console.ForegroundColor = color;
                 Console.Write(text);
                 Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+
+        public static void PrintOptions(int type)
+        {
+            if (type == 1)
+            {
+                Print("What are you going to do?");
+                Print(" [1] ", ConsoleColor.Green);
+                Print("fight\n");
+                Print(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Print("heal\n");
+                Print(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Print("try to run away\n\n");
+            }
+
+            if (type == 2)
+            {
+                Print("\n");
+                Print("Choose the aid:".PadLeft(25, ' '));
+                Print(" [1] ", ConsoleColor.Green);
+                Print("small\n");
+                Print(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Print("medium\n");
+                Print(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Print("big\n\n");
             }
         }
     }
