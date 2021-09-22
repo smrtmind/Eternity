@@ -23,14 +23,10 @@ namespace myFirstRPG
             //Console.WriteLine("Hello, traveler. I will call you Sam.\n");
 
             Random random = new Random();
-            Player player = new Player();
-
-            bool numberIsFound = false;
-            int healingPower = 0;
-            int remainingAids = 0;
+            Player player;
+            MedicineBag medicineBag = new MedicineBag();
 
             int exp = 0, gold = 0;
-            int smallAid = 1, mediumAid = 0, bigAid = 0;
             int choice = 0;
 
             int playerClass = 0;
@@ -164,7 +160,9 @@ namespace myFirstRPG
             //                  "There are a lot of animals. You walk friendly.");
 
             //GetPressEnter();
-
+            //medicineBag.AddPotion(1, amount: 1);
+            //medicineBag.AddPotion(2, amount: 1);
+            //medicineBag.AddPotion(3, amount: 1);
             player = new Player(playerClass = 3, playerName = "Oleg");
 
 
@@ -182,7 +180,7 @@ namespace myFirstRPG
                 //GetLoading("".PadLeft(random.Next(35, 115), '|'));
                 //Console.ResetColor();
 
-                Print($"\nBut suddenly, you see the enemy.It is a big {enemy.Name}\n\n");
+                Print($"\nBut suddenly, you see the enemy. It is a big {enemy.Name}\n\n");
 
                 PrintOptions(1);
 
@@ -235,53 +233,31 @@ namespace myFirstRPG
 
                         continue;
                     }
-
+                    
                     if (battleChoice == 2)
                     {
                         PrintOptions(2);
 
                         do
                         {
-                            numberIsFound = false;
+                            choice = 0;
 
-                            while (!numberIsFound)
+                            while (choice != 1 && choice != 2 && choice != 3)
                             {
                                 Console.Write("make your choice: ".PadLeft(44, ' '));
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 keyBoardInput = Console.ReadLine();
-                                numberIsFound = int.TryParse(keyBoardInput, out choice);
+                                int.TryParse(keyBoardInput, out choice);
                                 Console.ResetColor();
                             }
 
                             string aid = string.Empty;
 
-                            if (choice == 1)
-                            {
-                                remainingAids = smallAid;
-                                healingPower = 15;
-                                aid = "small";
-                            }
+                            int amountOfAids = medicineBag.UsePotion(choice);
 
-                            else if (choice == 2)
+                            if (amountOfAids > 0)
                             {
-                                remainingAids = mediumAid;
-                                healingPower = 35;
-                                aid = "medium";
-                            }
-
-                            else if (choice == 3)
-                            {
-                                remainingAids = bigAid;
-                                healingPower = 70;
-                                aid = "big";
-                            }
-
-                            else Print("incorrect format".PadLeft(60, ' ') + "\n", ConsoleColor.Red);
-
-                            if (remainingAids > 0)
-                            {
-                                player.CurrentHealth += healingPower;
-                                remainingAids--;
+                                player.CurrentHealth += medicineBag.HealingPower;
 
                                 if (player.CurrentHealth > player.Health)
                                 {
@@ -291,7 +267,7 @@ namespace myFirstRPG
 
                                 else
                                 {
-                                    Print($"\n\t+{healingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                    Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
                                 }
 
                                 player.CurrentHealth -= enemy.Damage;
@@ -300,7 +276,7 @@ namespace myFirstRPG
 
                             else
                             {
-                                Print($"\n\tYou don't have {aid} aids\n\n", ConsoleColor.DarkRed);
+                                Print($"\n\tYou don't have {medicineBag.Name} aids\n\n", ConsoleColor.DarkRed);
 
                                 player.CurrentHealth -= enemy.Damage;
                                 Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
@@ -352,6 +328,50 @@ namespace myFirstRPG
 
             Print("You see the shop. Move in to buy aids?");
             GetYesNo();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            yesNo = Console.ReadLine();
+            Console.ResetColor();
+
+            int count = 0;
+            while (count != 9)
+            {
+                if (yesNo.ToLower() == "y")
+                {
+                    Console.WriteLine("You are int the shop.");
+                    GetStatus(player.CurrentHealth, ref gold, ref exp);
+
+                    Console.WriteLine("Which aid?");
+                    int.TryParse(Console.ReadLine(), out int aid);
+
+                    switch (aid)
+                    {
+                        case 1:
+                            medicineBag.AddPotion(potionType: 1, amount: 1);
+                            break;
+
+                        case 2:
+                            medicineBag.AddPotion(potionType: 2, amount: 1);
+                            break;
+
+                        case 3:
+                            medicineBag.AddPotion(potionType: 3, amount: 1);
+                            break;
+                    }
+                }
+
+                count++;
+            }
+            
+
+            medicineBag.UsePotion(2);
+            medicineBag.UsePotion(1);
+            medicineBag.UsePotion(3);
+
+            if (yesNo.ToLower() == "n")
+            {
+                
+            }          
         }
 
         internal static void GetLevelUp(ref int exp, int maxHealth, int ggHealth, int ggHit, ref int ggClassChoosing)
@@ -451,7 +471,6 @@ namespace myFirstRPG
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
-
         public static void PrintOptions(int type)
         {
             if (type == 1)

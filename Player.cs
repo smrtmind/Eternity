@@ -11,8 +11,6 @@ namespace myFirstRPG
         public int PlayerType { get; set; }
         public string PlayerClass { get; set; }    
 
-        public Player() { }
-
         public Player(int playerType, string name)
         {
             PlayerType = playerType;
