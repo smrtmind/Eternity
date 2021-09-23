@@ -10,8 +10,10 @@ namespace myFirstRPG
     {
         public Random random = new Random();
         public string Name { get; set; }
-        public int Health { get; set; }
-        public int CurrentHealth { get; set; }
+        public double Health { get; set; }
+        public double CurrentHealth { get; set; }
         public int Damage { get; set; }
+        public int Exp { get; set; }
+        public int Gold { get; set; }
     }
 }

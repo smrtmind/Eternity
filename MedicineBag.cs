@@ -21,20 +21,20 @@ namespace myFirstRPG
             {
                 case 1:
                     Name = "small";
-                    SmallAmount += amount;
                     HealingPower = 15;
+                    SmallAmount += amount;
                     break;
 
                 case 2:
                     Name = "medium";
-                    MediumAmount += amount;
                     HealingPower = 35;
+                    MediumAmount += amount;
                     break;
 
                 case 3:
                     Name = "big";
-                    BigAmount += amount;
                     HealingPower = 70;
+                    BigAmount += amount;
                     break;
             }
         }
