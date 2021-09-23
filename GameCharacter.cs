@@ -12,7 +12,7 @@ namespace myFirstRPG
         public string Name { get; set; }
         public double Health { get; set; }
         public double CurrentHealth { get; set; }
-        public int Damage { get; set; }
+        public double Damage { get; set; }
         public int Exp { get; set; }
         public int Gold { get; set; }
     }

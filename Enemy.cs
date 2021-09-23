@@ -9,6 +9,7 @@ namespace myFirstRPG
     public class Enemy : GameCharacter
     {
         private int EnemyType { get; set; }
+        public int ChanceToInterruptTheEscape { get; set; }
 
         public Enemy(int enemyType)
         {
@@ -22,10 +23,11 @@ namespace myFirstRPG
             {
                 case 1:
                     Name = "Rat";
-                    Health = 20;
+                    Health = 30;
                     CurrentHealth = Health;
                     Gold = 5;
-                    Exp = 190;//15
+                    Exp = 15;
+                    ChanceToInterruptTheEscape = 20;
                     break;
 
                 case 2:
@@ -34,6 +36,7 @@ namespace myFirstRPG
                     CurrentHealth = Health;
                     Gold = 15;
                     Exp = 35;
+                    ChanceToInterruptTheEscape = 25;
                     break;
 
                 case 3:
@@ -42,17 +45,18 @@ namespace myFirstRPG
                     CurrentHealth = Health;
                     Gold = 35;
                     Exp = 70;
+                    ChanceToInterruptTheEscape = 30;
                     break;
             }
         }
 
-        public int GenerateDamage()
+        public double GenerateDamage()
         {
             switch (EnemyType)
             {
                 case 1:
                     //rat
-                    Damage = random.Next(1, 3);
+                    Damage = random.Next(2, 5);
                     break;
 
                 case 2:

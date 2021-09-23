@@ -318,8 +318,8 @@ namespace myFirstRPG
 
                 while (true)
                 {
-                    int playerDamage = player.GenerateDamage();
-                    int enemyDamage = enemy.GenerateDamage();
+                    double playerDamage = player.GenerateDamage();
+                    double enemyDamage = enemy.GenerateDamage();
 
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -417,7 +417,7 @@ namespace myFirstRPG
                     {
                         int tryToEscape = random.Next(0, 100);
 
-                        if (tryToEscape > 20)
+                        if (tryToEscape > enemy.ChanceToInterruptTheEscape)
                         {
                             player.Gold -= 10;
 
@@ -435,14 +435,17 @@ namespace myFirstRPG
                             break;
                         }
 
+                        else if (enemy.ChanceToInterruptTheEscape == 100)
+                        {
+                            Print($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
+                            CritDamage(enemy);
+                            
+                        }
+
                         else
                         {
-                            int criticalDamageMultiplier = random.Next(2, 4);
-
-                            player.CurrentHealth -= enemy.Damage * criticalDamageMultiplier;
-                            Print($"\n\t{enemy.Name} made a ");
-                            Print("CRITICAL ", ConsoleColor.Red);
-                            Print($"attack {enemy.Damage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                            Print("\n\tfailed to escape\n", ConsoleColor.DarkRed);
+                            CritDamage(enemy);
 
                             continue;
                         }
@@ -459,6 +462,16 @@ namespace myFirstRPG
                     Console.ResetColor();
                 }
                 Console.Clear();
+            }
+
+            void CritDamage(Enemy enemy)
+            {
+                int criticalDamageMultiplier = random.Next(2, 4);
+
+                player.CurrentHealth -= enemy.Damage * criticalDamageMultiplier;
+                Print($"\n\t{enemy.Name} made a ");
+                Print("CRITICAL ", ConsoleColor.Red);
+                Print($"attack {enemy.Damage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
             }
         }
     }
