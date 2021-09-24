@@ -11,6 +11,11 @@ namespace myFirstRPG
         private int EnemyType { get; set; }
         public int ChanceToInterruptTheEscape { get; set; }
 
+        public Enemy()
+        {
+
+        }
+
         public Enemy(int enemyType)
         {
             EnemyType = enemyType;
