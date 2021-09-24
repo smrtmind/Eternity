@@ -271,29 +271,34 @@ namespace myFirstRPG
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
-        public static void PrintOptions(int type)
+        public static void PrintOptions(int type, MedicineBag medicineBag)
         {
             if (type == 1)
             {
                 Print("What are you going to do?");
                 Print(" [1] ", ConsoleColor.Green);
-                Print("fight\n");
+                Print("attack\n");
                 Print(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
                 Print("heal\n");
                 Print(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Print("try to run away\n\n");
+                Print("run away\n\n");
             }
 
             if (type == 2)
             {
                 Print("\n");
-                Print("Choose the aid:".PadLeft(25, ' '));
+                Print("Choose a potion:".PadLeft(25, ' '));
                 Print(" [1] ", ConsoleColor.Green);
-                Print("small\n");
+                Print($"small\t");
+                Print($"{medicineBag.SmallAmount}\n", ConsoleColor.DarkYellow);
                 Print(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Print("medium\n");
+                Print($"medium\t");
+                Print($"{medicineBag.MediumAmount}\n", ConsoleColor.DarkYellow);
                 Print(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Print("big\n\n");
+                Print($"big\t");
+                Print($"{medicineBag.BigAmount}\n\n", ConsoleColor.DarkYellow);
+                Print(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Print($"back\n\n");
             }
         }
         public static void BattleSection(Player player, MedicineBag medicineBag)
@@ -306,15 +311,15 @@ namespace myFirstRPG
             while (yesNo.ToLower() != "n")
             {
                 yesNo = string.Empty;
-                Enemy enemy = new Enemy(random.Next(1, 2));
+                Enemy enemy = new Enemy(random.Next(1, 4));
 
                 //Console.ForegroundColor = ConsoleColor.Blue;
                 //GetLoading("".PadLeft(random.Next(35, 115), '|'));
                 //Console.ResetColor();
 
-                Print($"\nBut suddenly, you see the enemy. It is a big {enemy.Name}\n\n");
+                Print(entryBattlePhrase(enemy));
 
-                PrintOptions(1);
+                PrintOptions(1, medicineBag);
 
                 while (true)
                 {
@@ -337,8 +342,10 @@ namespace myFirstRPG
                             player.Exp += enemy.Exp;
                             player.LevelUp(player.Exp);
 
-                            Print($"\n\t{player.Name} deals {playerDamage} damage, {enemy.Name} get fatal damage and has {enemy.CurrentHealth} health\n");
-                            Print($"\n\tVictory. You have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
+                            Print($"\n\t{player.Name} deals {playerDamage} damage, {enemy.Name} get");
+                            Print($" fatal ", ConsoleColor.DarkRed);
+                            Print($"damage and has {enemy.CurrentHealth} health\n");
+                            Print($"\n\tVICTORY. You have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
 
                             GetStatus(player);
                             break;
@@ -349,7 +356,9 @@ namespace myFirstRPG
                         if (player.CurrentHealth <= 0)
                         {
                             Print($"\n\t{player.Name} deals {playerDamage} damage, {enemy.Name} has {enemy.CurrentHealth} health now\n");
-                            Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get fatal damage and has {player.CurrentHealth} health\n\n");
+                            Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
+                            Print($" fatal ", ConsoleColor.DarkRed);
+                            Print($"damage and has {player.CurrentHealth} health\n\n");
 
                             Print("".PadLeft(26, ' '));
                             Print("Y O U   D I E D\n", ConsoleColor.Red, slowText: true);
@@ -369,7 +378,7 @@ namespace myFirstRPG
 
                     if (battleChoice == 2)
                     {
-                        PrintOptions(2);
+                        PrintOptions(2, medicineBag);
 
                         choice = 0;
 
@@ -380,37 +389,47 @@ namespace myFirstRPG
                             keyBoardInput = Console.ReadLine();
                             int.TryParse(keyBoardInput, out choice);
                             Console.ResetColor();
+
+                            if (keyBoardInput == "<") break;
                         }
 
-                        string aid = string.Empty;
-                        int amountOfAids = medicineBag.UsePotion(choice);
-
-                        if (amountOfAids > 0)
+                        if (choice == 1 || choice == 2 || choice == 3)
                         {
-                            player.CurrentHealth += medicineBag.HealingPower;
+                            int amountOfAids = medicineBag.UsePotion(choice);
 
-                            if (player.CurrentHealth > player.Health)
+                            if (amountOfAids > 0)
                             {
-                                player.CurrentHealth = player.Health;
-                                Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
+                                player.CurrentHealth += medicineBag.HealingPower;
+
+                                if (player.CurrentHealth > player.Health)
+                                {
+                                    player.CurrentHealth = player.Health;
+                                    Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                else
+                                {
+                                    Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                player.CurrentHealth -= enemy.Damage;
+                                Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                             }
 
                             else
                             {
-                                Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                Print($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
+
+                                player.CurrentHealth -= enemy.Damage;
+                                Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                             }
-
-                            player.CurrentHealth -= enemy.Damage;
-                            Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                         }
 
-                        else
+                        if (keyBoardInput == "<")
                         {
-                            Print($"\n\tYou don't have {medicineBag.Name} aids\n\n", ConsoleColor.DarkRed);
-
-                            player.CurrentHealth -= enemy.Damage;
-                            Print($"\t{enemy.Name} atacked with {enemy.Damage} damage, {player.Name} have {player.CurrentHealth} now\n\n");
-                        }
+                            Print("\n");
+                            continue;
+                        }                     
                     }
 
                     if (battleChoice == 3)
@@ -425,7 +444,7 @@ namespace myFirstRPG
                             Print("-10 ", ConsoleColor.DarkRed);
                             Print("gold", ConsoleColor.DarkYellow);
                             Print(", ");
-                            
+
                             if (player.Gold <= 0) player.Gold = 0;
 
                             Print($"{player.Gold} ", ConsoleColor.DarkGreen);
@@ -439,7 +458,7 @@ namespace myFirstRPG
                         {
                             Print($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
                             CritDamage(enemy);
-                            
+
                         }
 
                         else
@@ -473,6 +492,26 @@ namespace myFirstRPG
                 Print("CRITICAL ", ConsoleColor.Red);
                 Print($"attack {enemy.Damage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
             }
+        }
+        public static string entryBattlePhrase(Enemy enemy)
+        {
+            Random random = new Random();
+
+            string[] entryPhrase =
+            {
+                $"\nBut suddenly, you see the enemy. It is {enemy.Name}.\n\n",
+                $"\nUnexpectedly, {enemy.Name} jumps out of the tree.\n\n",
+                $"\nYou notice {enemy.Name} nearby, it's fast approaching.\n\n",
+                $"\nAn evil {enemy.Name} comes around the corner and takes you by surprise.\n\n",
+                $"\nYou see {enemy.Name} on the road, most likely it cannot be bypassed.\n\n",
+                $"\n{enemy.Name} slowly comes out from the darkness.\n\n",
+                $"\nEverything went well, but now {enemy.Name} is blocking your path.\n\n",
+                $"\nQuietly sneaking up on you, {enemy.Name} is going to attack.\n\n",
+                $"\nLeaving almost no chance to escape, {enemy.Name} shows its evil grin.\n\n",
+                $"\nYou meet the gaze of {enemy.Name}, it looks at you, you at him.\n\n"
+            };
+
+            return entryPhrase[random.Next(1, 11)];
         }
     }
 }

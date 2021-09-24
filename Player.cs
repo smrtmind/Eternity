@@ -79,18 +79,28 @@ namespace myFirstRPG
 
         public void LevelUp(int exp)
         {
-            if (Lvl == 1 && exp >= 100) GetLvl();
-            if (Lvl == 2 && exp >= 200) GetLvl();
-            if (Lvl == 3 && exp >= 400) GetLvl();
-            if (Lvl == 4 && exp >= 800) GetLvl();
-            if (Lvl == 5 && exp >= 1200) GetLvl();
-            if (Lvl == 6 && exp >= 1600) GetLvl();
-            if (Lvl == 7 && exp >= 2000) GetLvl();
-            if (Lvl == 8 && exp >= 2500) GetLvl();
-            if (Lvl == 9 && exp >= 3000) GetLvl();
-            if (Lvl == 10 && exp >= 3600) GetLvl();
+            if (Lvl == 1 && exp >= 100) LvlUp();
+            if (Lvl == 2 && exp >= 200) LvlUp();
+            if (Lvl == 3 && exp >= 400) LvlUp();
+            if (Lvl == 4 && exp >= 800) LvlUp();
+            if (Lvl == 5 && exp >= 1200) LvlUp();
+            if (Lvl == 6 && exp >= 1600) LvlUp();
+            if (Lvl == 7 && exp >= 2100) LvlUp();
+            if (Lvl == 8 && exp >= 2600) LvlUp();
+            if (Lvl == 9 && exp >= 3200) LvlUp();
+            if (Lvl == 10 && exp >= 3800) LvlUp();
+            if (Lvl == 11 && exp >= 4500) LvlUp();
+            if (Lvl == 12 && exp >= 5200) LvlUp();
+            if (Lvl == 13 && exp >= 6000) LvlUp();
+            if (Lvl == 14 && exp >= 6800) LvlUp();
+            if (Lvl == 15 && exp >= 7700) LvlUp();
+            if (Lvl == 16 && exp >= 8600) LvlUp();
+            if (Lvl == 17 && exp >= 9600) LvlUp();
+            if (Lvl == 18 && exp >= 10600) LvlUp();
+            if (Lvl == 19 && exp >= 11700) LvlUp();
+            if (Lvl == 20 && exp >= 12800) LvlUp();
 
-            void GetLvl()
+            void LvlUp()
             {
                 Lvl++;
                 Health = (int)(((Health / 100) * 20) + Health);

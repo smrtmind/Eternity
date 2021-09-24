@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace myFirstRPG
 {
-    class MedicineBag : Item
+    public class MedicineBag
     {
-        public int SmallAmount { get; set; } = 0;
-        public int MediumAmount { get; set; } = 0;
-        public int BigAmount { get; set; } = 0;
+        public string Name { get; set; }
         public int HealingPower { get; set; }
+        public int SmallAmount { get; set; }
+        public int MediumAmount { get; set; }
+        public int BigAmount { get; set; }
+        public int Amount { get; set; }
 
         public MedicineBag() { }
 
@@ -20,20 +22,14 @@ namespace myFirstRPG
             switch (potionType)
             {
                 case 1:
-                    Name = "small";
-                    HealingPower = 15;
                     SmallAmount += amount;
                     break;
 
                 case 2:
-                    Name = "medium";
-                    HealingPower = 35;
                     MediumAmount += amount;
                     break;
 
                 case 3:
-                    Name = "big";
-                    HealingPower = 70;
                     BigAmount += amount;
                     break;
             }
@@ -41,30 +37,49 @@ namespace myFirstRPG
 
         public int UsePotion(int potionType)
         {
-            int returningAmount = 0;
-
             switch (potionType)
             {
                 case 1:
-                    Name = "small";
+                    Name = "small healing potion";
                     HealingPower = 15;
-                    returningAmount = SmallAmount--;
+
+                    if (SmallAmount > 0) Amount = SmallAmount--;
+                    else
+                    {
+                        SmallAmount = 0;
+                        Amount = 0;
+                    }
+                   
                     break;
 
                 case 2:
-                    Name = "medium";
+                    Name = "medium healing potion";
                     HealingPower = 35;
-                    returningAmount = MediumAmount--;
+
+                    if (MediumAmount > 0) Amount = MediumAmount--;
+                    else
+                    {
+                        MediumAmount = 0;
+                        Amount = 0;
+                    }
+
                     break;
 
                 case 3:
-                    Name = "big";                 
+                    Name = "big healing potion";                 
                     HealingPower = 70;
-                    returningAmount = BigAmount--;
+
+                    if (BigAmount > 0) Amount = BigAmount--;
+                    else
+                    {
+                        BigAmount = 0;
+                        Amount = 0;
+                    }
+
                     break;
             }
 
-            return returningAmount;
+            return Amount;
         }
     }
 }
