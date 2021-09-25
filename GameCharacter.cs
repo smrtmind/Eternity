@@ -15,5 +15,7 @@ namespace myFirstRPG
         public double Damage { get; set; }
         public int Exp { get; set; }
         public int Gold { get; set; }
+        public int TypeOfCharacter { get; set; }
+        public int ChanceToInterruptTheEscape { get; set; }
     }
 }

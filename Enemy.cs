@@ -8,23 +8,17 @@ namespace myFirstRPG
 {
     public class Enemy : GameCharacter
     {
-        private int EnemyType { get; set; }
-        public int ChanceToInterruptTheEscape { get; set; }
+        public Enemy() { }
 
-        public Enemy()
+        public Enemy(int typeOfCharacter)
         {
-
-        }
-
-        public Enemy(int enemyType)
-        {
-            EnemyType = enemyType;
+            TypeOfCharacter = typeOfCharacter;
             CreateEnemy();
         }
 
         private void CreateEnemy()
         {
-            switch (EnemyType)
+            switch (TypeOfCharacter)
             {
                 case 1:
                     Name = "Rat";
@@ -57,7 +51,7 @@ namespace myFirstRPG
 
         public double GenerateDamage()
         {
-            switch (EnemyType)
+            switch (TypeOfCharacter)
             {
                 case 1:
                     //rat

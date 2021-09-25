@@ -21,7 +21,6 @@ D:\codeBase\c#\TextRPG\bin\Debug\net5.0\myFirstRPG.runtimeconfig.dev.json
 D:\codeBase\c#\TextRPG\bin\Debug\net5.0\myFirstRPG.dll
 D:\codeBase\c#\TextRPG\bin\Debug\net5.0\ref\myFirstRPG.dll
 D:\codeBase\c#\TextRPG\bin\Debug\net5.0\myFirstRPG.pdb
-D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.csproj.AssemblyReference.cache
 D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.GeneratedMSBuildEditorConfig.editorconfig
 D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.AssemblyInfoInputs.cache
 D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.AssemblyInfo.cs
@@ -30,3 +29,4 @@ D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.dll
 D:\codeBase\c#\TextRPG\obj\Debug\net5.0\ref\myFirstRPG.dll
 D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.pdb
 D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.genruntimeconfig.cache
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\myFirstRPG.csproj.AssemblyReference.cache

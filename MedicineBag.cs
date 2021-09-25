@@ -13,24 +13,27 @@ namespace myFirstRPG
         public int SmallAmount { get; set; }
         public int MediumAmount { get; set; }
         public int BigAmount { get; set; }
+        public int SmallCost { get; set; } = 30;
+        public int MediumCost { get; set; } = 70;
+        public int BigCost { get; set; } = 100;
         public int Amount { get; set; }
 
         public MedicineBag() { }
 
-        public void AddPotion(int potionType, int amount)
+        public void AddPotion(int potionType)
         {
             switch (potionType)
             {
                 case 1:
-                    SmallAmount += amount;
+                    SmallAmount++;
                     break;
 
                 case 2:
-                    MediumAmount += amount;
+                    MediumAmount++;
                     break;
 
                 case 3:
-                    BigAmount += amount;
+                    BigAmount++;
                     break;
             }
         }

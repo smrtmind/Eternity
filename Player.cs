@@ -8,15 +8,15 @@ namespace myFirstRPG
 {
     public class Player : GameCharacter
     {
+        public int DefeatedEnemies { get; set; }
         public int Lvl { get; set; } = 1;
-        private int PlayerType { get; set; }
-        private string PlayerClass { get; set; }
+        public string PlayerClass { get; set; }
         public double LowDamage { get; set; }
         public double HighDamage { get; set; }
 
-        public Player(int playerType, string name)
+        public Player(int typeOfCharacter, string name)
         {
-            PlayerType = playerType;
+            TypeOfCharacter = typeOfCharacter;
             Name = name;
             Gold = 0;
             Exp = 0;
@@ -25,7 +25,7 @@ namespace myFirstRPG
 
         private void CreatePlayer()
         {
-            switch (PlayerType)
+            switch (TypeOfCharacter)
             {
                 case 1:
                     PlayerClass = "warrior";
@@ -47,32 +47,22 @@ namespace myFirstRPG
                     PlayerClass = "mage";
                     Health = 120;
                     CurrentHealth = Health;
-                    LowDamage = 5;
-                    HighDamage = 8;
+                    LowDamage = 5000; //5
+                    HighDamage = 8000; //8
                     break;
             }
         }
 
-        public double GenerateDamage()
+        public double GenerateDamage(Weapon weapon)
         {
-            switch (PlayerType)
-            {
-                case 1:
-                    //warrior
-                    Damage = random.Next((int)LowDamage, (int)HighDamage);
-                    break;
+            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                Damage = random.Next((int)LowDamage, (int)HighDamage);
 
-                case 2:
-                    //archer
-                    Damage = random.Next((int)LowDamage, (int)HighDamage);
-                    break;
+            if (weapon.Weapon1Bought)
+                Damage = random.Next((int)LowDamage, (int)HighDamage) + weapon.Damage1;
 
-                case 3:
-                    //mage
-                    Damage = random.Next((int)LowDamage, (int)HighDamage);
-                    break;
-
-            }
+            if (weapon.Weapon2Bought)
+                Damage = random.Next((int)LowDamage, (int)HighDamage) + weapon.Damage2;
 
             return Damage;
         }
