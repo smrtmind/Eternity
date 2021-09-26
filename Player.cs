@@ -8,16 +8,20 @@ namespace myFirstRPG
 {
     public class Player : GameCharacter
     {
+        public string Sex { get; set; }
         public int DefeatedEnemies { get; set; }
         public int Lvl { get; set; } = 1;
         public string PlayerClass { get; set; }
         public double LowDamage { get; set; }
         public double HighDamage { get; set; }
 
-        public Player(int typeOfCharacter, string name)
+        public Player() { }
+
+        public Player(int typeOfCharacter, string name, string sex)
         {
             TypeOfCharacter = typeOfCharacter;
             Name = name;
+            Sex = sex;
             Gold = 0;
             Exp = 0;
             CreatePlayer();
@@ -47,8 +51,8 @@ namespace myFirstRPG
                     PlayerClass = "mage";
                     Health = 120;
                     CurrentHealth = Health;
-                    LowDamage = 5000; //5
-                    HighDamage = 8000; //8
+                    LowDamage = 5;
+                    HighDamage = 8;
                     break;
             }
         }

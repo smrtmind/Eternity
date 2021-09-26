@@ -8,6 +8,7 @@ namespace myFirstRPG
 {
     public class Boss : GameCharacter
     {
+        public int CounterToReachTheBoss { get; set; }
         public bool IsDead { get; set; } = false;
 
         public Boss() { }
@@ -23,12 +24,13 @@ namespace myFirstRPG
             switch (TypeOfCharacter)
             {
                 case 1:
-                    Name = "first boss";
+                    Name = "Evil forest spirit";
                     Health = 1000;
                     CurrentHealth = Health;
                     Exp = 200;
                     Gold = 200;
                     ChanceToInterruptTheEscape = 100;
+                    CounterToReachTheBoss = 2;
                     break;
 
                 case 2:
@@ -38,6 +40,7 @@ namespace myFirstRPG
                     Exp = 200;
                     Gold = 200;
                     ChanceToInterruptTheEscape = 100;
+                    CounterToReachTheBoss = 2;
                     break;
 
                 case 3:
@@ -47,6 +50,7 @@ namespace myFirstRPG
                     Exp = 200;
                     Gold = 200;
                     ChanceToInterruptTheEscape = 100;
+                    CounterToReachTheBoss = 2;
                     break;
 
                 case 4:

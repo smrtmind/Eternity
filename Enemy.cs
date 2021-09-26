@@ -46,6 +46,60 @@ namespace myFirstRPG
                     Exp = 70;
                     ChanceToInterruptTheEscape = 30;
                     break;
+
+                case 4:
+                    Name = "Rat";
+                    Health = 30;
+                    CurrentHealth = Health;
+                    Gold = 5;
+                    Exp = 15;
+                    ChanceToInterruptTheEscape = 20;
+                    break;
+
+                case 5:
+                    Name = "Ork";
+                    Health = 50;
+                    CurrentHealth = Health;
+                    Gold = 15;
+                    Exp = 35;
+                    ChanceToInterruptTheEscape = 25;
+                    break;
+
+                case 6:
+                    Name = "Mutant";
+                    Health = 80;
+                    CurrentHealth = Health;
+                    Gold = 35;
+                    Exp = 70;
+                    ChanceToInterruptTheEscape = 30;
+                    break;
+
+                case 7:
+                    Name = "Rat";
+                    Health = 30;
+                    CurrentHealth = Health;
+                    Gold = 5;
+                    Exp = 15;
+                    ChanceToInterruptTheEscape = 20;
+                    break;
+
+                case 8:
+                    Name = "Ork";
+                    Health = 50;
+                    CurrentHealth = Health;
+                    Gold = 15;
+                    Exp = 35;
+                    ChanceToInterruptTheEscape = 25;
+                    break;
+
+                case 9:
+                    Name = "Mutant";
+                    Health = 80;
+                    CurrentHealth = Health;
+                    Gold = 35;
+                    Exp = 70;
+                    ChanceToInterruptTheEscape = 30;
+                    break;
             }
         }
 

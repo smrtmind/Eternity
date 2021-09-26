@@ -26,7 +26,7 @@ namespace myFirstRPG
             GetWeapon();
         }
 
-        public void GetWeapon()
+        private void GetWeapon()
         {
             switch (PlayerClass)
             {
