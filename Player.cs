@@ -45,16 +45,16 @@ namespace myFirstRPG
                     PlayerClass = "archer";
                     Health = 160;
                     CurrentHealth = Health;
-                    LowDamage = 9;
-                    HighDamage = 14;
+                    LowDamage = 10;
+                    HighDamage = 15;
                     break;
 
                 case 3:
                     PlayerClass = "mage";
                     Health = 120;
                     CurrentHealth = Health;
-                    LowDamage = 11;
-                    HighDamage = 16;
+                    LowDamage = 13;
+                    HighDamage = 18;
                     break;
             }
         }

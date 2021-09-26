@@ -7,26 +7,25 @@ namespace myFirstRPG
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
-            Location location;
+            MedicineBag medicineBag = new MedicineBag();
             Player player = new Player();
             Weapon weapon = new Weapon();
-            Boss boss = new Boss();
             Boss boss1 = new Boss(1);
             Boss boss2 = new Boss(2);
             Boss boss3 = new Boss(3);
-            Boss finalBoss = new Boss(4);
-            MedicineBag medicineBag = new MedicineBag();
+            Boss boss4 = new Boss(4);
+            Boss boss = new Boss();
+            Location location;
 
-            string playerName = string.Empty;
-            string sex = string.Empty;
             string keyBoardInput = string.Empty;
+            string playerName = string.Empty;
             string yesNo = string.Empty;
+            string sex = string.Empty;
 
-            int locationType = 1;
             int changeDirection = 0;
-            int choice = 0;
+            int locationType = 1;
             int playerClass = 0;
+            int choice = 0;
 
             PrintGameTitle();
             GetPressEnter();
@@ -296,7 +295,7 @@ namespace myFirstRPG
                         break;
 
                     case 4:
-                        boss = finalBoss;
+                        boss = boss4;
                         break;
                 }
 
@@ -781,7 +780,7 @@ namespace myFirstRPG
                         //check if you have potion according to chosen type of potion
                         int amountOfAids = medicineBag.UsePotion(choice);
 
-                        if (choice == 1 || choice == 2 || choice == 2)
+                        if (choice == 1 || choice == 2 || choice == 3)
                         {
                             //if you have potion
                             if (amountOfAids > 0)
@@ -1069,7 +1068,7 @@ namespace myFirstRPG
                         //check if you have potion according to chosen type of potion
                         int amountOfAids = medicineBag.UsePotion(choice);
 
-                        if (choice == 1 || choice == 2 || choice == 2)
+                        if (choice == 1 || choice == 2 || choice == 3)
                         {
                             //if you have potion
                             if (amountOfAids > 0)
