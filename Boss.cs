@@ -27,38 +27,38 @@ namespace myFirstRPG
                     Name = "Evil forest spirit";
                     Health = 1000;
                     CurrentHealth = Health;
-                    Exp = 200;
-                    Gold = 200;
+                    Exp = 300;
+                    Gold = 450;
                     ChanceToInterruptTheEscape = 100;
-                    CounterToReachTheBoss = 2;
+                    CounterToReachTheBoss = 20;
                     break;
 
                 case 2:
-                    Name = "second boss";
-                    Health = 1300;
+                    Name = "Spiteful golem";
+                    Health = 2000;
                     CurrentHealth = Health;
-                    Exp = 200;
-                    Gold = 200;
+                    Exp = 500;
+                    Gold = 700;
                     ChanceToInterruptTheEscape = 100;
-                    CounterToReachTheBoss = 2;
+                    CounterToReachTheBoss = 25;
                     break;
 
                 case 3:
-                    Name = "third boss";
-                    Health = 1700;
+                    Name = "Fire dragon";
+                    Health = 4000;
                     CurrentHealth = Health;
-                    Exp = 200;
-                    Gold = 200;
+                    Exp = 700;
+                    Gold = 900;
                     ChanceToInterruptTheEscape = 100;
-                    CounterToReachTheBoss = 2;
+                    CounterToReachTheBoss = 30;
                     break;
 
                 case 4:
-                    Name = "final boss";
-                    Health = 3000;
+                    Name = "Descendant of the fallen gods";
+                    Health = 5500;
                     CurrentHealth = Health;
-                    Exp = 200;
-                    Gold = 200;
+                    Exp = 999;
+                    Gold = 999;
                     ChanceToInterruptTheEscape = 100;
                     break;
             }

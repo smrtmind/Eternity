@@ -7,6 +7,7 @@ namespace myFirstRPG
     {
         static void Main(string[] args)
         {
+            Random random = new Random();
             Location location;
             Player player = new Player();
             Weapon weapon = new Weapon();
@@ -30,10 +31,11 @@ namespace myFirstRPG
             PrintGameTitle();
             GetPressEnter();
 
-            Print("".PadLeft(Console.WindowWidth - 5, '|'), ConsoleColor.Blue, slowText: true);
+            RainbowLoading();
+            //Print("".PadLeft(Console.WindowWidth - 5, '|'), ConsoleColor.Blue, slowText: true);
             Console.Clear();
 
-            Print("Hello, traveler. I can't remember your name. Can you help me with this?\n\n");
+            Print("Hello, traveler. I can't remember your name. Can you help me with this?\n\n", ConsoleColor.DarkYellow);
             Thread.Sleep(4000);
 
             while (yesNo.ToLower() != "y")
@@ -60,7 +62,7 @@ namespace myFirstRPG
                 //gender of your character
                 while (choice != 1 && choice != 2)
                 {
-                    Print("choose gender: ".PadLeft(48, ' '));
+                    Print("choose gender: ".PadLeft(47, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
                     keyBoardInput = Console.ReadLine();
                     int.TryParse(keyBoardInput, out choice);
@@ -77,7 +79,7 @@ namespace myFirstRPG
 
                 while (playerClass != 1 && playerClass != 2 && playerClass != 3)
                 {
-                    Print("choose class: ".PadLeft(47, ' '));
+                    Print("choose class: ".PadLeft(46, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
                     keyBoardInput = Console.ReadLine();
                     int.TryParse(keyBoardInput, out playerClass);
@@ -85,6 +87,7 @@ namespace myFirstRPG
                 }
                 Console.Clear();
 
+                //creating player and weapon according to collected data
                 player = new Player(playerClass, playerName, sex);
                 weapon = new Weapon(playerClass);
 
@@ -109,23 +112,25 @@ namespace myFirstRPG
             Console.Clear();
 
             Print("The adventure begins\n\n");
-            Print("".PadLeft(Console.WindowWidth - 5, '|') + "\n\n", ConsoleColor.Blue, slowText: true);
+            RainbowLoading();
+            Print("\n\n");
+            //Print("".PadLeft(Console.WindowWidth - 5, '|') + "\n\n", ConsoleColor.Blue, slowText: true);
             GetPressEnter();
             Console.Clear();
-            //end with creation the player
+            //end with collecting the player data
 
             Print("\tAmong the many things that video games can do well,\n" +
-                        "is to tell a good story. Sometimes, the story is so good, it  leaves\n" +
-                        "a lasting impact on you, an impact akin to what you might feel after\n" +
-                        "reading a great book, or watching a great movie. Games can offer you\n" +
-                        "the same experience, but it’s honestly waay better, because you  get\n" +
-                        "to play the game and BE the story.\n\n", slowText: true);
+                  "is to tell a good story. Sometimes, the story is so good, it  leaves\n" +
+                  "a lasting impact on you, an impact akin to what you might feel after\n" +
+                  "reading a great book, or watching a great movie. Games can offer you\n" +
+                  "the same experience, but it’s honestly waay better, because you  get\n" +
+                  "to play the game and BE the story.\n\n", ConsoleColor.DarkYellow, slowText: true);
 
             GetPressEnter();
             Console.Clear();
 
-            Console.WriteLine("You starts your way at the dark forest, full of different creatures.\n" +
-                              "You have to be careful, you never know what to expect.\n");
+            Print("You starts your way at the dark forest, full of different creatures.\n" +
+                  "You have to be careful, you never know what to expect.\n\n", ConsoleColor.DarkGreen);
 
             GetPressEnter();
 
@@ -321,7 +326,8 @@ namespace myFirstRPG
                         //if you win final battle
                         if (boss.CurrentHealth <= 0)
                         {
-                            Console.WriteLine("THE END");
+                            Console.Clear();
+                            PrintTheEnd(player, weapon);
                             break;
                         }
 
@@ -340,15 +346,15 @@ namespace myFirstRPG
                     //printing full info about the location, only once in each location, according to the chosen location
                     Print($"{location.LocationInfo}\n", ConsoleColor.DarkGreen);
                     //start battle section with regular enemies
-                    BattleSection(player, medicineBag, location, weapon, boss, boss1, boss2, boss3);
+                    BattleZone(player, medicineBag, location, weapon, boss, boss1, boss2, boss3);
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
-                if (player.DefeatedEnemies == boss.CounterToReachTheBoss && !boss.IsDead)
+                if (player.DefeatedEnemiesToFightTheBoss == boss.CounterToReachTheBoss && !boss.IsDead)
                 {
                     PrintBossFight();
-                    Console.WriteLine($"\tGet ready for battle, the {boss.Name} is coming...");
-                    Console.ReadLine();
+                    Print($"\tGet ready for battle, the {boss.Name} is coming...\n\n");
+                    GetPressEnter();
                     Console.Clear();
                     //start boss fight
                     BossBattle(player, medicineBag, location, weapon, boss, boss1, boss2, boss3);
@@ -367,7 +373,7 @@ namespace myFirstRPG
                 changeDirection = 0;
                 while (changeDirection == 0 || changeDirection > 3)
                 {
-                    Console.Write("make your choice: ".PadLeft(32, ' '));
+                    Print("make your choice: ".PadLeft(32, ' '));
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     int.TryParse(Console.ReadLine(), out changeDirection);
                     Console.ResetColor();
@@ -385,14 +391,14 @@ namespace myFirstRPG
             }
         }
 
-        internal static void GetPressEnter()
+        public static void GetPressEnter()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(1500);
             Console.WriteLine("Press Enter to continue");
             Console.ReadLine();
         }
 
-        internal static void GetStatus(Player player, Weapon weapon)
+        public static void GetStatus(Player player, Weapon weapon)
         {
             //if you didn't buy any weapon from the shop
             if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
@@ -442,7 +448,6 @@ namespace myFirstRPG
                 Print(" exp:        ");
                 Print($"{player.Exp}\n", ConsoleColor.Green);
             }
-
         }
 
         public static void Print(string text, ConsoleColor color = ConsoleColor.White, bool slowText = false, int speed = 5)
@@ -608,11 +613,11 @@ namespace myFirstRPG
             if (type == 6)
             {
                 Print("\nChoose your character's class: ");
-                Print("  [1] ", ConsoleColor.Green);
+                Print(" [1] ", ConsoleColor.Green);
                 Print("warrior\n");
-                Print(" [2] ".PadLeft(37, ' '), ConsoleColor.Green);
+                Print(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
                 Print("archer\n");
-                Print(" [3] ".PadLeft(37, ' '), ConsoleColor.Green);
+                Print(" [3] ".PadLeft(36, ' '), ConsoleColor.Green);
                 Print("mage\n\n");
             }
 
@@ -633,18 +638,18 @@ namespace myFirstRPG
             //selection of player's gender
             if (type == 8)
             {
-                Print("\nChoose your character's gender: ");
+                Print("\nChoose your character's gender:");
                 Print(" [1] ", ConsoleColor.Green);
                 Print("male\n");
-                Print(" [2] ".PadLeft(37, ' '), ConsoleColor.Green);
+                Print(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
                 Print("female\n\n");
             }
         }
 
-        public static void BattleSection(Player player, MedicineBag medicineBag, Location location, Weapon weapon, Boss boss, Boss boss1, Boss boss2, Boss boss3)
+        public static void BattleZone(Player player, MedicineBag medicineBag, Location location, Weapon weapon, Boss boss, Boss boss1, Boss boss2, Boss boss3)
         {
             //setting counter of defeated enemies to 0 before the start of each battle
-            player.DefeatedEnemies = 0;
+            player.DefeatedEnemiesToFightTheBoss = 0;
 
             string yesNo = string.Empty;
             while (yesNo.ToLower() != "n")
@@ -659,9 +664,10 @@ namespace myFirstRPG
                 string keyBoardInput = string.Empty;
                 yesNo = string.Empty;
 
-                //Console.ForegroundColor = ConsoleColor.Blue;
-                //GetLoading("".PadLeft(random.Next(35, 115), '|'));
-                //Console.ResetColor();
+                Print("\n");
+                RainbowLoading(random.Next(1, 9));
+                //Print("".PadLeft(random.Next(25, Console.WindowWidth - 5), '|') + "\n", ConsoleColor.DarkYellow, slowText: true, speed: 1);
+                Print("\n");
 
                 //print randomly generated phrase when new enemy appear
                 Print(EntryBattlePhrase(enemy));
@@ -775,59 +781,62 @@ namespace myFirstRPG
                         //check if you have potion according to chosen type of potion
                         int amountOfAids = medicineBag.UsePotion(choice);
 
-                        //if you have potion
-                        if (amountOfAids > 0)
+                        if (choice == 1 || choice == 2 || choice == 2)
                         {
-                            player.CurrentHealth += medicineBag.HealingPower;
-
-                            //if player's current health equal or greater than maximum health
-                            if (player.CurrentHealth > player.Health)
+                            //if you have potion
+                            if (amountOfAids > 0)
                             {
-                                player.CurrentHealth = player.Health;
-                                Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
+                                player.CurrentHealth += medicineBag.HealingPower;
+
+                                //if player's current health equal or greater than maximum health
+                                if (player.CurrentHealth > player.Health)
+                                {
+                                    player.CurrentHealth = player.Health;
+                                    Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                //if not => heal
+                                else
+                                {
+                                    Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                //enemy does his turn, after you used yours for healing
+                                player.CurrentHealth -= enemy.Damage;
+
+                                //if you died after this attack
+                                if (player.CurrentHealth <= 0)
+                                {
+                                    Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
+                                    Print($" fatal ", ConsoleColor.DarkRed);
+                                    Print($"damage and has {player.CurrentHealth} health\n\n");
+
+                                    break;
+                                }
+
+                                else Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
                             }
 
-                            //if not => heal
+                            //if you don't have any potions
                             else
                             {
-                                Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                Print($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
+
+                                //enemy does his turn, after you used yours for healing
+                                player.CurrentHealth -= enemy.Damage;
+
+                                //if you died after this attack
+                                if (player.CurrentHealth <= 0)
+                                {
+                                    Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
+                                    Print($" fatal ", ConsoleColor.DarkRed);
+                                    Print($"damage and has {player.CurrentHealth} health\n\n");
+
+                                    break;
+                                }
+
+                                else Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
                             }
-
-                            //enemy does his turn, after you used yours for healing
-                            player.CurrentHealth -= enemy.Damage;
-
-                            //if you died after this attack
-                            if (player.CurrentHealth <= 0)
-                            {
-                                Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
-                                Print($" fatal ", ConsoleColor.DarkRed);
-                                Print($"damage and has {player.CurrentHealth} health\n\n");
-
-                                break;
-                            }
-
-                            else Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
-                        }
-
-                        //if you don't have any potions
-                        else
-                        {
-                            Print($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
-
-                            //enemy does his turn, after you used yours for healing
-                            player.CurrentHealth -= enemy.Damage;
-
-                            //if you died after this attack
-                            if (player.CurrentHealth <= 0)
-                            {
-                                Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
-                                Print($" fatal ", ConsoleColor.DarkRed);
-                                Print($"damage and has {player.CurrentHealth} health\n\n");
-
-                                break;
-                            }
-
-                            else Print($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
                         }
 
                         //if you want to exit healing options and return to the battle options
@@ -888,7 +897,7 @@ namespace myFirstRPG
                 }
 
                 if (player.CurrentHealth <= 0) break;
-                if (player.DefeatedEnemies == boss.CounterToReachTheBoss && !boss.IsDead) break;
+                if (player.DefeatedEnemiesToFightTheBoss == boss.CounterToReachTheBoss && !boss.IsDead) break;
 
                 //asking if you want to continue grinding or not
                 yesNo = string.Empty;
@@ -945,10 +954,6 @@ namespace myFirstRPG
                 int choice = 0;
                 string keyBoardInput = string.Empty;
 
-                //Console.ForegroundColor = ConsoleColor.Blue;
-                //GetLoading("".PadLeft(random.Next(35, 115), '|'));
-                //Console.ResetColor();
-
                 //battle options
                 PrintOptions(1, player, medicineBag, weapon, boss1, boss2, boss3);
 
@@ -976,6 +981,8 @@ namespace myFirstRPG
                             BossIsDead(player, boss, playerDamage);
                             //print status of player
                             GetStatus(player, weapon);
+                            GetPressEnter();
+                            Console.Clear();
                             break;
                         }
 
@@ -1015,6 +1022,8 @@ namespace myFirstRPG
                                 BossIsDead(player, boss, playerDamage);
                                 //print status of player
                                 GetStatus(player, weapon);
+                                GetPressEnter();
+                                Console.Clear();
                                 break;
                             }
 
@@ -1060,61 +1069,64 @@ namespace myFirstRPG
                         //check if you have potion according to chosen type of potion
                         int amountOfAids = medicineBag.UsePotion(choice);
 
-                        //if you have potion
-                        if (amountOfAids > 0)
+                        if (choice == 1 || choice == 2 || choice == 2)
                         {
-                            player.CurrentHealth += medicineBag.HealingPower;
-
-                            //if player's current health equal or greater than maximum health
-                            if (player.CurrentHealth > player.Health)
+                            //if you have potion
+                            if (amountOfAids > 0)
                             {
-                                player.CurrentHealth = player.Health;
-                                Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
+                                player.CurrentHealth += medicineBag.HealingPower;
+
+                                //if player's current health equal or greater than maximum health
+                                if (player.CurrentHealth > player.Health)
+                                {
+                                    player.CurrentHealth = player.Health;
+                                    Print("\n\tmax health\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                //if not => heal
+                                else
+                                {
+                                    Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                }
+
+                                //boss does his turn, after you used yours for healing
+                                player.CurrentHealth -= boss.Damage;
+
+                                //if you died after this attack
+                                if (player.CurrentHealth <= 0)
+                                {
+                                    Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} get");
+                                    Print($" fatal ", ConsoleColor.DarkRed);
+                                    Print($"damage and has {player.CurrentHealth} health\n\n");
+
+                                    break;
+                                }
+
+                                else Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
                             }
 
-                            //if not => heal
+                            //if you don't have any potions
                             else
                             {
-                                Print($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
+                                Print($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
+
+                                //boss does his turn, after you used yours for healing
+                                player.CurrentHealth -= boss.Damage;
+
+                                //if you died after this attack
+                                if (player.CurrentHealth <= 0)
+                                {
+                                    Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} get");
+                                    Print($" fatal ", ConsoleColor.DarkRed);
+                                    Print($"damage and has {player.CurrentHealth} health\n\n");
+
+                                    break;
+                                }
+
+                                else Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
                             }
-
-                            //boss does his turn, after you used yours for healing
-                            player.CurrentHealth -= boss.Damage;
-
-                            //if you died after this attack
-                            if (player.CurrentHealth <= 0)
-                            {
-                                Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} get");
-                                Print($" fatal ", ConsoleColor.DarkRed);
-                                Print($"damage and has {player.CurrentHealth} health\n\n");
-
-                                break;
-                            }
-
-                            else Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
                         }
-
-                        //if you don't have any potions
-                        else
-                        {
-                            Print($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
-
-                            //boss does his turn, after you used yours for healing
-                            player.CurrentHealth -= boss.Damage;
-
-                            //if you died after this attack
-                            if (player.CurrentHealth <= 0)
-                            {
-                                Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} get");
-                                Print($" fatal ", ConsoleColor.DarkRed);
-                                Print($"damage and has {player.CurrentHealth} health\n\n");
-
-                                break;
-                            }
-
-                            else Print($"\t{boss.Name} deals {bossDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
-                        }
-
+                         
                         //if you want to exit healing options and return to the battle options
                         if (keyBoardInput == "<")
                         {
@@ -1202,7 +1214,7 @@ namespace myFirstRPG
             string[] entryPhrase =
             {
                 $"\nBut suddenly, you see the enemy. It is {enemy.Name}.\n\n",
-                $"\nUnexpectedly, {enemy.Name} jumps out of the tree.\n\n",
+                $"\nUnexpectedly, {enemy.Name} jumps out of the hedge.\n\n",
                 $"\nYou notice {enemy.Name} nearby, it's fast approaching.\n\n",
                 $"\nAn evil {enemy.Name} comes around the corner and takes you by surprise.\n\n",
                 $"\nYou see {enemy.Name} on the road, most likely it cannot be bypassed.\n\n",
@@ -1226,11 +1238,86 @@ namespace myFirstRPG
 
         public static void PrintYouDied()
         {
-            Print($@"{"\t"}__   __   ___    _   _       ___    ___   ___   ___  {"\n"}", ConsoleColor.DarkRed, true, 2);
-            Print($@"{"\t"}\ \ / /  / _ \  | | | |     |   \  |_ _| | __| |   \ {"\n"}", ConsoleColor.DarkRed, true, 2);
-            Print($@"{"\t"} \ V /  | (_) | | |_| |     | |) |  | |  | _|  | |) |{"\n"}", ConsoleColor.DarkRed, true, 2);
-            Print($@"{"\t"}  |_|    \___/   \___/      |___/  |___| |___| |___/ {"\n\n"}", ConsoleColor.DarkRed, true, 2);
-            Print("your journey is over :(".PadLeft(45, ' ') + "\n", ConsoleColor.Red);
+            Print($@"{"\t"}__   __   ___    _   _       ___    ___   ___   ___  {"\n"}", ConsoleColor.DarkRed, false, 2);
+            Print($@"{"\t"}\ \ / /  / _ \  | | | |     |   \  |_ _| | __| |   \ {"\n"}", ConsoleColor.DarkRed, false, 2);
+            Print($@"{"\t"} \ V /  | (_) | | |_| |     | |) |  | |  | _|  | |) |{"\n"}", ConsoleColor.DarkRed, false, 2);
+            Print($@"{"\t"}  |_|    \___/   \___/      |___/  |___| |___| |___/ {"\n\n"}", ConsoleColor.DarkRed, false, 2);
+            Print("your journey is over :(".PadLeft(45, ' '), ConsoleColor.Red);
+
+            Thread.Sleep(3000);
+            Print("\n\nPress Enter to exit");
+            Console.ReadLine();
+        }
+
+        public static void PrintBossVanquished()
+        {
+            Print($@"{"\t"} ___    ___    ___   ___    __   __    _     _  _    ___    _   _   ___   ___   _  _   ___   ___  {"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}| _ )  / _ \  / __| / __|   \ \ / /   /_\   | \| |  / _ \  | | | | |_ _| / __| | || | | __| |   \ {"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}| _ \ | (_) | \__ \ \__ \    \ V /   / _ \  | .` | | (_) | | |_| |  | |  \__ \ | __ | | _|  | |) |{"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}|___/  \___/  |___/ |___/     \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkGreen, false, 2);
+        }
+
+        public static void PrintTheEnd(Player player, Weapon weapon)
+        {
+            Print($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}    ) (   | )   ( || (    \/    | (    \/|  \  ( || (  \  ){"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}    | |   | (___) || (__        | (__    |   \ | || |   ) |{"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}    | |   |  ___  ||  __)       |  __)   | (\ \) || |   | |{ "\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}    | |   | (   ) || (          | (      | | \   || |   ) |{"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.DarkGreen, false, 2);
+            Print($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.DarkGreen, false, 2);
+
+            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+            {
+                Print("\n");
+                Print("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
+                MainStats();
+                Print("".PadLeft(30, '<') + "\n\n", ConsoleColor.Magenta);
+            }
+
+            if (weapon.Weapon1Bought || weapon.Weapon2Bought)
+            {
+                Print("\n");
+                Print("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
+                MainStats();
+
+                if (weapon.Weapon1Bought)
+                {
+                    Print(" weapon:     ");
+                    Print($"{weapon.Weapon1}\n", ConsoleColor.Green);
+                }
+                if (weapon.Weapon2Bought)
+                {
+                    Print(" weapon:     ");
+                    Print($"{weapon.Weapon2}\n", ConsoleColor.Green);
+                }
+
+                Print("".PadLeft(30, '<') + "\n\n", ConsoleColor.Magenta);
+            }
+
+            void MainStats()
+            {
+                Print($" {player.Name}", ConsoleColor.DarkYellow);
+                Print(" / ");
+                Print($"{player.Sex}\n", ConsoleColor.Cyan);
+                Print(" class:           ");
+                Print($"{player.PlayerClass}\n", ConsoleColor.Green);
+                Print(" lvl:             ");
+                Print($"{player.Lvl}\n", ConsoleColor.Green);
+                Print(" gold:            ");
+                Print($"{player.Gold}\n", ConsoleColor.Green);
+                Print(" exp:             ");
+                Print($"{player.Exp}\n", ConsoleColor.Green);
+                Print(" enemies killed:  ");
+                Print($"{player.DefeatedEnemiesOverall}\n", ConsoleColor.Green);
+                Print(" bosses killed:   ");
+                Print($"{player.DefeatedBossesOverall}\n", ConsoleColor.Green);
+            }
+
+            Thread.Sleep(3000);
+            Print("Press Enter to exit");
+            Console.ReadLine();
         }
 
         public static void PrintGameTitle()
@@ -1247,7 +1334,8 @@ namespace myFirstRPG
 
         public static void EnemyIsDead(Player player, Enemy enemy, double playerDamage)
         {
-            player.DefeatedEnemies++;
+            player.DefeatedEnemiesOverall++;
+            player.DefeatedEnemiesToFightTheBoss++;
             player.Gold += enemy.Gold;
             player.Exp += enemy.Exp;
             //check if player has enough experience to get new level
@@ -1269,6 +1357,7 @@ namespace myFirstRPG
 
         public static void BossIsDead(Player player, Boss boss, double playerDamage)
         {
+            player.DefeatedBossesOverall++;
             boss.IsDead = true;
             player.Gold += boss.Gold;
             player.Exp += boss.Exp;
@@ -1278,7 +1367,35 @@ namespace myFirstRPG
             Print($"\n\t{player.Name} deals {playerDamage} damage, {boss.Name} get");
             Print($" fatal ", ConsoleColor.DarkRed);
             Print($"damage and has {boss.CurrentHealth} health\n");
-            Print($"\n\tVICTORY. You have earned {boss.Gold} gold and {boss.Exp} exp\n", ConsoleColor.DarkYellow);
+            PrintBossVanquished();
+            Print($"\n\tYou have earned {boss.Gold} gold and {boss.Exp} exp\n", ConsoleColor.DarkYellow);
+        }
+
+        public static void RainbowLoading(int length = 8)
+        {
+            for (int i = 0; i <= length; i++)
+            {
+                Print("|", ConsoleColor.Red, slowText: true);
+                Print("|", ConsoleColor.DarkYellow, slowText: true);
+                Print("|", ConsoleColor.Yellow, slowText: true);
+                Print("|", ConsoleColor.Green, slowText: true);
+                Print("|", ConsoleColor.Cyan, slowText: true);
+                Print("|", ConsoleColor.DarkBlue, slowText: true);
+                Print("|", ConsoleColor.DarkMagenta, slowText: true);
+                Print("|", ConsoleColor.DarkBlue, slowText: true);
+                Print("|", ConsoleColor.Cyan, slowText: true);
+                Print("|", ConsoleColor.Green, slowText: true);
+                Print("|", ConsoleColor.Yellow, slowText: true);
+                Print("|", ConsoleColor.DarkYellow, slowText: true);
+            }
+
+            Print("|", ConsoleColor.Red, slowText: true);
+            Print("|", ConsoleColor.DarkYellow, slowText: true);
+            Print("|", ConsoleColor.Yellow, slowText: true);
+            Print("|", ConsoleColor.Green, slowText: true);
+            Print("|", ConsoleColor.Cyan, slowText: true);
+            Print("|", ConsoleColor.DarkBlue, slowText: true);
+            Print("|", ConsoleColor.DarkMagenta, slowText: true);
         }
     }
 }

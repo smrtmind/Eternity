@@ -9,7 +9,9 @@ namespace myFirstRPG
     public class Player : GameCharacter
     {
         public string Sex { get; set; }
-        public int DefeatedEnemies { get; set; }
+        public int DefeatedEnemiesOverall { get; set; }
+        public int DefeatedBossesOverall { get; set; }
+        public int DefeatedEnemiesToFightTheBoss { get; set; }
         public int Lvl { get; set; } = 1;
         public string PlayerClass { get; set; }
         public double LowDamage { get; set; }
@@ -35,24 +37,24 @@ namespace myFirstRPG
                     PlayerClass = "warrior";
                     Health = 200;
                     CurrentHealth = Health;
-                    LowDamage = 3;
-                    HighDamage = 6;
+                    LowDamage = 7;
+                    HighDamage = 12;
                     break;
 
                 case 2:
                     PlayerClass = "archer";
                     Health = 160;
                     CurrentHealth = Health;
-                    LowDamage = 4;
-                    HighDamage = 7;
+                    LowDamage = 9;
+                    HighDamage = 14;
                     break;
 
                 case 3:
                     PlayerClass = "mage";
                     Health = 120;
                     CurrentHealth = Health;
-                    LowDamage = 5;
-                    HighDamage = 8;
+                    LowDamage = 11;
+                    HighDamage = 16;
                     break;
             }
         }
@@ -93,6 +95,15 @@ namespace myFirstRPG
             if (Lvl == 18 && exp >= 10600) LvlUp();
             if (Lvl == 19 && exp >= 11700) LvlUp();
             if (Lvl == 20 && exp >= 12800) LvlUp();
+            if (Lvl == 21 && exp >= 14000) LvlUp();
+            if (Lvl == 22 && exp >= 15200) LvlUp();
+            if (Lvl == 23 && exp >= 16500) LvlUp();
+            if (Lvl == 24 && exp >= 17800) LvlUp();
+            if (Lvl == 25 && exp >= 19200) LvlUp();
+            if (Lvl == 26 && exp >= 20600) LvlUp();
+            if (Lvl == 27 && exp >= 22100) LvlUp();
+            if (Lvl == 28 && exp >= 23600) LvlUp();
+            if (Lvl == 29 && exp >= 25200) LvlUp();
 
             void LvlUp()
             {

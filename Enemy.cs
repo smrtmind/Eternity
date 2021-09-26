@@ -21,84 +21,84 @@ namespace myFirstRPG
             switch (TypeOfCharacter)
             {
                 case 1:
-                    Name = "Rat";
-                    Health = 30;
+                    Name = "Stinky rat";
+                    Health = 20;
                     CurrentHealth = Health;
-                    Gold = 5;
-                    Exp = 15;
-                    ChanceToInterruptTheEscape = 20;
+                    Gold = 10;
+                    Exp = 25;
+                    ChanceToInterruptTheEscape = 10;
                     break;
 
                 case 2:
-                    Name = "Ork";
-                    Health = 50;
+                    Name = "Sticky frog";
+                    Health = 40;
                     CurrentHealth = Health;
-                    Gold = 15;
-                    Exp = 35;
-                    ChanceToInterruptTheEscape = 25;
+                    Gold = 20;
+                    Exp = 45;
+                    ChanceToInterruptTheEscape = 13;
                     break;
 
                 case 3:
-                    Name = "Mutant";
-                    Health = 80;
+                    Name = "Poison ivy";
+                    Health = 70;
                     CurrentHealth = Health;
                     Gold = 35;
-                    Exp = 70;
-                    ChanceToInterruptTheEscape = 30;
+                    Exp = 60;
+                    ChanceToInterruptTheEscape = 16;
                     break;
 
                 case 4:
-                    Name = "Rat";
-                    Health = 30;
+                    Name = "Bloody bat";
+                    Health = 100;
                     CurrentHealth = Health;
-                    Gold = 5;
-                    Exp = 15;
+                    Gold = 50;
+                    Exp = 80;
                     ChanceToInterruptTheEscape = 20;
                     break;
 
                 case 5:
-                    Name = "Ork";
-                    Health = 50;
+                    Name = "Dark whisperer";
+                    Health = 130;
                     CurrentHealth = Health;
-                    Gold = 15;
-                    Exp = 35;
-                    ChanceToInterruptTheEscape = 25;
+                    Gold = 70;
+                    Exp = 100;
+                    ChanceToInterruptTheEscape = 23;
                     break;
 
                 case 6:
-                    Name = "Mutant";
-                    Health = 80;
+                    Name = "Goblin";
+                    Health = 160;
                     CurrentHealth = Health;
-                    Gold = 35;
-                    Exp = 70;
-                    ChanceToInterruptTheEscape = 30;
+                    Gold = 85;
+                    Exp = 135;
+                    ChanceToInterruptTheEscape = 26;
                     break;
 
                 case 7:
-                    Name = "Rat";
-                    Health = 30;
+                    Name = "Fire thorn";
+                    Health = 250;
                     CurrentHealth = Health;
-                    Gold = 5;
-                    Exp = 15;
-                    ChanceToInterruptTheEscape = 20;
+                    Gold = 100;
+                    Exp = 150;
+                    ChanceToInterruptTheEscape = 30;
                     break;
 
                 case 8:
-                    Name = "Ork";
-                    Health = 50;
+                    Name = "Ork warrior";
+                    Health = 300;
                     CurrentHealth = Health;
-                    Gold = 15;
-                    Exp = 35;
-                    ChanceToInterruptTheEscape = 25;
+                    Gold = 120;
+                    Exp = 180;
+                    ChanceToInterruptTheEscape = 33;
                     break;
 
                 case 9:
                     Name = "Mutant";
-                    Health = 80;
+                    Health = 340;
                     CurrentHealth = Health;
-                    Gold = 35;
-                    Exp = 70;
-                    ChanceToInterruptTheEscape = 30;
+                    Gold = 140;
+                    Exp = 230;
+                    ChanceToInterruptTheEscape = 36;
                     break;
             }
         }
@@ -108,18 +108,48 @@ namespace myFirstRPG
             switch (TypeOfCharacter)
             {
                 case 1:
-                    //rat
-                    Damage = random.Next(2, 5);
+                    //Stinky rat
+                    Damage = random.Next(4, 9);
                     break;
 
                 case 2:
-                    //ork
-                    Damage = random.Next(5, 10);
+                    //Sticky frog
+                    Damage = random.Next(8, 13);
                     break;
 
                 case 3:
-                    //mutant
-                    Damage = random.Next(7, 15);
+                    //Poison ivy
+                    Damage = random.Next(12, 17);
+                    break;
+
+                case 4:
+                    //Bloody bat
+                    Damage = random.Next(16, 21);
+                    break;
+
+                case 5:
+                    //Dark whisperer
+                    Damage = random.Next(20, 25);
+                    break;
+
+                case 6:
+                    //Goblin
+                    Damage = random.Next(24, 29);
+                    break;
+
+                case 7:
+                    //Fire thorn
+                    Damage = random.Next(28, 33);
+                    break;
+
+                case 8:
+                    //Ork warrior
+                    Damage = random.Next(32, 37);
+                    break;
+
+                case 9:
+                    //Mutant
+                    Damage = random.Next(36, 41);
                     break;
 
             }

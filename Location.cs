@@ -49,9 +49,9 @@ namespace myFirstRPG
             Random random = new Random();
             Enemy enemy = new Enemy();
 
-            if (TypeOfLocation == 1) enemy = new Enemy(random.Next(1, 2));
-            if (TypeOfLocation == 2) enemy = new Enemy(random.Next(1, 2));
-            if (TypeOfLocation == 3) enemy = new Enemy(random.Next(1, 2));
+            if (TypeOfLocation == 1) enemy = new Enemy(random.Next(1, 4));
+            if (TypeOfLocation == 2) enemy = new Enemy(random.Next(4, 7));
+            if (TypeOfLocation == 3) enemy = new Enemy(random.Next(7, 10));
 
             return enemy;
         }

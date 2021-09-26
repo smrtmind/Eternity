@@ -14,8 +14,8 @@ namespace myFirstRPG
         public int MediumAmount { get; set; }
         public int BigAmount { get; set; }
         public int SmallCost { get; set; } = 30;
-        public int MediumCost { get; set; } = 70;
-        public int BigCost { get; set; } = 100;
+        public int MediumCost { get; set; } = 90;
+        public int BigCost { get; set; } = 150;
         public int Amount { get; set; }
 
         public MedicineBag() { }
@@ -44,7 +44,7 @@ namespace myFirstRPG
             {
                 case 1:
                     Name = "small healing potion";
-                    HealingPower = 15;
+                    HealingPower = 90;
 
                     if (SmallAmount > 0) Amount = SmallAmount--;
                     else
@@ -57,7 +57,7 @@ namespace myFirstRPG
 
                 case 2:
                     Name = "medium healing potion";
-                    HealingPower = 35;
+                    HealingPower = 180;
 
                     if (MediumAmount > 0) Amount = MediumAmount--;
                     else
@@ -70,7 +70,7 @@ namespace myFirstRPG
 
                 case 3:
                     Name = "big healing potion";                 
-                    HealingPower = 70;
+                    HealingPower = 350;
 
                     if (BigAmount > 0) Amount = BigAmount--;
                     else
