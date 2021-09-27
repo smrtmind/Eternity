@@ -32,29 +32,29 @@ namespace myFirstRPG
             {
                 case 1: //warrior
                     Weapon1 = "Crystal Sword";
-                    Damage1 = 35;
-                    Cost1 = 400;
+                    Damage1 = 90;
+                    Cost1 = 3100;
                     Weapon2 = "Dark Sword";
-                    Damage2 = 65;
-                    Cost2 = 700;
+                    Damage2 = 150;
+                    Cost2 = 6700;
                     break;
 
                 case 2: //archer
                     Weapon1 = "Poisoned Bow";
-                    Damage1 = 32;
-                    Cost1 = 390;
+                    Damage1 = 80;
+                    Cost1 = 3200;
                     Weapon2 = "Bloody Bow";
-                    Damage2 = 62;
-                    Cost2 = 690;
+                    Damage2 = 155;
+                    Cost2 = 6650;
                     break;
 
                 case 3: //mage
                     Weapon1 = "Staff of Pain";
-                    Damage1 = 30;
-                    Cost1 = 360;
+                    Damage1 = 70;
+                    Cost1 = 3050;
                     Weapon2 = "Staff of Light";
-                    Damage2 = 60;
-                    Cost2 = 670;
+                    Damage2 = 185;
+                    Cost2 = 6900;
                     break;
             }
         }

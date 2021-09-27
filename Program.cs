@@ -593,11 +593,11 @@ namespace myFirstRPG
                 //you can see weapon according to the selected class of player
                 Print(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
                 Print($"{weapon.Weapon1}\t", ConsoleColor.DarkCyan);
-                Print($"+{weapon.Damage1} dmg\t", ConsoleColor.DarkRed);
+                Print($"+{weapon.Damage1}\t", ConsoleColor.DarkRed);
                 Print($"{weapon.Cost1} gold\n", ConsoleColor.DarkYellow);
                 Print(" [5] ".PadLeft(30, ' '), ConsoleColor.Green);
                 Print($"{weapon.Weapon2}\t", ConsoleColor.DarkCyan);
-                Print($"+{weapon.Damage2} dmg\t", ConsoleColor.DarkRed);
+                Print($"+{weapon.Damage2}\t", ConsoleColor.DarkRed);
                 Print($"{weapon.Cost2} gold\n\n", ConsoleColor.DarkYellow);
 
                 //gold in your bag
@@ -1278,21 +1278,21 @@ namespace myFirstRPG
             if (weapon.Weapon1Bought || weapon.Weapon2Bought)
             {
                 Print("\n");
-                Print("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
+                Print("".PadLeft(36, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
 
                 if (weapon.Weapon1Bought)
                 {
-                    Print(" weapon:     ");
+                    Print(" weapon:          ");
                     Print($"{weapon.Weapon1}\n", ConsoleColor.Green);
                 }
                 if (weapon.Weapon2Bought)
                 {
-                    Print(" weapon:     ");
+                    Print(" weapon:          ");
                     Print($"{weapon.Weapon2}\n", ConsoleColor.Green);
                 }
 
-                Print("".PadLeft(30, '<') + "\n\n", ConsoleColor.Magenta);
+                Print("".PadLeft(36, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
             void MainStats()
@@ -1321,14 +1321,14 @@ namespace myFirstRPG
 
         public static void PrintGameTitle()
         {
-            Print($@"{"\t"} ______   _______  _______  _            _______  _______           _______ _________ _______  _       {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}(  __  \ (  ___  )(  ____ )| \    /\    (  ____ \(  ____ )|\     /|(  ____ \\__   __/(  ___  )( \      {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}| (  \  )| (   ) || (    )||  \  / /    | (    \/| (    )|( \   / )| (    \/   ) (   | (   ) || (      {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}| |   ) || (___) || (____)||  (_/ /     | |      | (____)| \ (_) / | (_____    | |   | (___) || |      {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}| |   | ||  ___  ||     __)|   _ (      | |      |     __)  \   /  (_____  )   | |   |  ___  || |      {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}| |   ) || (   ) || (\ (   |  ( \ \     | |      | (\ (      ) (         ) |   | |   | (   ) || |      {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}| (__/  )| )   ( || ) \ \__|  /  \ \    | (____/\| ) \ \__   | |   /\____) |   | |   | )   ( || (____/\{"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Print($@"{"\t"}(______/ |/     \||/   \__/|_/    \/    (_______/|/   \__/   \_/   \_______)   )_(   |/     \|(_______/{"\n\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"} _______ _________ _______  _______  _       __________________         {"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}(  ____ \\__   __/(  ____ \(  ____ )( (    /|\__   __/\__   __/|\     /|{"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}| (    \/   ) (   | (    \/| (    )||  \  ( |   ) (      ) (   ( \   / ){"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}| (__       | |   | (__    | (____)||   \ | |   | |      | |    \ (_) / {"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}|  __)      | |   |  __)   |     __)| (\ \) |   | |      | |     \   /  {"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}| (         | |   | (      | (\ (   | | \   |   | |      | |      ) (   {"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}| (____/\   | |   | (____/\| ) \ \__| )  \  |___) (___   | |      | |   {"\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Print($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.DarkMagenta, false, 2);
         }
 
         public static void EnemyIsDead(Player player, Enemy enemy, double playerDamage)

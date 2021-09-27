@@ -108,9 +108,9 @@ namespace myFirstRPG
             void LvlUp()
             {
                 Lvl++;
-                Health = (int)(((Health / 100) * 20) + Health);
-                LowDamage = (int)(((LowDamage / 100) * 20) + LowDamage);
-                HighDamage = (int)(((HighDamage / 100) * 20) + HighDamage);
+                Health = (int)(((Health / 100) * 10) + Health);
+                LowDamage = (int)(((LowDamage / 100) * 10) + LowDamage);
+                HighDamage = (int)(((HighDamage / 100) * 10) + HighDamage);
             }
         }
     }

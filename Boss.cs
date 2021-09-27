@@ -25,7 +25,7 @@ namespace myFirstRPG
             {
                 case 1:
                     Name = "Evil forest spirit";
-                    Health = 1000;
+                    Health = 2000;
                     CurrentHealth = Health;
                     Exp = 300;
                     Gold = 450;
@@ -35,7 +35,7 @@ namespace myFirstRPG
 
                 case 2:
                     Name = "Spiteful golem";
-                    Health = 2000;
+                    Health = 3000;
                     CurrentHealth = Health;
                     Exp = 500;
                     Gold = 700;
@@ -55,7 +55,7 @@ namespace myFirstRPG
 
                 case 4:
                     Name = "Descendant of the fallen gods";
-                    Health = 5500;
+                    Health = 8000;
                     CurrentHealth = Health;
                     Exp = 999;
                     Gold = 999;
@@ -70,22 +70,22 @@ namespace myFirstRPG
             {
                 case 1:
                     //rat
-                    Damage = random.Next(50, 80);
+                    Damage = random.Next(70, 100);
                     break;
 
                 case 2:
                     //ork
-                    Damage = random.Next(70, 100);
+                    Damage = random.Next(100, 130);
                     break;
 
                 case 3:
                     //mutant
-                    Damage = random.Next(90, 120);
+                    Damage = random.Next(130, 160);
                     break;
 
                 case 4:
                     //mutant
-                    Damage = random.Next(120, 150);
+                    Damage = random.Next(160, 200);
                     break;
 
             }
