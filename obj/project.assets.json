@@ -15,9 +15,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\codeBase\\c#\\TextRPG\\myFirstRPG.csproj",
-      "projectName": "myFirstRPG",
-      "projectPath": "D:\\codeBase\\c#\\TextRPG\\myFirstRPG.csproj",
+      "projectUniqueName": "D:\\codeBase\\c#\\TextRPG\\EternityRPG.csproj",
+      "projectName": "EternityRPG",
+      "projectPath": "D:\\codeBase\\c#\\TextRPG\\EternityRPG.csproj",
       "packagesPath": "C:\\Users\\Oleg\\.nuget\\packages\\",
       "outputPath": "D:\\codeBase\\c#\\TextRPG\\obj\\",
       "projectStyle": "PackageReference",

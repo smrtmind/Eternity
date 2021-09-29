@@ -1,0 +1,16 @@
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\EternityRPG.exe
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\EternityRPG.deps.json
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\EternityRPG.runtimeconfig.json
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\EternityRPG.runtimeconfig.dev.json
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\EternityRPG.dll
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\ref\EternityRPG.dll
+D:\codeBase\c#\TextRPG\bin\Debug\net5.0\EternityRPG.pdb
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.csproj.AssemblyReference.cache
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.GeneratedMSBuildEditorConfig.editorconfig
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.AssemblyInfoInputs.cache
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.AssemblyInfo.cs
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.csproj.CoreCompileInputs.cache
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.dll
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\ref\EternityRPG.dll
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.pdb
+D:\codeBase\c#\TextRPG\obj\Debug\net5.0\EternityRPG.genruntimeconfig.cache

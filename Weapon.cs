@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace myFirstRPG
+﻿namespace EternityRPG
 {
     public class Weapon
     {
@@ -50,8 +44,8 @@ namespace myFirstRPG
 
                 case 3: //mage
                     Weapon1 = "Staff of Pain";
-                    Damage1 = 70;
-                    Cost1 = 3050;
+                    Damage1 = 700000;//70
+                    Cost1 = 50;//3050
                     Weapon2 = "Staff of Light";
                     Damage2 = 185;
                     Cost2 = 6900;

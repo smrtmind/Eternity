@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace myFirstRPG
+﻿namespace EternityRPG
 {
-    public class Enemy : GameCharacter
+    public class Enemy : Character
     {
         public Enemy() { }
 
@@ -24,6 +18,8 @@ namespace myFirstRPG
                     Name = "Stinky rat";
                     Health = 20;
                     CurrentHealth = Health;
+                    MinDamage = 4;
+                    MaxDamage = 9;
                     Gold = 10;
                     Exp = 25;
                     ChanceToInterruptTheEscape = 10;
@@ -33,6 +29,8 @@ namespace myFirstRPG
                     Name = "Sticky frog";
                     Health = 40;
                     CurrentHealth = Health;
+                    MinDamage = 8;
+                    MaxDamage = 13;
                     Gold = 20;
                     Exp = 45;
                     ChanceToInterruptTheEscape = 13;
@@ -42,6 +40,8 @@ namespace myFirstRPG
                     Name = "Poison ivy";
                     Health = 70;
                     CurrentHealth = Health;
+                    MinDamage = 12;
+                    MaxDamage = 17;
                     Gold = 35;
                     Exp = 60;
                     ChanceToInterruptTheEscape = 16;
@@ -51,6 +51,8 @@ namespace myFirstRPG
                     Name = "Bloody bat";
                     Health = 100;
                     CurrentHealth = Health;
+                    MinDamage = 16;
+                    MaxDamage = 21;
                     Gold = 50;
                     Exp = 80;
                     ChanceToInterruptTheEscape = 20;
@@ -60,6 +62,8 @@ namespace myFirstRPG
                     Name = "Dark whisperer";
                     Health = 130;
                     CurrentHealth = Health;
+                    MinDamage = 20;
+                    MaxDamage = 25;
                     Gold = 70;
                     Exp = 100;
                     ChanceToInterruptTheEscape = 23;
@@ -69,6 +73,8 @@ namespace myFirstRPG
                     Name = "Goblin";
                     Health = 160;
                     CurrentHealth = Health;
+                    MinDamage = 24;
+                    MaxDamage = 29;
                     Gold = 85;
                     Exp = 135;
                     ChanceToInterruptTheEscape = 26;
@@ -78,6 +84,8 @@ namespace myFirstRPG
                     Name = "Fire thorn";
                     Health = 250;
                     CurrentHealth = Health;
+                    MinDamage = 28;
+                    MaxDamage = 33;
                     Gold = 100;
                     Exp = 150;
                     ChanceToInterruptTheEscape = 30;
@@ -87,6 +95,8 @@ namespace myFirstRPG
                     Name = "Ork warrior";
                     Health = 300;
                     CurrentHealth = Health;
+                    MinDamage = 32;
+                    MaxDamage = 37;
                     Gold = 120;
                     Exp = 180;
                     ChanceToInterruptTheEscape = 33;
@@ -96,65 +106,13 @@ namespace myFirstRPG
                     Name = "Mutant";
                     Health = 340;
                     CurrentHealth = Health;
+                    MinDamage = 36;
+                    MaxDamage = 41;
                     Gold = 140;
                     Exp = 230;
                     ChanceToInterruptTheEscape = 36;
                     break;
             }
-        }
-
-        public double GenerateDamage()
-        {
-            switch (TypeOfCharacter)
-            {
-                case 1:
-                    //Stinky rat
-                    Damage = random.Next(4, 9);
-                    break;
-
-                case 2:
-                    //Sticky frog
-                    Damage = random.Next(8, 13);
-                    break;
-
-                case 3:
-                    //Poison ivy
-                    Damage = random.Next(12, 17);
-                    break;
-
-                case 4:
-                    //Bloody bat
-                    Damage = random.Next(16, 21);
-                    break;
-
-                case 5:
-                    //Dark whisperer
-                    Damage = random.Next(20, 25);
-                    break;
-
-                case 6:
-                    //Goblin
-                    Damage = random.Next(24, 29);
-                    break;
-
-                case 7:
-                    //Fire thorn
-                    Damage = random.Next(28, 33);
-                    break;
-
-                case 8:
-                    //Ork warrior
-                    Damage = random.Next(32, 37);
-                    break;
-
-                case 9:
-                    //Mutant
-                    Damage = random.Next(36, 41);
-                    break;
-
-            }
-
-            return Damage;
         }
     }
 }
