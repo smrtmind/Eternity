@@ -5,13 +5,14 @@ namespace EternityRPG
 {
     class Program
     {
-        public static int index { get; set; }
+        public static int indexOfBoss { get; set; }
+        public static int indexOfEnemy { get; set; }
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
         public static int DefeatedEnemiesToFightTheBoss { get; set; }
 
         static void Main(string[] args)
-        {       
+        {
             MedicineBag medicineBag = new MedicineBag();
             Character player;
             Weapon weapon = new Weapon();
@@ -34,6 +35,8 @@ namespace EternityRPG
                 new boss3(),
                 new boss4()
             };
+
+            Character[] enemies = new Character[9];
 
             //PrintGameTitle();
             //GetPressEnter();
@@ -281,7 +284,7 @@ namespace EternityRPG
                             int.TryParse(Console.ReadLine(), out locationType);
                             Console.ResetColor();
 
-                            index = locationType - 1;
+                            indexOfBoss = locationType - 1;
                         }
                     }
 
@@ -295,7 +298,7 @@ namespace EternityRPG
                             int.TryParse(Console.ReadLine(), out locationType);
                             Console.ResetColor();
 
-                            index = locationType - 1;
+                            indexOfBoss = locationType - 1;
                         }
                     }
                 }
@@ -328,7 +331,7 @@ namespace EternityRPG
                         BossBattle(player, medicineBag, location, weapon, bosses);
 
                         //if you win final battle
-                        if (bosses[index].CurrentHealth <= 0)
+                        if (bosses[indexOfBoss].CurrentHealth <= 0)
                         {
                             Console.Clear();
                             Print.TheEnd(player, weapon);
@@ -350,14 +353,14 @@ namespace EternityRPG
                     //printing full info about the location, only once in each location, according to the chosen location
                     Print.Text($"{location.LocationInfo}\n", ConsoleColor.DarkGreen);
                     //start battle section with regular enemies
-                    BattleZone(player, medicineBag, location, weapon, bosses);
+                    BattleZone(player, medicineBag, location, weapon, bosses, enemies);
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
-                if (DefeatedEnemiesToFightTheBoss == bosses[index].CounterToReachTheBoss && !bosses[index].IsDead)
+                if (DefeatedEnemiesToFightTheBoss == bosses[indexOfBoss].CounterToReachTheBoss && !bosses[indexOfBoss].IsDead)
                 {
                     Print.BoosFight();
-                    Print.Text($"\tGet ready for battle, the {bosses[index].Name} is coming...\n\n");
+                    Print.Text($"\tGet ready for battle, the {bosses[indexOfBoss].Name} is coming...\n\n");
                     Print.PressEnter();
                     Console.Clear();
                     //start boss fight
@@ -395,7 +398,7 @@ namespace EternityRPG
             }
         }
 
-        public static void BattleZone(Character player, MedicineBag medicineBag, Location location, Weapon weapon, Character[] bosses)
+        public static void BattleZone(Character player, MedicineBag medicineBag, Location location, Weapon weapon, Character[] bosses, Character[] enemies)
         {
             //setting counter of defeated enemies to 0 before the start of each battle
             DefeatedEnemiesToFightTheBoss = 0;
@@ -407,19 +410,28 @@ namespace EternityRPG
                 Print.Text($"Location: {location.ShortTitle}\n", ConsoleColor.DarkCyan);
 
                 Random random = new Random();
+                enemies = new Character[]
+                {
+                    new Enemy(1),
+                    new Enemy(2),
+                    new Enemy(3),
+                    new Enemy(4),
+                    new Enemy(5),
+                    new Enemy(6),
+                    new Enemy(7),
+                    new Enemy(8),
+                    new Enemy(9)
+                };
                 //create new enemy randomly every time when the cycle starts again, according to the chosen location
-                Enemy enemy = location.CreateEnemy();
+                indexOfEnemy = location.EnemyIndex();
                 int choice = 0;
                 string keyBoardInput = string.Empty;
                 yesNo = string.Empty;
 
-                Print.Text("\n");
                 Print.RainbowLoading(random.Next(1, 9));
-                //Print("".PadLeft(random.Next(25, Console.WindowWidth - 5), '|') + "\n", ConsoleColor.DarkYellow, slowText: true, speed: 1);
-                Print.Text("\n");
 
                 //print randomly generated phrase when new enemy appear
-                Print.Text(Print.EntryBattlePhrase(enemy));
+                Print.Text(Print.EntryBattlePhrase(enemies[indexOfEnemy]));
                 //battle options
                 Print.Options(1, player, medicineBag, weapon, bosses);
 
@@ -428,12 +440,13 @@ namespace EternityRPG
                     //every new cycle of fight generate unic damage for player and enemy
                     //if player bought weapon, it will generate damage + weapon damage
                     double playerDamage;
-                    if (!weapon.Weapon1Bought && !weapon.Weapon2Bought) playerDamage = player.GenerateDamage();
+                    if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                    {
+                        playerDamage = player.GenerateDamage();
+                    }    
                     else playerDamage = player.GenerateDamage(weapon);
 
-
-
-                    double enemyDamage = enemy.GenerateDamage();
+                    double enemyDamage = enemies[indexOfEnemy].GenerateDamage();
 
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -444,72 +457,61 @@ namespace EternityRPG
                     //manual fight
                     if (battleChoice == 1)
                     {
-                        enemy.CurrentHealth -= playerDamage;
+                        enemies[indexOfEnemy].CurrentHealth -= playerDamage;
 
                         //if an enemy is dead
-                        if (enemy.CurrentHealth <= 0)
+                        if (enemies[indexOfEnemy].CurrentHealth <= 0)
                         {
-                            EnemyIsDead(player, enemy, playerDamage);
-                            //print status of player
+                            EnemyIsDead();
+
+                            //check if player has enough experience to get new level
+                            player.LevelUp(player.Exp);
+                            player.Turn(player, enemies, playerDamage, indexOfEnemy);
                             Print.PlayerStatistics(player, weapon);
                             break;
                         }
 
                         player.CurrentHealth -= enemyDamage;
 
+                        player.Turn(player, enemies, playerDamage, indexOfEnemy);
+                        enemies[indexOfEnemy].Turn(player, enemies, enemyDamage, indexOfEnemy);
                         //if the player is dead
-                        if (player.CurrentHealth <= 0)
-                        {
-                            PlayerIsDead(player, enemy.Name, enemy.CurrentHealth, playerDamage, enemyDamage);
-                            break;
-                        }
-
-                        //continue battle
-                        else
-                        {
-                            Print.Text($"\n\t{player.Name} deals {playerDamage} damage, {enemy.Name} has {enemy.CurrentHealth} health now\n");
-                            Print.Text($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
-                        }
-                        continue;
+                        if (player.CurrentHealth <= 0) break;
                     }
 
                     //automatic fight
                     if (battleChoice == 2)
                     {
-                        while (player.CurrentHealth > 0 || enemy.CurrentHealth > 0)
+                        while (player.CurrentHealth > 0 || enemies[indexOfEnemy].CurrentHealth > 0)
                         {
-                            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought) playerDamage = player.GenerateDamage();
+                            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                            {
+                                playerDamage = player.GenerateDamage();
+                            }
                             else playerDamage = player.GenerateDamage(weapon);
-                            enemyDamage = enemy.GenerateDamage();
 
-                            enemy.CurrentHealth -= playerDamage;
+                            enemyDamage = enemies[indexOfEnemy].GenerateDamage();
+                            enemies[indexOfEnemy].CurrentHealth -= playerDamage;
 
                             //if an enemy is dead
-                            if (enemy.CurrentHealth <= 0)
+                            if (enemies[indexOfEnemy].CurrentHealth <= 0)
                             {
-                                EnemyIsDead(player, enemy, playerDamage);
-                                //print status of player
+                                EnemyIsDead();
+
+                                //check if player has enough experience to get new level
+                                player.LevelUp(player.Exp);
+                                player.Turn(player, enemies, playerDamage, indexOfEnemy);
                                 Print.PlayerStatistics(player, weapon);
                                 break;
                             }
 
                             player.CurrentHealth -= enemyDamage;
 
+                            player.Turn(player, enemies, playerDamage, indexOfEnemy);
+                            enemies[indexOfEnemy].Turn(player, enemies, enemyDamage, indexOfEnemy);
                             //if the player is dead
-                            if (player.CurrentHealth <= 0)
-                            {
-                                PlayerIsDead(player, enemy.Name, enemy.CurrentHealth, playerDamage, enemyDamage);
-                                break;
-                            }
-
-                            //continue battle
-                            else
-                            {
-                                Print.Text($"\n\t{player.Name} deals {playerDamage} damage, {enemy.Name} has {enemy.CurrentHealth} health now\n");
-                                Print.Text($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
-                            }
-                            //pause before the next automatic turn
-                            Thread.Sleep(500);
+                            if (player.CurrentHealth <= 0) break;
+                            else Thread.Sleep(500);
                         }
 
                         break;
@@ -551,25 +553,14 @@ namespace EternityRPG
                                 }
 
                                 //if not => heal
-                                else
-                                {
-                                    Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
-                                }
+                                else Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
 
                                 //enemy does his turn, after you used yours for healing
-                                player.CurrentHealth -= enemy.Damage;
+                                player.CurrentHealth -= enemies[indexOfEnemy].Damage;
+                                enemies[indexOfEnemy].Turn(player, enemies, enemyDamage, indexOfEnemy);
 
                                 //if you died after this attack
-                                if (player.CurrentHealth <= 0)
-                                {
-                                    Print.Text($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
-                                    Print.Text($" fatal ", ConsoleColor.DarkRed);
-                                    Print.Text($"damage and has {player.CurrentHealth} health\n\n");
-
-                                    break;
-                                }
-
-                                else Print.Text($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
+                                if (player.CurrentHealth <= 0) break;
                             }
 
                             //if you don't have any potions
@@ -577,20 +568,12 @@ namespace EternityRPG
                             {
                                 Print.Text($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
 
-                                //enemy does his turn, after you used yours for healing
-                                player.CurrentHealth -= enemy.Damage;
+                                //boss does his turn, after you used yours for healing
+                                player.CurrentHealth -= enemies[indexOfEnemy].Damage;
+                                enemies[indexOfEnemy].Turn(player, enemies, enemyDamage, indexOfEnemy);
 
                                 //if you died after this attack
-                                if (player.CurrentHealth <= 0)
-                                {
-                                    Print.Text($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} get");
-                                    Print.Text($" fatal ", ConsoleColor.DarkRed);
-                                    Print.Text($"damage and has {player.CurrentHealth} health\n\n");
-
-                                    break;
-                                }
-
-                                else Print.Text($"\t{enemy.Name} deals {enemyDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
+                                if (player.CurrentHealth <= 0) break;
                             }
                         }
 
@@ -609,7 +592,7 @@ namespace EternityRPG
                         int tryToEscape = random.Next(0, 100);
 
                         //if you succeed in escaping
-                        if (tryToEscape > enemy.ChanceToInterruptTheEscape)
+                        if (tryToEscape > enemies[indexOfEnemy].ChanceToInterruptTheEscape)
                         {
                             //lost some gold from your bag
                             player.Gold -= 10;
@@ -628,22 +611,21 @@ namespace EternityRPG
                             break;
                         }
 
-                        //you can't avoid a battle with some enemies/bosses
-                        else if (enemy.ChanceToInterruptTheEscape == 100)
+                        //you can't avoid a battle with some enemies
+                        else if (enemies[indexOfEnemy].ChanceToInterruptTheEscape == 100)
                         {
-                            Print.Text($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
+                            Print.Text($"\n\tyou can't escape from the {enemies[indexOfEnemy].Name}\n", ConsoleColor.DarkRed);
                             //if you failed to escape, an enemy does his critical attack
-                            CritDamage(enemy);
+                            CritDamage(enemies[indexOfEnemy], enemyDamage);
 
                             if (player.CurrentHealth <= 0) break;
-
                         }
 
                         else
                         {
                             Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
                             //if you failed to escape, an enemy does his critical attack
-                            CritDamage(enemy);
+                            CritDamage(enemies[indexOfEnemy], enemyDamage);
 
                             if (player.CurrentHealth <= 0) break;
                             else continue;
@@ -652,7 +634,7 @@ namespace EternityRPG
                 }
 
                 if (player.CurrentHealth <= 0) break;
-                if (DefeatedEnemiesToFightTheBoss == bosses[index].CounterToReachTheBoss && !bosses[index].IsDead) break;
+                if (DefeatedEnemiesToFightTheBoss == bosses[indexOfBoss].CounterToReachTheBoss && !bosses[indexOfBoss].IsDead) break;
 
                 //asking if you want to continue grinding or not
                 yesNo = string.Empty;
@@ -672,27 +654,35 @@ namespace EternityRPG
                 }
 
                 //local function to generate an enemy damage with multiplier, which is also generating randomly
-                void CritDamage(Enemy enemy)
+                void CritDamage(Character enemy, double enemyDamage)
                 {
                     int criticalDamageMultiplier = random.Next(2, 4);
 
-                    player.CurrentHealth -= enemy.Damage * criticalDamageMultiplier;
+                    player.CurrentHealth -= enemyDamage * criticalDamageMultiplier;
 
                     if (player.CurrentHealth <= 0)
                     {
                         Print.Text($"\n\t{enemy.Name} made a ");
                         Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {enemy.Damage * criticalDamageMultiplier} damage, {player.Name} get");
+                        Print.Text($"attack {enemyDamage * criticalDamageMultiplier} damage, {player.Name} get");
                         Print.Text($" fatal ", ConsoleColor.DarkRed);
-                        Print.Text($"damage and has {player.CurrentHealth} health\n\n");
+                        Print.Text($"damage and has {player.CurrentHealth} health\n");
                     }
 
                     else
                     {
                         Print.Text($"\n\t{enemy.Name} made a ");
                         Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {enemy.Damage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                        Print.Text($"attack {enemyDamage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                     }
+                }
+
+                void EnemyIsDead()
+                {
+                    DefeatedEnemiesOverall++;
+                    DefeatedEnemiesToFightTheBoss++;
+                    player.Gold += enemies[indexOfEnemy].Gold;
+                    player.Exp += enemies[indexOfEnemy].Exp;
                 }
             }
         }
@@ -703,7 +693,7 @@ namespace EternityRPG
             {
                 //printing short name of the location before each boss
                 Print.Text($"Location: {location.ShortTitle}\n\n", ConsoleColor.DarkCyan);
-                Print.Text($"{bosses[index].Name}\n\n");
+                Print.Text($"{bosses[indexOfBoss].Name}\n\n");
 
                 Random random = new Random();
                 int choice = 0;
@@ -717,11 +707,13 @@ namespace EternityRPG
                     //every new cycle of fight generate unic damage for player and boss
                     //if player bought weapon, it will generate damage + weapon damage
                     double playerDamage;
-                    if (!weapon.Weapon1Bought && !weapon.Weapon2Bought) 
+                    if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                    {
                         playerDamage = player.GenerateDamage();
-                    else 
-                        playerDamage = player.GenerateDamage(weapon);
-                    double bossDamage = bosses[index].GenerateDamage();
+                    }
+                    else playerDamage = player.GenerateDamage(weapon);
+
+                    double bossDamage = bosses[indexOfBoss].GenerateDamage();
 
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -732,19 +724,16 @@ namespace EternityRPG
                     //manual fight
                     if (battleChoice == 1)
                     {
-                        bosses[index].CurrentHealth -= playerDamage;
+                        bosses[indexOfBoss].CurrentHealth -= playerDamage;
 
                         //if the boss is dead
-                        if (bosses[index].CurrentHealth <= 0)
+                        if (bosses[indexOfBoss].CurrentHealth <= 0)
                         {
-                            DefeatedBossesOverall++;
-                            bosses[index].IsDead = true;
-                            player.Gold += bosses[index].Gold;
-                            player.Exp += bosses[index].Exp;
+                            BossIsDead();
 
                             //check if player has enough experience to get new level
                             player.LevelUp(player.Exp);
-                            player.Turn(player, bosses, playerDamage);
+                            player.Turn(player, bosses, playerDamage, indexOfBoss);
                             Print.PlayerStatistics(player, weapon);
                             Print.PressEnter();
                             Console.Clear();
@@ -753,49 +742,36 @@ namespace EternityRPG
 
                         player.CurrentHealth -= bossDamage;
 
+                        player.Turn(player, bosses, playerDamage, indexOfBoss);
+                        bosses[indexOfBoss].Turn(player, bosses, bossDamage, indexOfBoss);
                         //if the player is dead
-                        if (player.CurrentHealth <= 0)
-                        {
-                            player.Turn(player, bosses, playerDamage);
-                            bosses[index].Turn(player, bosses, bossDamage);
-                            break;
-                        }
-
-                        //continue battle
-                        else
-                        {
-                            player.Turn(player, bosses, playerDamage);
-                            bosses[index].Turn(player, bosses, bossDamage);
-                        }
-                        continue;
+                        if (player.CurrentHealth <= 0) break;
                     }
 
                     //automatic fight
                     if (battleChoice == 2)
                     {
-                        while (player.CurrentHealth > 0 || bosses[index].CurrentHealth > 0)
+                        while (player.CurrentHealth > 0 || bosses[indexOfBoss].CurrentHealth > 0)
                         {
                             //every new cycle of fight generate unic damage for player and boss
                             //if player bought weapon, it will generate damage + weapon damage
-                            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought) 
+                            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                            {
                                 playerDamage = player.GenerateDamage();
-                            else 
-                                playerDamage = player.GenerateDamage(weapon);
-                            bossDamage = bosses[index].GenerateDamage();
-
-                            bosses[index].CurrentHealth -= playerDamage;
+                            }
+                            else playerDamage = player.GenerateDamage(weapon);
+                            
+                            bossDamage = bosses[indexOfBoss].GenerateDamage();
+                            bosses[indexOfBoss].CurrentHealth -= playerDamage;
 
                             //if the boss is dead
-                            if (bosses[index].CurrentHealth <= 0)
+                            if (bosses[indexOfBoss].CurrentHealth <= 0)
                             {
-                                DefeatedBossesOverall++;
-                                bosses[index].IsDead = true;
-                                player.Gold += bosses[index].Gold;
-                                player.Exp += bosses[index].Exp;
+                                BossIsDead();
 
                                 //check if player has enough experience to get new level
                                 player.LevelUp(player.Exp);
-                                player.Turn(player, bosses, playerDamage);
+                                player.Turn(player, bosses, playerDamage, indexOfBoss);
                                 Print.PlayerStatistics(player, weapon);
                                 Print.PressEnter();
                                 Console.Clear();
@@ -804,22 +780,12 @@ namespace EternityRPG
 
                             player.CurrentHealth -= bossDamage;
 
+                            player.Turn(player, bosses, playerDamage, indexOfBoss);
+                            bosses[indexOfBoss].Turn(player, bosses, bossDamage, indexOfBoss);
                             //if the player is dead
-                            if (player.CurrentHealth <= 0)
-                            {
-                                player.Turn(player, bosses, playerDamage);
-                                bosses[index].Turn(player, bosses, bossDamage);
-                                break;
-                            }
-
+                            if (player.CurrentHealth <= 0) break;
                             //continue battle
-                            else
-                            {
-                                player.Turn(player, bosses, playerDamage);
-                                bosses[index].Turn(player, bosses, bossDamage);
-                            }
-                            //pause before the next automatic turn
-                            Thread.Sleep(500);
+                            else Thread.Sleep(500);
                         }
 
                         break;
@@ -861,25 +827,14 @@ namespace EternityRPG
                                 }
 
                                 //if not => heal
-                                else
-                                {
-                                    Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
-                                }
+                                else Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n\n", ConsoleColor.DarkGreen);
 
                                 //boss does his turn, after you used yours for healing
-                                player.CurrentHealth -= bosses[index].Damage;
+                                player.CurrentHealth -= bosses[indexOfBoss].Damage;
+                                bosses[indexOfBoss].Turn(player, bosses, bossDamage, indexOfBoss);
 
                                 //if you died after this attack
-                                if (player.CurrentHealth <= 0)
-                                {
-                                    Print.Text($"\t{bosses[index].Name} deals {bossDamage} damage, {player.Name} get");
-                                    Print.Text($" fatal ", ConsoleColor.DarkRed);
-                                    Print.Text($"damage and has {player.CurrentHealth} health\n\n");
-
-                                    break;
-                                }
-
-                                else Print.Text($"\t{bosses[index].Name} deals {bossDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
+                                if (player.CurrentHealth <= 0) break;
                             }
 
                             //if you don't have any potions
@@ -888,19 +843,11 @@ namespace EternityRPG
                                 Print.Text($"\n\tYou don't have {medicineBag.Name}\n\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
-                                player.CurrentHealth -= bosses[index].Damage;
+                                player.CurrentHealth -= bosses[indexOfBoss].Damage;
+                                bosses[indexOfBoss].Turn(player, bosses, bossDamage, indexOfBoss);
 
                                 //if you died after this attack
-                                if (player.CurrentHealth <= 0)
-                                {
-                                    Print.Text($"\t{bosses[index].Name} deals {bossDamage} damage, {player.Name} get");
-                                    Print.Text($" fatal ", ConsoleColor.DarkRed);
-                                    Print.Text($"damage and has {player.CurrentHealth} health\n\n");
-
-                                    break;
-                                }
-
-                                else Print.Text($"\t{bosses[index].Name} deals {bossDamage} damage, {player.Name} have {player.CurrentHealth} health now\n\n");
+                                if (player.CurrentHealth <= 0) break;
                             }
                         }
 
@@ -915,61 +862,29 @@ namespace EternityRPG
                     //trying to run away from the enemy
                     if (battleChoice == 4)
                     {
-                        int tryToEscape = random.Next(0, 100);
+                        //you can't escape from boss
+                        Print.Text($"\n\tyou can't escape from the {bosses[indexOfBoss].Name}\n", ConsoleColor.DarkRed);
+                        CritDamage(bosses[indexOfBoss], bossDamage);
 
-                        if (tryToEscape > bosses[index].ChanceToInterruptTheEscape)
-                        {
-                            player.Gold -= 10;
-
-                            Print.Text("\n\tYou escaped successfully ");
-                            Print.Text("-10 ", ConsoleColor.DarkRed);
-                            Print.Text("gold", ConsoleColor.DarkYellow);
-                            Print.Text(", ");
-
-                            if (player.Gold <= 0) player.Gold = 0;
-
-                            Print.Text($"{player.Gold} ", ConsoleColor.DarkGreen);
-                            Print.Text("gold ", ConsoleColor.DarkYellow);
-                            Print.Text("remaining\n\n");
-
-                            break;
-                        }
-
-                        else if (bosses[index].ChanceToInterruptTheEscape == 100)
-                        {
-                            Print.Text($"\n\tyou can't escape from the {bosses[index].Name}\n", ConsoleColor.DarkRed);
-                            CritDamage(bosses[index]);
-
-                            if (player.CurrentHealth <= 0) break;
-
-                        }
-
-                        else
-                        {
-                            Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
-                            CritDamage(bosses[index]);
-
-                            if (player.CurrentHealth <= 0) break;
-                            else continue;
-                        }
+                        if (player.CurrentHealth <= 0) break;
                     }
                 }
 
                 if (player.CurrentHealth <= 0) break;
-                if (bosses[index].CurrentHealth <= 0) break;
+                if (bosses[indexOfBoss].CurrentHealth <= 0) break;
 
                 //local function to generate the boss damage with multiplier, which is also generating randomly
-                void CritDamage(Character boss)
+                void CritDamage(Character boss, double bossDamage)
                 {
                     int criticalDamageMultiplier = random.Next(2, 4);
 
-                    player.CurrentHealth -= boss.Damage * criticalDamageMultiplier;
+                    player.CurrentHealth -= bossDamage * criticalDamageMultiplier;
 
                     if (player.CurrentHealth <= 0)
                     {
                         Print.Text($"\n\t{boss.Name} made a ");
                         Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {boss.Damage * criticalDamageMultiplier} damage, {player.Name} get");
+                        Print.Text($"attack {bossDamage * criticalDamageMultiplier} damage, {player.Name} get");
                         Print.Text($" fatal ", ConsoleColor.DarkRed);
                         Print.Text($"damage and has {player.CurrentHealth} health\n\n");
                     }
@@ -978,33 +893,18 @@ namespace EternityRPG
                     {
                         Print.Text($"\n\t{boss.Name} made a ");
                         Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {boss.Damage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
+                        Print.Text($"attack {bossDamage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
                     }
                 }
+
+                void BossIsDead()
+                {
+                    DefeatedBossesOverall++;
+                    bosses[indexOfBoss].IsDead = true;
+                    player.Gold += bosses[indexOfBoss].Gold;
+                    player.Exp += bosses[indexOfBoss].Exp;
+                }
             }
-        }
-
-        public static void EnemyIsDead(Character player, Enemy enemy, double playerDamage)
-        {
-            DefeatedEnemiesOverall++;
-            DefeatedEnemiesToFightTheBoss++;
-            player.Gold += enemy.Gold;
-            player.Exp += enemy.Exp;
-            //check if player has enough experience to get new level
-            player.LevelUp(player.Exp);
-
-            Print.Text($"\n\t{player.Name} deals {playerDamage} damage, {enemy.Name} get");
-            Print.Text($" fatal ", ConsoleColor.DarkRed);
-            Print.Text($"damage and has {enemy.CurrentHealth} health\n");
-            Print.Text($"\n\tVICTORY. You have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
-        }
-
-        public static void PlayerIsDead(Character player, string name, double currentHealth, double playerDamage, double enemyDamage)
-        {
-            Print.Text($"\n\t{player.Name} deals {playerDamage} damage, {name} has {currentHealth} health now\n");
-            Print.Text($"\t{name} deals {enemyDamage} damage, {player.Name} get");
-            Print.Text($" fatal ", ConsoleColor.DarkRed);
-            Print.Text($"damage and has {player.CurrentHealth} health\n\n");
         }
     }
 }

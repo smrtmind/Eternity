@@ -310,7 +310,7 @@ namespace EternityRPG
             }
         }
 
-        public static string EntryBattlePhrase(Enemy enemy)
+        public static string EntryBattlePhrase(Character enemy)
         {
             Random random = new Random();
 
@@ -333,6 +333,7 @@ namespace EternityRPG
 
         public static void RainbowLoading(int length = 8)
         {
+            Text("\n");
             for (int i = 0; i <= length; i++)
             {
                 Text("|", ConsoleColor.Red, slowText: true);
@@ -355,7 +356,7 @@ namespace EternityRPG
             Text("|", ConsoleColor.Green, slowText: true);
             Text("|", ConsoleColor.Cyan, slowText: true);
             Text("|", ConsoleColor.DarkBlue, slowText: true);
-            Text("|", ConsoleColor.DarkMagenta, slowText: true);
+            Text("|\n", ConsoleColor.DarkMagenta, slowText: true);
         }
 
         public static void PressEnter()
