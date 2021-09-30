@@ -200,14 +200,12 @@ namespace EternityRPG
                                     weapon.Weapon2Bought = false;
                                 }
 
-
                                 if (type == 5)
                                 {
                                     weapon.Weapon2Bought = true;
                                     weapon.Weapon1Bought = false;
                                 }
                             }
-
                             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
                         }
                         Console.WriteLine();
@@ -228,7 +226,6 @@ namespace EternityRPG
                             if (yesNo.ToLower() == "y" || yesNo.ToLower() == "n") Console.Clear();
                         }
                     }
-
                     changeDirection = 2;
                 }
 
