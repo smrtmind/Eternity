@@ -4,15 +4,15 @@ namespace EternityRPG
 {
     public class Mage : Character
     {
-        public Mage(string name, string sex)
+        public Mage(string name, string gender)
         {
             Class = "mage";
-            Health = 1200;
+            Health = 120;
             CurrentHealth = Health;
             MinDamage = 13;
             MaxDamage = 18;
             Name = name;
-            Sex = sex;
+            Gender = gender;
             Gold = 0;
             Exp = 0;
         }

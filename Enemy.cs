@@ -4,17 +4,18 @@ namespace EternityRPG
 {
     public class Enemy : Character
     {
+        public int TypeOfEnemy { get; set; }
         public string AttackPhrase { get; set; }
 
-        public Enemy(int typeOfCharacter)
+        public Enemy(int typeOfEnemy)
         {
-            TypeOfCharacter = typeOfCharacter;
+            TypeOfEnemy = typeOfEnemy;
             CreateEnemy();
         }
 
         private void CreateEnemy()
         {
-            switch (TypeOfCharacter)
+            switch (TypeOfEnemy)
             {
                 case 1:
                     Name = "Stinky rat";

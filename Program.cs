@@ -14,19 +14,9 @@ namespace EternityRPG
         static void Main(string[] args)
         {
             MedicineBag medicineBag = new MedicineBag();
-            Character player;
             Weapon weapon = new Weapon();
             Location location;
-
-            string keyBoardInput = string.Empty;
-            string playerName = string.Empty;
-            string yesNo = string.Empty;
-            string sex = string.Empty;
-
-            int changeDirection = 0;
-            int locationType = 1;
-            int playerClass = 0;
-            int choice = 0;
+            Character player;
 
             Character[] bosses = new Character[]
             {
@@ -35,124 +25,109 @@ namespace EternityRPG
                 new boss3(),
                 new boss4()
             };
-
             Character[] enemies = new Character[9];
 
-            //PrintGameTitle();
-            //GetPressEnter();
+            string keyBoardInput = string.Empty;
+            string playerName = string.Empty;
+            string gender = string.Empty;
+            string yesNo = string.Empty;
 
-            //RainbowLoading();
-            ////Print("".PadLeft(Console.WindowWidth - 5, '|'), ConsoleColor.Blue, slowText: true);
-            //Console.Clear();
+            int changeDirection = 0;
+            int locationType = 1;
+            int playerClass = 0;
+            int choice = 0;
 
-            //Print("Hello, traveler. I can't remember your name. Can you help me with this?\n\n", ConsoleColor.DarkYellow);
-            //Thread.Sleep(4000);
+            Print.GameTitle();
+            Print.PressEnter();
+            Print.RainbowLoading();
+            Console.Clear();
+            Print.Text("Hello, traveler. I can't remember your name. Can you help me with this?\n\n", ConsoleColor.DarkYellow);
+            Thread.Sleep(3000);
 
-            //while (yesNo.ToLower() != "y")
-            //{
-            //    yesNo = string.Empty;
-            //    playerName = string.Empty;
+            while (yesNo.ToLower() != "y")
+            {
+                yesNo = string.Empty;
+                playerName = string.Empty;
 
-            //    Print("Enter your name or press ENTER: ");
+                Print.Text("Enter your name or press ENTER: ");
 
-            //    Console.ForegroundColor = ConsoleColor.Green;
-            //    keyBoardInput = Console.ReadLine();
-            //    Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Green;
+                keyBoardInput = Console.ReadLine();
+                Console.ResetColor();
 
-            //    //your name
-            //    if (keyBoardInput.Length > 0) playerName = keyBoardInput;
-            //    //default name
-            //    else playerName = "Sam";
+                //your name
+                if (keyBoardInput.Length > 0) playerName = keyBoardInput;
+                //default name
+                else playerName = "Sam";
 
-            //    //selection of player's gender
-            //    PrintOptions(8, player, medicineBag, weapon, boss1, boss2, boss3);
+                //selection of player's gender
+                Print.GenderOptions();
 
-            //    choice = 0;
+                choice = 0;
+                //gender of your character
+                while (choice == 0 || choice > 2)
+                {
+                    Print.Text("choose gender: ".PadLeft(47, ' '));
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    keyBoardInput = Console.ReadLine();
+                    int.TryParse(keyBoardInput, out choice);
+                    Console.ResetColor();
 
-            //    //gender of your character
-            //    while (choice != 1 && choice != 2)
-            //    {
-            //        Print("choose gender: ".PadLeft(47, ' '));
-            //        Console.ForegroundColor = ConsoleColor.Green;
-            //        keyBoardInput = Console.ReadLine();
-            //        int.TryParse(keyBoardInput, out choice);
-            //        Console.ResetColor();
+                    if (choice == 1) gender = "male";
+                    if (choice == 2) gender = "female";
+                }
 
-            //        if (choice == 1) sex = "male";
-            //        if (choice == 2) sex = "female";
-            //    }
+                //selection of the player class before start of the game
+                Print.PlayerClassOptions();
 
-            //    //selection of the player claa before start of the game
-            //    PrintOptions(6, player, medicineBag, weapon, boss1, boss2, boss3);
+                playerClass = 0;
+                while (playerClass == 0 || playerClass > 3)
+                {
+                    Print.Text("choose class: ".PadLeft(46, ' '));
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    keyBoardInput = Console.ReadLine();
+                    int.TryParse(keyBoardInput, out playerClass);
+                    Console.ResetColor();
+                }
+                Console.Clear();
 
-            //    playerClass = 0;
+                //creating player and weapon according to collected data
+                player = CreatePlayer(playerClass, playerName, gender);
+                weapon = new Weapon(playerClass);
 
-            //    while (playerClass != 1 && playerClass != 2 && playerClass != 3)
-            //    {
-            //        Print("choose class: ".PadLeft(46, ' '));
-            //        Console.ForegroundColor = ConsoleColor.Green;
-            //        keyBoardInput = Console.ReadLine();
-            //        int.TryParse(keyBoardInput, out playerClass);
-            //        Console.ResetColor();
-            //    }
-            //    Console.Clear();
+                //card of player before start of the game
+                Print.PlayerShortInfo(player);
 
-            //    //creating player and weapon according to collected data
-            //    player = new Player(playerClass, playerName, sex);
-            //    weapon = new Weapon(playerClass);
+                yesNo = string.Empty;
+                while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
+                {
+                    Print.Text("Are you ready to start the adventure with this character?");
+                    Print.Text(" [y] ", ConsoleColor.Green);
+                    Print.Text("/");
+                    Print.Text(" [n]", ConsoleColor.Green);
+                    Print.Text(": ");
 
-            //    //card of player before start of the game
-            //    PrintOptions(7, player, medicineBag, weapon, boss1, boss2, boss3);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    yesNo = Console.ReadLine();
+                    Console.ResetColor();
+                }
+                Console.Clear();
+            }
+            Console.Clear();
 
-            //    yesNo = string.Empty;
-            //    while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
-            //    {
-            //        Print("Are you ready to start the adventure with this character?");
-            //        Print(" [y] ", ConsoleColor.Green);
-            //        Print("/");
-            //        Print(" [n]", ConsoleColor.Green);
-            //        Print(": ");
+            player = CreatePlayer(playerClass, playerName, gender);
+            
+            Print.Text("The adventure begins\n\n");
+            Print.RainbowLoading();
+            Print.Text("\n\n");
+            Print.PressEnter();
+            Console.Clear();
+            //end with collecting the player data
 
-            //        Console.ForegroundColor = ConsoleColor.Green;
-            //        yesNo = Console.ReadLine();
-            //        Console.ResetColor();
-            //    }
-            //    Console.Clear();
-            //}
-            //Console.Clear();
+            Print.Text("You starts your way at the dark forest, full of different creatures.\n" +
+                       "You have to be careful, you never know what to expect.\n\n", ConsoleColor.DarkGreen, slowText: true);
 
-            //Print("The adventure begins\n\n");
-            //RainbowLoading();
-            //Print("\n\n");
-            ////Print("".PadLeft(Console.WindowWidth - 5, '|') + "\n\n", ConsoleColor.Blue, slowText: true);
-            //GetPressEnter();
-            //Console.Clear();
-            ////end with collecting the player data
-
-            //Print("\tAmong the many things that video games can do well,\n\n" +
-            //      "is to tell a good story. Sometimes, the story is so good, it  leaves\n\n" +
-            //      "a lasting impact on you, an impact akin to what you might feel after\n\n" +
-            //      "reading a great book, or watching a great movie. Games can offer you\n\n" +
-            //      "the same experience, but it’s honestly waay better, because you  get\n\n" +
-            //      "to play the game and BE the story.\n\n", ConsoleColor.DarkYellow, slowText: true);
-
-            //GetPressEnter();
-            //Console.Clear();
-
-            //Print("You starts your way at the dark forest, full of different creatures.\n" +
-            //      "You have to be careful, you never know what to expect.\n\n", ConsoleColor.DarkGreen);
-
-            //GetPressEnter();
-
-
-
-            player = new Mage("Oleg", "male");
-            weapon = new Weapon(3);
-
-
-            //player = new Player(3, "Oleg", "male");
-            //weapon = new Weapon(3);
-
+            Print.PressEnter();
 
             //section of the main gameplay
             while (true)
@@ -165,7 +140,7 @@ namespace EternityRPG
                     yesNo = string.Empty;
                     while (yesNo.ToLower() != "n")
                     {
-                        Print.Options(5, player, medicineBag, weapon, bosses);
+                        Print.ShopOptions(player, weapon, medicineBag);
 
                         int choiceInTheShop = 0;
                         while (choiceInTheShop == 0 || choiceInTheShop > 5)
@@ -267,7 +242,7 @@ namespace EternityRPG
                 //select between locations
                 if (changeDirection == 2)
                 {
-                    Print.Options(3, player, medicineBag, weapon, bosses);
+                    Print.SelectLocation(bosses);
 
                     locationType = 0;
 
@@ -375,7 +350,7 @@ namespace EternityRPG
                 }
 
                 //change your direction
-                Print.Options(4, player, medicineBag, weapon, bosses);
+                Print.ChangeDirection();
 
                 changeDirection = 0;
                 while (changeDirection == 0 || changeDirection > 3)
@@ -432,8 +407,8 @@ namespace EternityRPG
 
                 //print randomly generated phrase when new enemy appear
                 Print.Text(Print.EntryBattlePhrase(enemies[indexOfEnemy]));
-                //battle options
-                Print.Options(1, player, medicineBag, weapon, bosses);
+
+                Print.BattleOptions();
 
                 while (true)
                 {
@@ -443,7 +418,7 @@ namespace EternityRPG
                     if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
                     {
                         playerDamage = player.GenerateDamage();
-                    }    
+                    }
                     else playerDamage = player.GenerateDamage(weapon);
 
                     double enemyDamage = enemies[indexOfEnemy].GenerateDamage();
@@ -520,8 +495,7 @@ namespace EternityRPG
                     //battle optins => healing options
                     if (battleChoice == 3)
                     {
-                        //print healing options
-                        Print.Options(2, player, medicineBag, weapon, bosses);
+                        Print.HealingOptions(medicineBag);
 
                         choice = 0;
                         while (choice != 1 && choice != 2 && choice != 3)
@@ -616,7 +590,7 @@ namespace EternityRPG
                         {
                             Print.Text($"\n\tyou can't escape from the {enemies[indexOfEnemy].Name}\n", ConsoleColor.DarkRed);
                             //if you failed to escape, an enemy does his critical attack
-                            CritDamage(enemies[indexOfEnemy], enemyDamage);
+                            CriticalDamage(player, enemies[indexOfEnemy], enemyDamage);
 
                             if (player.CurrentHealth <= 0) break;
                         }
@@ -625,7 +599,7 @@ namespace EternityRPG
                         {
                             Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
                             //if you failed to escape, an enemy does his critical attack
-                            CritDamage(enemies[indexOfEnemy], enemyDamage);
+                            CriticalDamage(player, enemies[indexOfEnemy], enemyDamage);
 
                             if (player.CurrentHealth <= 0) break;
                             else continue;
@@ -653,30 +627,6 @@ namespace EternityRPG
                     if (yesNo.ToLower() == "y" || yesNo.ToLower() == "n") Console.Clear();
                 }
 
-                //local function to generate an enemy damage with multiplier, which is also generating randomly
-                void CritDamage(Character enemy, double enemyDamage)
-                {
-                    int criticalDamageMultiplier = random.Next(2, 4);
-
-                    player.CurrentHealth -= enemyDamage * criticalDamageMultiplier;
-
-                    if (player.CurrentHealth <= 0)
-                    {
-                        Print.Text($"\n\t{enemy.Name} made a ");
-                        Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {enemyDamage * criticalDamageMultiplier} damage, {player.Name} get");
-                        Print.Text($" fatal ", ConsoleColor.DarkRed);
-                        Print.Text($"damage and has {player.CurrentHealth} health\n");
-                    }
-
-                    else
-                    {
-                        Print.Text($"\n\t{enemy.Name} made a ");
-                        Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {enemyDamage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
-                    }
-                }
-
                 void EnemyIsDead()
                 {
                     DefeatedEnemiesOverall++;
@@ -699,8 +649,7 @@ namespace EternityRPG
                 int choice = 0;
                 string keyBoardInput = string.Empty;
 
-                //battle options
-                Print.Options(1, player, medicineBag, weapon, bosses);
+                Print.BattleOptions();
 
                 while (true)
                 {
@@ -760,7 +709,7 @@ namespace EternityRPG
                                 playerDamage = player.GenerateDamage();
                             }
                             else playerDamage = player.GenerateDamage(weapon);
-                            
+
                             bossDamage = bosses[indexOfBoss].GenerateDamage();
                             bosses[indexOfBoss].CurrentHealth -= playerDamage;
 
@@ -794,8 +743,7 @@ namespace EternityRPG
                     //battle optins => healing options
                     if (battleChoice == 3)
                     {
-                        //print healing options
-                        Print.Options(2, player, medicineBag, weapon, bosses);
+                        Print.HealingOptions(medicineBag);
 
                         choice = 0;
                         while (choice == 0 || choice > 3)
@@ -864,7 +812,7 @@ namespace EternityRPG
                     {
                         //you can't escape from boss
                         Print.Text($"\n\tyou can't escape from the {bosses[indexOfBoss].Name}\n", ConsoleColor.DarkRed);
-                        CritDamage(bosses[indexOfBoss], bossDamage);
+                        CriticalDamage(player, bosses[indexOfBoss], bossDamage);
 
                         if (player.CurrentHealth <= 0) break;
                     }
@@ -872,30 +820,6 @@ namespace EternityRPG
 
                 if (player.CurrentHealth <= 0) break;
                 if (bosses[indexOfBoss].CurrentHealth <= 0) break;
-
-                //local function to generate the boss damage with multiplier, which is also generating randomly
-                void CritDamage(Character boss, double bossDamage)
-                {
-                    int criticalDamageMultiplier = random.Next(2, 4);
-
-                    player.CurrentHealth -= bossDamage * criticalDamageMultiplier;
-
-                    if (player.CurrentHealth <= 0)
-                    {
-                        Print.Text($"\n\t{boss.Name} made a ");
-                        Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {bossDamage * criticalDamageMultiplier} damage, {player.Name} get");
-                        Print.Text($" fatal ", ConsoleColor.DarkRed);
-                        Print.Text($"damage and has {player.CurrentHealth} health\n\n");
-                    }
-
-                    else
-                    {
-                        Print.Text($"\n\t{boss.Name} made a ");
-                        Print.Text("CRITICAL ", ConsoleColor.Red);
-                        Print.Text($"attack {bossDamage * criticalDamageMultiplier} damage, {player.Name} have {player.CurrentHealth} now\n\n");
-                    }
-                }
 
                 void BossIsDead()
                 {
@@ -905,6 +829,42 @@ namespace EternityRPG
                     player.Exp += bosses[indexOfBoss].Exp;
                 }
             }
+        }
+
+        public static void CriticalDamage(Character player, Character enemy, double damage)
+        {
+            Random random = new Random();
+            int criticalDamageMultiplier = random.Next(2, 4);
+
+            player.CurrentHealth -= damage * criticalDamageMultiplier;
+
+            if (player.CurrentHealth <= 0)
+            {
+                Print.Text($"\n\t{enemy.Name} ", ConsoleColor.DarkMagenta);
+                Print.Text("strikes with a branch deals ");
+                Print.Text($"CRITICAL {damage * criticalDamageMultiplier} DMG", ConsoleColor.DarkRed);
+                Print.Text(", ");
+                Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
+                Print.Text("died\n");
+            }
+
+            else
+            {
+                Print.Text($"\n\t{enemy.Name} ", ConsoleColor.DarkMagenta);
+                Print.Text("strikes with a branch deals ");
+                Print.Text($"CRITICAL {damage * criticalDamageMultiplier} DMG", ConsoleColor.DarkRed);
+                Print.Text(", ");
+                Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
+                Print.Text("have ");
+                Print.Text($"{player.CurrentHealth} HP\n\n", ConsoleColor.DarkGreen);
+            }
+        }
+
+        public static Character CreatePlayer(int playerClass, string playerName, string gender)
+        {
+            if (playerClass == 1) return new Knight(playerName, gender);
+            if (playerClass == 2) return new Archer(playerName, gender);
+            else return new Mage(playerName, gender);
         }
     }
 }

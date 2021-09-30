@@ -4,22 +4,27 @@ namespace EternityRPG
 {
     public abstract class Character
     {
-        public int CounterToReachTheBoss { get; set; }
         public Random random = new Random();
+
+        //enemy variables
+        public int CounterToReachTheBoss { get; set; }
+        public int ChanceToInterruptTheEscape { get; set; }
+        public bool IsDead { get; set; }
+        
+        //player variables
+        public string Gender { get; set; }
+        public string Class { get; set; }
+        public int Lvl { get; set; } = 1;
+
+        //general variables
         public string Name { get; set; }
         public double Health { get; set; }
         public double CurrentHealth { get; set; }
         public double Damage { get; set; }
-        public int Exp { get; set; }
-        public int Gold { get; set; }
-        public int TypeOfCharacter { get; set; }
-        public int ChanceToInterruptTheEscape { get; set; }
-        public bool IsDead { get; set; }
-        public string Sex { get; set; }
         public double MinDamage { get; set; }
         public double MaxDamage { get; set; }
-        public string Class { get; set; }
-        public int Lvl { get; set; } = 1;
+        public int Exp { get; set; }
+        public int Gold { get; set; }
 
 
         public virtual double GenerateDamage() => Damage = random.Next((int) MinDamage, (int) MaxDamage);

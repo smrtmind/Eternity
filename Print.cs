@@ -5,178 +5,167 @@ namespace EternityRPG
 {
     public static class Print
     {
-        public static void Options(int type, Character player, MedicineBag medicineBag, Weapon weapon, Character[] bosses)
+        public static void GenderOptions()//selection of player's gender
         {
-            //battle options
-            if (type == 1)
+            Text("\nChoose your character's gender:");
+            Text(" [1] ", ConsoleColor.Green);
+            Text("male\n");
+            Text(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
+            Text("female\n\n");
+        }
+
+        public static void PlayerClassOptions()//selection of the player class before start of the game
+        {
+            Text("\nChoose your character's class: ");
+            Text(" [1] ", ConsoleColor.Green);
+            Text("knight\n");
+            Text(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
+            Text("archer\n");
+            Text(" [3] ".PadLeft(36, ' '), ConsoleColor.Green);
+            Text("mage\n\n");
+        }
+
+        public static void PlayerShortInfo(Character player)//card of player before start of the game
+        {
+            Text("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
+            Text("Your character\n", ConsoleColor.DarkYellow);
+            Text("name:\t");
+            Text($"{player.Name}\n", ConsoleColor.Green);
+            Text("gender:\t");
+            Text($"{player.Gender}\n", ConsoleColor.Green);
+            Text("class:\t");
+            Text($"{player.Class}\n", ConsoleColor.Green);
+            Text("".PadLeft(25, '<') + "\n\n", ConsoleColor.Magenta);
+        }
+
+        public static void ShopOptions(Character player, Weapon weapon, MedicineBag medicineBag)
+        {
+            Text("You are in the shop.\nWhat do you want to buy? ");
+            Text(" [1] ", ConsoleColor.Green);
+            Text("small healing potion\t");
+            Text($"{medicineBag.SmallCost} gold", ConsoleColor.DarkYellow);
+            Text("  / ");
+            Text($"you have {medicineBag.SmallAmount}\n", ConsoleColor.Cyan);
+            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("medium healing potion\t");
+            Text($"{medicineBag.MediumCost} gold", ConsoleColor.DarkYellow);
+            Text("  / ");
+            Text($"you have {medicineBag.MediumAmount}\n", ConsoleColor.Cyan);
+            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("big healing potion\t");
+            Text($"{medicineBag.BigCost} gold", ConsoleColor.DarkYellow);
+            Text(" / ");
+            Text($"you have {medicineBag.BigAmount}\n\n", ConsoleColor.Cyan);
+
+            //you can see weapon according to the selected class of player
+            Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text($"{weapon.Weapon1}\t", ConsoleColor.DarkCyan);
+            Text($"+{weapon.Damage1}\t", ConsoleColor.DarkRed);
+            Text($"{weapon.Cost1} gold\n", ConsoleColor.DarkYellow);
+            Text(" [5] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text($"{weapon.Weapon2}\t", ConsoleColor.DarkCyan);
+            Text($"+{weapon.Damage2}\t", ConsoleColor.DarkRed);
+            Text($"{weapon.Cost2} gold\n\n", ConsoleColor.DarkYellow);
+
+            //gold in your bag
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text($"exit");
+            Text($"\t\t\t{player.Gold} ", ConsoleColor.Green);
+            Text("gold ", ConsoleColor.DarkYellow);
+            Text("in your bag\n\n");
+        }
+
+        public static void SelectLocation(Character[] bosses)
+        {
+            int deathCounter = 0;
+            foreach (var boss in bosses) if (boss.IsDead) deathCounter++;
+
+            //if all bosses are dead, you can see last secret location
+            if (deathCounter == 3)
             {
-                Text("What are you going to do?");
+                Text("Where do you want to go? ");
                 Text(" [1] ", ConsoleColor.Green);
-                Text("attack\n");
+                Text("Dark forest\t");
+                Condition(bosses[0]);
+
                 Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("auto attack\n");
+                Text("Caves\t\t");
+                Condition(bosses[1]);
+
                 Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("heal\n");
+                Text("Volcano\t\t");
+                Condition(bosses[2]);
+
                 Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("run away\n\n");
+                Text("Lair of true evil\n\n", ConsoleColor.DarkRed);
             }
 
-            //battle optins => healing options
-            if (type == 2)
+            //if not, you can see only three locations
+            else
             {
+                Text("Where do you want to go? ");
+                Text(" [1] ", ConsoleColor.Green);
+                Text("Dark forest\t");
+                Condition(bosses[0]);
+
+                Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Text("Caves\t\t");
+                Condition(bosses[1]);
+
+                Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Text("Volcano\t\t");
+                Condition(bosses[2]);
                 Text("\n");
-                Text("Choose a potion:".PadLeft(25, ' '));
-                Text(" [1] ", ConsoleColor.DarkYellow);
-                Text($"small\t");
-                Text($"{medicineBag.SmallAmount}\n", ConsoleColor.DarkYellow);
-                Text(" [2] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
-                Text($"medium\t");
-                Text($"{medicineBag.MediumAmount}\n", ConsoleColor.DarkYellow);
-                Text(" [3] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
-                Text($"big\t");
-                Text($"{medicineBag.BigAmount}\n\n", ConsoleColor.DarkYellow);
-                Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
-                Text($"back\n\n");
             }
 
-            //options to select the location
-            if (type == 3)
+            void Condition(Character boss)
             {
-                int deathCounter = 0;
-                foreach (var boss in bosses) if (boss.IsDead) deathCounter++;
-
-                //if all bosses are dead, you can see last secret location
-                if (deathCounter == 3)
-                {
-                    Text("Where do you want to go? ");
-                    Text(" [1] ", ConsoleColor.Green);
-                    Text("Dark forest\t");
-                    Condition(bosses[0]);
-
-                    Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                    Text("Caves\t\t");
-                    Condition(bosses[1]);
-
-                    Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                    Text("Volcano\t\t");
-                    Condition(bosses[2]);
-
-                    Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-                    Text("Lair of true evil\n\n", ConsoleColor.DarkRed);
-                }
-
-                //if not, you can see only three locations
+                if (!boss.IsDead)
+                    Text("boss is alive\n", ConsoleColor.DarkRed);
                 else
-                {
-                    Text("Where do you want to go? ");
-                    Text(" [1] ", ConsoleColor.Green);
-                    Text("Dark forest\t");
-                    Condition(bosses[0]);
-
-                    Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                    Text("Caves\t\t");
-                    Condition(bosses[1]);
-
-                    Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                    Text("Volcano\t\t");
-                    Condition(bosses[2]);
-                    Text("\n");
-                }
-
-                void Condition(Character boss)
-                {
-                    if (!boss.IsDead) 
-                        Text("boss is alive\n", ConsoleColor.DarkRed);
-                    else 
-                        Text("boss is defeated\n", ConsoleColor.DarkGreen);
-                }
+                    Text("boss is defeated\n", ConsoleColor.DarkGreen);
             }
+        }
 
-            //options to change direction
-            if (type == 4)
-            {
-                Text("What is next?");
-                Text(" [1] ", ConsoleColor.Cyan);
-                Text("go to the shop\n");
-                Text(" [2] ".PadLeft(18, ' '), ConsoleColor.Cyan);
-                Text("change location\n");
-                Text(" [3] ".PadLeft(18, ' '), ConsoleColor.Cyan);
-                Text("show stats\n\n");
-            }
+        public static void ChangeDirection()//options to choose between shop, locations...
+        {
+            Text("What is next?");
+            Text(" [1] ", ConsoleColor.Cyan);
+            Text("go to the shop\n");
+            Text(" [2] ".PadLeft(18, ' '), ConsoleColor.Cyan);
+            Text("change location\n");
+            Text(" [3] ".PadLeft(18, ' '), ConsoleColor.Cyan);
+            Text("show stats\n\n");
+        }
 
-            //shop options
-            if (type == 5)
-            {
-                Text("You are in the shop.\nWhat do you want to buy? ");
-                Text(" [1] ", ConsoleColor.Green);
-                Text("small healing potion\t");
-                Text($"{medicineBag.SmallCost} gold", ConsoleColor.DarkYellow);
-                Text("  / ");
-                Text($"you have {medicineBag.SmallAmount}\n", ConsoleColor.Cyan);
-                Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("medium healing potion\t");
-                Text($"{medicineBag.MediumCost} gold", ConsoleColor.DarkYellow);
-                Text("  / ");
-                Text($"you have {medicineBag.MediumAmount}\n", ConsoleColor.Cyan);
-                Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("big healing potion\t");
-                Text($"{medicineBag.BigCost} gold", ConsoleColor.DarkYellow);
-                Text(" / ");
-                Text($"you have {medicineBag.BigAmount}\n\n", ConsoleColor.Cyan);
+        public static void BattleOptions()
+        {
+            Text("What are you going to do?");
+            Text(" [1] ", ConsoleColor.Green);
+            Text("attack\n");
+            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("auto attack\n");
+            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("heal\n");
+            Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("run away\n\n");
+        }
 
-                //you can see weapon according to the selected class of player
-                Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text($"{weapon.Weapon1}\t", ConsoleColor.DarkCyan);
-                Text($"+{weapon.Damage1}\t", ConsoleColor.DarkRed);
-                Text($"{weapon.Cost1} gold\n", ConsoleColor.DarkYellow);
-                Text(" [5] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text($"{weapon.Weapon2}\t", ConsoleColor.DarkCyan);
-                Text($"+{weapon.Damage2}\t", ConsoleColor.DarkRed);
-                Text($"{weapon.Cost2} gold\n\n", ConsoleColor.DarkYellow);
-
-                //gold in your bag
-                Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text($"exit");
-                Text($"\t\t\t{player.Gold} ", ConsoleColor.Green);
-                Text("gold ", ConsoleColor.DarkYellow);
-                Text("in your bag\n\n");
-            }
-
-            //selection of the player claa before start of the game
-            if (type == 6)
-            {
-                Text("\nChoose your character's class: ");
-                Text(" [1] ", ConsoleColor.Green);
-                Text("knight\n");
-                Text(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
-                Text("archer\n");
-                Text(" [3] ".PadLeft(36, ' '), ConsoleColor.Green);
-                Text("mage\n\n");
-            }
-
-            //card of player before start of the game
-            if (type == 7)
-            {
-                Text("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
-                Text("Your character\n", ConsoleColor.DarkYellow);
-                Text("name:\t");
-                Text($"{player.Name}\n", ConsoleColor.Green);
-                Text("gender:\t");
-                Text($"{player.Sex}\n", ConsoleColor.Green);
-                Text("class:\t");
-                Text($"{player.Class}\n", ConsoleColor.Green);
-                Text("".PadLeft(25, '<') + "\n\n", ConsoleColor.Magenta);
-            }
-
-            //selection of player's gender
-            if (type == 8)
-            {
-                Text("\nChoose your character's gender:");
-                Text(" [1] ", ConsoleColor.Green);
-                Text("male\n");
-                Text(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
-                Text("female\n\n");
-            }
+        public static void HealingOptions(MedicineBag medicineBag)//battle optins => healing options
+        {
+            Text("\n");
+            Text("Choose a potion:".PadLeft(25, ' '));
+            Text(" [1] ", ConsoleColor.DarkYellow);
+            Text($"small\t");
+            Text($"{medicineBag.SmallAmount}\n", ConsoleColor.DarkYellow);
+            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
+            Text($"medium\t");
+            Text($"{medicineBag.MediumAmount}\n", ConsoleColor.DarkYellow);
+            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
+            Text($"big\t");
+            Text($"{medicineBag.BigAmount}\n\n", ConsoleColor.DarkYellow);
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
+            Text($"back\n\n");
         }
 
         public static void BoosFight()
@@ -251,7 +240,7 @@ namespace EternityRPG
             {
                 Text($" {player.Name}", ConsoleColor.DarkYellow);
                 Text(" / ");
-                Text($"{player.Sex}\n", ConsoleColor.Cyan);
+                Text($"{player.Gender}\n", ConsoleColor.Cyan);
                 Text(" class:           ");
                 Text($"{player.Class}\n", ConsoleColor.Green);
                 Text(" lvl:             ");
@@ -402,7 +391,7 @@ namespace EternityRPG
             {
                 Text($" {player.Name}", ConsoleColor.DarkYellow);
                 Text(" / ");
-                Text($"{player.Sex}\n", ConsoleColor.Cyan);
+                Text($"{player.Gender}\n", ConsoleColor.Cyan);
                 Text(" class:      ");
                 Text($"{player.Class}\n", ConsoleColor.Green);
                 Text(" lvl:        ");

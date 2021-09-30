@@ -14,7 +14,7 @@ namespace EternityRPG
             Exp = 300;
             Gold = 450;
             IsDead = false;
-            CounterToReachTheBoss = 2;
+            CounterToReachTheBoss = 20;
             ChanceToInterruptTheEscape = 100;
         }
 

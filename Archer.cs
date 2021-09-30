@@ -4,7 +4,7 @@ namespace EternityRPG
 {
     public class Archer : Character
     {
-        public Archer(string name, string sex)
+        public Archer(string name, string gender)
         {
             Class = "archer";
             Health = 160;
@@ -12,7 +12,7 @@ namespace EternityRPG
             MinDamage = 10;
             MaxDamage = 15;
             Name = name;
-            Sex = sex;
+            Gender = gender;
             Gold = 0;
             Exp = 0;
         }
