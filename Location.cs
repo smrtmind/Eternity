@@ -29,7 +29,7 @@ namespace EternityRPG
                     break;
 
                 case 3:
-                    LocationInfo = "The heat from volcanic rocks burns your equipment, you need to move forward, it is dangerous to stand still.\n";
+                    LocationInfo = "The heat from volcanic rocks burns your body, you need to move forward, it is dangerous to stand still.\n";
                     ShortTitle = "Volcano";
                     break;
 
@@ -40,16 +40,16 @@ namespace EternityRPG
             }
         }
 
-        public int EnemyIndex()
+        public Character CreateEnemy()
         {
             Random random = new Random();
-            int enemyIndex = 0;
+            Character enemy = new Enemy();
 
-            if (TypeOfLocation == 1) enemyIndex = random.Next(0, 3);
-            if (TypeOfLocation == 2) enemyIndex = random.Next(3, 6);
-            if (TypeOfLocation == 3) enemyIndex = random.Next(6, 9);
+            if (TypeOfLocation == 1) enemy = new Enemy(random.Next(1, 4));
+            if (TypeOfLocation == 2) enemy = new Enemy(random.Next(4, 7));
+            if (TypeOfLocation == 3) enemy = new Enemy(random.Next(7, 10));
 
-            return enemyIndex;
+            return enemy;
         }
     }
 }

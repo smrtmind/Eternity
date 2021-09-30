@@ -80,6 +80,6 @@ namespace EternityRPG
             }
         }
 
-        public virtual void Turn(Character player, Character[] enemy, double damage, int index) { }
+        public virtual void Turn(Character player, Character enemy, double damage) { }
     }
 }

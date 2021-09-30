@@ -17,25 +17,25 @@ namespace EternityRPG
             Exp = 0;
         }
 
-        public override void Turn(Character player, Character[] enemy, double playerDamage, int index)
+        public override void Turn(Character player, Character enemy, double playerDamage)
         {
-            if (enemy[index].CurrentHealth <= 0)
+            if (enemy.CurrentHealth <= 0)
             {
                 Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
                 Print.Text("shoot an arrow deals ");
                 Print.Text($"{playerDamage} DMG", ConsoleColor.DarkGreen);
                 Print.Text(", ");
-                Print.Text($"{enemy[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
-                if (enemy[index].IsDead)
+                if (enemy.IsDead)
                 {
                     Print.BossVanquished();
-                    Print.Text($"\n\tYou have earned {enemy[index].Gold} gold and {enemy[index].Exp} exp\n", ConsoleColor.DarkYellow);
+                    Print.Text($"\n\tYou have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
                 }
 
                 else
-                    Print.Text($"\n\tVICTORY. You have earned {enemy[index].Gold} gold and {enemy[index].Exp} exp\n", ConsoleColor.DarkYellow);
+                    Print.Text($"\n\tVICTORY. You have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
             }
 
             else
@@ -44,9 +44,9 @@ namespace EternityRPG
                 Print.Text("shoot an arrow deals ");
                 Print.Text($"{playerDamage} DMG", ConsoleColor.DarkGreen);
                 Print.Text(", ");
-                Print.Text($"{enemy[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("have ");
-                Print.Text($"{enemy[index].CurrentHealth} HP\n", ConsoleColor.DarkRed);
+                Print.Text($"{enemy.CurrentHealth} HP\n", ConsoleColor.DarkRed);
             }
         }
     }

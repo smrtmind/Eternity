@@ -7,6 +7,9 @@ namespace EternityRPG
         public int TypeOfEnemy { get; set; }
         public string AttackPhrase { get; set; }
 
+
+        public Enemy() { }
+
         public Enemy(int typeOfEnemy)
         {
             TypeOfEnemy = typeOfEnemy;
@@ -127,11 +130,11 @@ namespace EternityRPG
             }
         }
 
-        public override void Turn(Character player, Character[] enemy, double enemyDamage, int index)
+        public override void Turn(Character player, Character enemy, double enemyDamage)
         {
             if (player.CurrentHealth <= 0)
             {
-                Print.Text($"\t{enemy[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text($"{AttackPhrase} deals ");
                 Print.Text($"{enemyDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");
@@ -141,7 +144,7 @@ namespace EternityRPG
 
             else
             {
-                Print.Text($"\t{enemy[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text($"{AttackPhrase} deals ");
                 Print.Text($"{enemyDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");

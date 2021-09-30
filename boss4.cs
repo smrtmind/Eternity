@@ -17,11 +17,11 @@ namespace EternityRPG
             ChanceToInterruptTheEscape = 100;
         }
 
-        public override void Turn(Character player, Character[] boss, double bossDamage, int index)
+        public override void Turn(Character player, Character boss, double bossDamage)
         {
             if (player.CurrentHealth <= 0)
             {
-                Print.Text($"\t{boss[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"\t{boss.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("pierces with the sword of darkness, deals ");
                 Print.Text($"{bossDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");
@@ -31,7 +31,7 @@ namespace EternityRPG
 
             else
             {
-                Print.Text($"\t{boss[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"\t{boss.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("pierces with the sword of darkness, deals ");
                 Print.Text($"{bossDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");

@@ -14,15 +14,15 @@ namespace EternityRPG
             Exp = 500;
             Gold = 700;
             IsDead = false;
-            CounterToReachTheBoss = 25;
+            CounterToReachTheBoss = random.Next(20, 30);
             ChanceToInterruptTheEscape = 100;
         }
 
-        public override void Turn(Character player, Character[] boss, double bossDamage, int index)
+        public override void Turn(Character player, Character boss, double bossDamage)
         {
             if (player.CurrentHealth <= 0)
             {
-                Print.Text($"\t{boss[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"\t{boss.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("throws a huge stone, deals ");
                 Print.Text($"{bossDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");
@@ -32,7 +32,7 @@ namespace EternityRPG
 
             else
             {
-                Print.Text($"\t{boss[index].Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"\t{boss.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("throws a huge stone, deals ");
                 Print.Text($"{bossDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");
