@@ -19,6 +19,8 @@ namespace EternityRPG
 
         public override void Turn(Character player, Character enemy, double playerDamage)
         {
+            enemy.CurrentHealth -= playerDamage;
+
             if (enemy.CurrentHealth <= 0)
             {
                 Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
@@ -28,8 +30,12 @@ namespace EternityRPG
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
-                if (enemy.IsDead)
+                if (enemy.GetType() == typeof(boss1) || 
+                    enemy.GetType() == typeof(boss2) || 
+                    enemy.GetType() == typeof(boss3) ||
+                    enemy.GetType() == typeof(boss4))
                 {
+                    enemy.IsDead = true;
                     Print.BossVanquished();
                     Print.Text($"\n\tYou have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
                 }

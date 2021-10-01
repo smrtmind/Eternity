@@ -5,7 +5,8 @@ namespace EternityRPG
     public class Enemy : Character
     {
         public int TypeOfEnemy { get; set; }
-        public string AttackPhrase { get; set; }
+        public string NormalAttackPhrase { get; set; }
+        public string SpecialAttackPhrase { get; set; }
 
 
         public Enemy() { }
@@ -29,7 +30,8 @@ namespace EternityRPG
                     Gold = 10;
                     Exp = 25;
                     ChanceToInterruptTheEscape = 10;
-                    AttackPhrase = "shoots claws";
+                    NormalAttackPhrase = "shoots claws";
+                    SpecialAttackPhrase = "hits with two paws at a time";
                     break;
 
                 case 2:
@@ -41,7 +43,8 @@ namespace EternityRPG
                     Gold = 20;
                     Exp = 45;
                     ChanceToInterruptTheEscape = 13;
-                    AttackPhrase = "attacks with a vile tongue";
+                    NormalAttackPhrase = "attacks with a vile tongue";
+                    SpecialAttackPhrase = "shoots out toxin";
                     break;
 
                 case 3:
@@ -53,7 +56,8 @@ namespace EternityRPG
                     Gold = 35;
                     Exp = 60;
                     ChanceToInterruptTheEscape = 16;
-                    AttackPhrase = "sprinkles with poisonous mucus";
+                    NormalAttackPhrase = "sprinkles with poisonous mucus";
+                    SpecialAttackPhrase = "tightly grips with ivy";
                     break;
 
                 case 4:
@@ -65,7 +69,8 @@ namespace EternityRPG
                     Gold = 50;
                     Exp = 80;
                     ChanceToInterruptTheEscape = 20;
-                    AttackPhrase = "bites the body with its teeth";
+                    NormalAttackPhrase = "bites the body with its teeth";
+                    SpecialAttackPhrase = "ripping apart the armor with claws";
                     break;
 
                 case 5:
@@ -77,7 +82,8 @@ namespace EternityRPG
                     Gold = 70;
                     Exp = 100;
                     ChanceToInterruptTheEscape = 23;
-                    AttackPhrase = "releases a psychedelic wave";
+                    NormalAttackPhrase = "releases a psychedelic wave";
+                    SpecialAttackPhrase = "compresses your insides with darkness";
                     break;
 
                 case 6:
@@ -89,7 +95,8 @@ namespace EternityRPG
                     Gold = 85;
                     Exp = 135;
                     ChanceToInterruptTheEscape = 26;
-                    AttackPhrase = "hits with a terrifying mace";
+                    NormalAttackPhrase = "hits with a terrifying mace";
+                    SpecialAttackPhrase = "strikes with two paws";
                     break;
 
                 case 7:
@@ -101,7 +108,8 @@ namespace EternityRPG
                     Gold = 100;
                     Exp = 150;
                     ChanceToInterruptTheEscape = 30;
-                    AttackPhrase = "shoots many spikes";
+                    NormalAttackPhrase = "shoots many spikes";
+                    SpecialAttackPhrase = "floods the entire floor with magma";
                     break;
 
                 case 8:
@@ -113,7 +121,8 @@ namespace EternityRPG
                     Gold = 120;
                     Exp = 180;
                     ChanceToInterruptTheEscape = 33;
-                    AttackPhrase = "attacks with spear and shield";
+                    NormalAttackPhrase = "attacks with spear and shield";
+                    SpecialAttackPhrase = "throws a shield at your head";
                     break;
 
                 case 9:
@@ -125,17 +134,20 @@ namespace EternityRPG
                     Gold = 140;
                     Exp = 230;
                     ChanceToInterruptTheEscape = 36;
-                    AttackPhrase = "hits with claws from the ground";
+                    NormalAttackPhrase = "hits with claws from the ground";
+                    SpecialAttackPhrase = "summons its copies and beat all together";
                     break;
             }
         }
 
         public override void Turn(Character player, Character enemy, double enemyDamage)
         {
+            player.CurrentHealth -= enemyDamage;
+
             if (player.CurrentHealth <= 0)
             {
                 Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
-                Print.Text($"{AttackPhrase} deals ");
+                Print.Text($"{NormalAttackPhrase} deals ");
                 Print.Text($"{enemyDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");
                 Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
@@ -145,8 +157,34 @@ namespace EternityRPG
             else
             {
                 Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
-                Print.Text($"{AttackPhrase} deals ");
+                Print.Text($"{NormalAttackPhrase} deals ");
                 Print.Text($"{enemyDamage} DMG", ConsoleColor.DarkRed);
+                Print.Text(", ");
+                Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
+                Print.Text("have ");
+                Print.Text($"{player.CurrentHealth} HP\n\n", ConsoleColor.DarkGreen);
+            }
+        }
+
+        public override void CriticalDamage(Character player, Character enemy, double enemyDamage)
+        {
+            player.CurrentHealth -= enemyDamage *= random.Next(2, 4);
+
+            if (player.CurrentHealth <= 0)
+            {
+                Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"{SpecialAttackPhrase} deals ");
+                Print.Text($"CRITICAL {enemyDamage} DMG", ConsoleColor.DarkRed);
+                Print.Text(", ");
+                Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
+                Print.Text("died\n");
+            }
+
+            else
+            {
+                Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
+                Print.Text($"{SpecialAttackPhrase} deals ");
+                Print.Text($"CRITICAL {enemyDamage} DMG", ConsoleColor.DarkRed);
                 Print.Text(", ");
                 Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
                 Print.Text("have ");

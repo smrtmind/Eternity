@@ -81,5 +81,7 @@ namespace EternityRPG
         }
 
         public virtual void Turn(Character player, Character enemy, double damage) { }
+
+        public virtual void CriticalDamage(Character player, Character enemy, double damage) { }
     }
 }

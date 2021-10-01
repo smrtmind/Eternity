@@ -24,7 +24,7 @@
         {
             switch (PlayerClass)
             {
-                case 1: //warrior
+                case 1: //knight
                     Weapon1 = "Crystal Sword";
                     Damage1 = 90;
                     Cost1 = 3100;
