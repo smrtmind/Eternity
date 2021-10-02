@@ -25,7 +25,7 @@ namespace EternityRPG
             Text("mage\n\n");
         }
 
-        public static void PlayerShortInfo(Character player)//card of player before start of the game
+        public static void PlayerShortInfo(Player player)//card of player before start of the game
         {
             Text("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
             Text("Your character\n", ConsoleColor.DarkYellow);
@@ -38,7 +38,7 @@ namespace EternityRPG
             Text("".PadLeft(25, '<') + "\n\n", ConsoleColor.Magenta);
         }
 
-        public static void ShopOptions(Character player, Weapon weapon, MedicineBag medicineBag)
+        public static void ShopOptions(Player player, Weapon weapon, MedicineBag medicineBag)
         {
             Text("You are in the shop.\nWhat do you want to buy? ");
             Text(" [1] ", ConsoleColor.Green);
@@ -75,7 +75,7 @@ namespace EternityRPG
             Text("in your bag\n\n");
         }
 
-        public static void SelectLocation(Character[] bosses)
+        public static void SelectLocation(Enemy[] bosses)
         {
             int deathCounter = 0;
             foreach (var boss in bosses) if (boss.IsDead) deathCounter++;
@@ -118,7 +118,7 @@ namespace EternityRPG
                 Text("\n");
             }
 
-            void Condition(Character boss)
+            void Condition(Enemy boss)
             {
                 if (!boss.IsDead)
                     Text("boss is alive\n", ConsoleColor.DarkRed);
@@ -197,7 +197,7 @@ namespace EternityRPG
             Text($@"{"\t"}|___/  \___/  |___/ |___/     \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkGreen, false, 2);
         }
 
-        public static void TheEnd(Character player, Weapon weapon)
+        public static void TheEnd(Player player, Weapon weapon)
         {
             Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.DarkGreen, false, 2);
             Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkGreen, false, 2);
@@ -355,7 +355,7 @@ namespace EternityRPG
             Console.ReadLine();
         }
 
-        public static void PlayerStatistics(Character player, Weapon weapon)
+        public static void PlayerStatistics(Player player, Weapon weapon)
         {
             //if you didn't buy any weapon from the shop
             if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)

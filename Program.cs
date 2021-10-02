@@ -9,16 +9,15 @@ namespace EternityRPG
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
         public static int DefeatedEnemiesToFightTheBoss { get; set; }
-        public static int SpecialAttackCounter { get; set; }
 
         static void Main(string[] args)
         {
             MedicineBag medicineBag = new MedicineBag();
             Weapon weapon = new Weapon();
             Location location;
-            Character player;
+            Player player;
 
-            Character[] bosses = new Character[]
+            Enemy[] bosses = new Enemy[]
             {
                 new boss1(),
                 new boss2(),
@@ -118,8 +117,6 @@ namespace EternityRPG
 
             Print.Text("The adventure begins\n\n");
             Print.RainbowLoading();
-            Print.Text("\n\n");
-            Print.PressEnter();
             Console.Clear();
             //end with collecting the player data
 
@@ -364,7 +361,7 @@ namespace EternityRPG
             }
         }
 
-        public static void BattleZone(Character player, MedicineBag medicineBag, Location location, Weapon weapon, Character[] bosses)
+        public static void BattleZone(Player player, MedicineBag medicineBag, Location location, Weapon weapon, Enemy[] bosses)
         {
             //setting counter of defeated enemies to 0 before the start of each battle
             DefeatedEnemiesToFightTheBoss = 0;
@@ -372,13 +369,12 @@ namespace EternityRPG
             string yesNo = string.Empty;
             while (yesNo.ToLower() != "n")
             {
-                SpecialAttackCounter = 0;
                 //printing short name of the location before each regular enemy
                 Print.Text($"Location: {location.ShortTitle}\n", ConsoleColor.DarkCyan);
 
                 Random random = new Random();
                 //create new enemy randomly every time when the cycle starts again, according to the chosen location
-                Character enemy = location.CreateEnemy();
+                Enemy enemy = location.CreateEnemy();
 
                 int choice = 0;
                 string keyBoardInput = string.Empty;
@@ -406,7 +402,10 @@ namespace EternityRPG
                     //manual fight
                     if (battleChoice == 1)
                     {
-                        player.Turn(player, enemy, playerDamage);
+                        if (random.Next(0, 100) > player.CritChance)
+                            player.Attack(player, enemy, playerDamage);
+                        else
+                            player.SpecialAttack(player, enemy, playerDamage);
 
                         //if an enemy is dead
                         if (enemy.CurrentHealth <= 0)
@@ -418,11 +417,10 @@ namespace EternityRPG
                             break;
                         }
 
-                        SpecialAttackCounter++;
-                        if (SpecialAttackCounter % 4 == 0)
-                            enemy.CriticalDamage(player, enemy, enemyDamage);
+                        if (random.Next(0, 100) > enemy.CritChance)
+                            enemy.Attack(player, enemy, enemyDamage);
                         else
-                            enemy.Turn(player, enemy, enemyDamage);
+                            enemy.SpecialAttack(player, enemy, enemyDamage);
 
                         //if the player is dead
                         if (player.CurrentHealth <= 0) break;
@@ -437,7 +435,10 @@ namespace EternityRPG
                             playerDamage = PlayerDamage();
                             enemyDamage = enemy.GenerateDamage();
 
-                            player.Turn(player, enemy, playerDamage);
+                            if (random.Next(0, 100) > player.CritChance)
+                                player.Attack(player, enemy, playerDamage);
+                            else
+                                player.SpecialAttack(player, enemy, playerDamage);
 
                             //if an enemy is dead
                             if (enemy.CurrentHealth <= 0)
@@ -449,11 +450,10 @@ namespace EternityRPG
                                 break;
                             }
 
-                            SpecialAttackCounter++;
-                            if (SpecialAttackCounter % 4 == 0)
-                                enemy.CriticalDamage(player, enemy, enemyDamage);
+                            if (random.Next(0, 100) > enemy.CritChance)
+                                enemy.Attack(player, enemy, enemyDamage);
                             else
-                                enemy.Turn(player, enemy, enemyDamage);
+                                enemy.SpecialAttack(player, enemy, enemyDamage);
 
                             //if the player is dead
                             if (player.CurrentHealth <= 0) break;
@@ -470,7 +470,7 @@ namespace EternityRPG
                         Print.HealingOptions(medicineBag);
 
                         choice = 0;
-                        while (choice != 1 && choice != 2 && choice != 3)
+                        while (choice == 0 || choice > 3)
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -502,7 +502,7 @@ namespace EternityRPG
                                 else Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
 
                                 //enemy does his turn, after you used yours for healing
-                                enemy.Turn(player, enemy, enemyDamage);
+                                enemy.Attack(player, enemy, enemyDamage);
 
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
@@ -514,7 +514,7 @@ namespace EternityRPG
                                 Print.Text($"\n\tYou don't have {medicineBag.Name}\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
-                                enemy.Turn(player, enemy, enemyDamage);
+                                enemy.Attack(player, enemy, enemyDamage);
 
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
@@ -558,7 +558,7 @@ namespace EternityRPG
                         {
                             Print.Text($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
                             //if you failed to escape, an enemy does his critical attack
-                            enemy.CriticalDamage(player, enemy, enemyDamage);
+                            enemy.SpecialAttack(player, enemy, enemyDamage);
 
                             if (player.CurrentHealth <= 0) break;
                         }
@@ -567,7 +567,7 @@ namespace EternityRPG
                         {
                             Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
                             //if you failed to escape, an enemy does his critical attack
-                            enemy.CriticalDamage(player, enemy, enemyDamage);
+                            enemy.SpecialAttack(player, enemy, enemyDamage);
 
                             if (player.CurrentHealth <= 0) break;
                             else continue;
@@ -617,10 +617,8 @@ namespace EternityRPG
             }
         }
 
-        public static void BossBattle(Character player, MedicineBag medicineBag, Location location, Weapon weapon, Character[] bosses)
+        public static void BossBattle(Player player, MedicineBag medicineBag, Location location, Weapon weapon, Enemy[] bosses)
         {
-            SpecialAttackCounter = 0;
-
             while (true)
             {
                 //printing short name of the location before each boss
@@ -648,7 +646,10 @@ namespace EternityRPG
                     //manual fight
                     if (battleChoice == 1)
                     {
-                        player.Turn(player, bosses[index], playerDamage);
+                        if (random.Next(0, 100) > player.CritChance)
+                            player.Attack(player, bosses[index], playerDamage);
+                        else
+                            player.SpecialAttack(player, bosses[index], playerDamage);
 
                         //if the boss is dead
                         if (bosses[index].CurrentHealth <= 0)
@@ -662,11 +663,10 @@ namespace EternityRPG
                             break;
                         }
 
-                        SpecialAttackCounter++;
-                        if (SpecialAttackCounter % 4 == 0)
-                            bosses[index].CriticalDamage(player, bosses[index], bossDamage);
+                        if (random.Next(0, 100) > bosses[index].CritChance)
+                            bosses[index].Attack(player, bosses[index], bossDamage);
                         else
-                            bosses[index].Turn(player, bosses[index], bossDamage);
+                            bosses[index].SpecialAttack(player, bosses[index], bossDamage);
 
                         //if the player is dead
                         if (player.CurrentHealth <= 0) break;
@@ -681,7 +681,10 @@ namespace EternityRPG
                             playerDamage = PlayerDamage();
                             bossDamage = bosses[index].GenerateDamage();
 
-                            player.Turn(player, bosses[index], playerDamage);
+                            if (random.Next(0, 100) > player.CritChance)
+                                player.Attack(player, bosses[index], playerDamage);
+                            else
+                                player.SpecialAttack(player, bosses[index], playerDamage);
 
                             //if the boss is dead
                             if (bosses[index].CurrentHealth <= 0)
@@ -695,11 +698,10 @@ namespace EternityRPG
                                 break;
                             }
 
-                            SpecialAttackCounter++;
-                            if (SpecialAttackCounter % 4 == 0)
-                                bosses[index].CriticalDamage(player, bosses[index], bossDamage);
+                            if (random.Next(0, 100) > bosses[index].CritChance)
+                                bosses[index].Attack(player, bosses[index], bossDamage);
                             else
-                                bosses[index].Turn(player, bosses[index], bossDamage);
+                                bosses[index].SpecialAttack(player, bosses[index], bossDamage);
 
                             //if the player is dead
                             if (player.CurrentHealth <= 0) break;
@@ -748,7 +750,7 @@ namespace EternityRPG
                                 else Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
 
                                 //boss does his turn, after you used yours for healing
-                                bosses[index].Turn(player, bosses[index], bossDamage);
+                                bosses[index].Attack(player, bosses[index], bossDamage);
 
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
@@ -760,7 +762,7 @@ namespace EternityRPG
                                 Print.Text($"\n\tYou don't have {medicineBag.Name}\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
-                                bosses[index].Turn(player, bosses[index], bossDamage);
+                                bosses[index].Attack(player, bosses[index], bossDamage);
 
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
@@ -780,7 +782,7 @@ namespace EternityRPG
                     {
                         //you can't escape from boss
                         Print.Text($"\n\tyou can't escape from the {bosses[index].Name}\n", ConsoleColor.DarkRed);
-                        bosses[index].CriticalDamage(player, bosses[index], bossDamage);
+                        bosses[index].SpecialAttack(player, bosses[index], bossDamage);
 
                         if (player.CurrentHealth <= 0) break;
                     }
@@ -810,7 +812,7 @@ namespace EternityRPG
             }
         }
 
-        public static Character CreatePlayer(int playerClass, string playerName, string gender)
+        public static Player CreatePlayer(int playerClass, string playerName, string gender)
         {
             if (playerClass == 1) return new Knight(playerName, gender);
             if (playerClass == 2) return new Archer(playerName, gender);

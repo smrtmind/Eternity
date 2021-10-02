@@ -40,16 +40,13 @@ namespace EternityRPG
             }
         }
 
-        public Character CreateEnemy()
+        public Enemy CreateEnemy()
         {
             Random random = new Random();
-            Character enemy = new Enemy();
 
-            if (TypeOfLocation == 1) enemy = new Enemy(random.Next(1, 4));
-            if (TypeOfLocation == 2) enemy = new Enemy(random.Next(4, 7));
-            if (TypeOfLocation == 3) enemy = new Enemy(random.Next(7, 10));
-
-            return enemy;
+            if (TypeOfLocation == 1) return new Mob(random.Next(1, 4));
+            if (TypeOfLocation == 2) return new Mob(random.Next(4, 7));
+            else return new Mob(random.Next(7, 10));
         }
     }
 }

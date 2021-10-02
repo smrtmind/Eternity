@@ -30,7 +30,7 @@
                     Cost1 = 3100;
                     Weapon2 = "Dark Sword";
                     Damage2 = 150;
-                    Cost2 = 6700;
+                    Cost2 = 5;// 6700;
                     break;
 
                 case 2: //archer
