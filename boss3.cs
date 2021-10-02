@@ -9,11 +9,11 @@ namespace EternityRPG
             Name = "Fire dragon";
             Health = 4000;
             CurrentHealth = Health;
-            MinDamage = 130;
-            MaxDamage = 160;
+            MinDamage = 150;
+            MaxDamage = 190;
             CritChance = 16;
-            Exp = 700;
-            Gold = 900;
+            Exp = 650;
+            Gold = 850;
             IsDead = false;
             CounterToReachTheBoss = random.Next(25, 35);
             ChanceToInterruptTheEscape = 100;

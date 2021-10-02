@@ -2,9 +2,9 @@
 
 namespace EternityRPG
 {
-    public class Knight : Player
+    public class Warrior : Player
     {
-        public Knight(string name, string gender)
+        public Warrior(string name, string gender)
         {
             Name = name;
             Gender = gender;

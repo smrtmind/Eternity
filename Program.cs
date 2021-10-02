@@ -39,8 +39,10 @@ namespace EternityRPG
             Print.PressEnter();
             Print.RainbowLoading();
             Console.Clear();
-            Print.Text("Hello, traveler. I can't remember your name. Can you help me with this?\n\n", ConsoleColor.DarkYellow);
-            Thread.Sleep(3000);
+            Print.Text("Hello, traveler. I can't remember your", ConsoleColor.Cyan);
+            Print.Text(" name ", ConsoleColor.DarkYellow);
+            Print.Text("Can you help me with this?\n\n", ConsoleColor.Cyan);
+            Thread.Sleep(2000);
 
             while (yesNo.ToLower() != "y")
             {
@@ -56,7 +58,7 @@ namespace EternityRPG
                 //your name
                 if (keyBoardInput.Length > 0) playerName = keyBoardInput;
                 //default name
-                else playerName = "Sam";
+                else playerName = "Ash";
 
                 //selection of player's gender
                 Print.GenderOptions();
@@ -814,7 +816,7 @@ namespace EternityRPG
 
         public static Player CreatePlayer(int playerClass, string playerName, string gender)
         {
-            if (playerClass == 1) return new Knight(playerName, gender);
+            if (playerClass == 1) return new Warrior(playerName, gender);
             if (playerClass == 2) return new Archer(playerName, gender);
             else return new Mage(playerName, gender);
         }

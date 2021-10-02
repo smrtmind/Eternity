@@ -2,7 +2,7 @@
 It is a console action-rpg, if I could say so. It was one of my training projects, where I tried to program a fully functional game in one of my fovourite game ganres. And I think I succed in it. I tried to use OOP, to give all in-game characters their own personality.
 
 # Features I implemented
-⭐Level-up system. Up to 30 lvl. Every lvl you will get, you upgrade your health and strengh.
+⭐Endless level-up system. Every lvl you achieve, you will upgrade your health and strengh.
 
 ⭐Four different biomes. Three of the them are available from the start of the game, the fourth one will be opened if you kill three bosses. There are four biomes, but you can easily add more, all preparatory work is done. Every location has its own short information and enemies, which you can meet only there.
 

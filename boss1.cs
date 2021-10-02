@@ -10,9 +10,9 @@ namespace EternityRPG
             Health = 2000;
             CurrentHealth = Health;
             MinDamage = 70;
-            MaxDamage = 100;
+            MaxDamage = 110;
             CritChance = 10;
-            Exp = 300;
+            Exp = 250;
             Gold = 450;
             IsDead = false;
             CounterToReachTheBoss = random.Next(15, 25);
