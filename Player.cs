@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EternityRPG
 {
@@ -15,11 +11,11 @@ namespace EternityRPG
 
         public double GenerateDamage(Weapon weapon)
         {
-            if (weapon.Weapon1Bought)
-                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage1;
+            if (weapon.WeaponIsBought[0])
+                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage[0];
 
-            if (weapon.Weapon2Bought)
-                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage2;
+            if (weapon.WeaponIsBought[1])
+                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage[1];
 
             return Damage;
         }

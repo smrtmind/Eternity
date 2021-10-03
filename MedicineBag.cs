@@ -2,15 +2,16 @@
 {
     public class MedicineBag
     {
-        public string Name { get; set; }
-        public int HealingPower { get; set; }
-        public int SmallAmount { get; set; }
-        public int MediumAmount { get; set; }
-        public int BigAmount { get; set; }
-        public int SmallCost { get; set; } = 30;
-        public int MediumCost { get; set; } = 90;
-        public int BigCost { get; set; } = 150;
-        public int Amount { get; set; }
+        //1. small, 2. medium, 3. high
+        public int[] HealingPower = { 90, 180, 350 };
+        public int[] Cost = { 30, 90, 150 };
+        public int[] Amount = new int[3];
+        public string[] Title =
+        {
+            "small healing potion",
+            "medium healing potion",
+            "big healing potion"
+        };
 
         public MedicineBag() { }
 
@@ -19,64 +20,57 @@
             switch (potionType)
             {
                 case 1:
-                    SmallAmount++;
+                    Amount[0]++;
                     break;
 
                 case 2:
-                    MediumAmount++;
+                    Amount[1]++;
                     break;
 
                 case 3:
-                    BigAmount++;
+                    Amount[2]++;
                     break;
             }
         }
 
         public int UsePotion(int potionType)
         {
+            int amount = 0;
+
             switch (potionType)
             {
                 case 1:
-                    Name = "small healing potion";
-                    HealingPower = 90;
-
-                    if (SmallAmount > 0) Amount = SmallAmount--;
+                    if (Amount[0] > 0) amount = Amount[0]--;
                     else
                     {
-                        SmallAmount = 0;
-                        Amount = 0;
+                        Amount[0] = 0;
+                        amount = 0;
                     }
                    
                     break;
 
                 case 2:
-                    Name = "medium healing potion";
-                    HealingPower = 180;
-
-                    if (MediumAmount > 0) Amount = MediumAmount--;
+                    if (Amount[1] > 0) amount = Amount[1]--;
                     else
                     {
-                        MediumAmount = 0;
-                        Amount = 0;
+                        Amount[1] = 0;
+                        amount = 0;
                     }
 
                     break;
 
                 case 3:
-                    Name = "big healing potion";                 
-                    HealingPower = 350;
-
-                    if (BigAmount > 0) Amount = BigAmount--;
+                    if (Amount[2] > 0) amount = Amount[2]--;
                     else
                     {
-                        BigAmount = 0;
-                        Amount = 0;
+                        Amount[2] = 0;
+                        amount = 0;
                     }
 
                     break;
             }
 
-            return Amount;
+            return amount;
         }
     }
 }

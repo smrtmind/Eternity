@@ -2,13 +2,13 @@
 
 namespace EternityRPG
 {
-    public class Location
+    public class Biome
     {
         public string LocationInfo { get; set; }
         public string ShortTitle { get; set; }
         public int TypeOfLocation { get; set; }
 
-        public Location(int typeOfLocation)
+        public Biome(int typeOfLocation)
         {
             TypeOfLocation = typeOfLocation;
             CreateLocation();

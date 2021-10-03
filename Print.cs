@@ -53,30 +53,30 @@ namespace EternityRPG
         {
             Text("You are in the shop.\nWhat do you want to buy? ");
             Text(" [1] ", ConsoleColor.Green);
-            Text("small healing potion\t");
-            Text($"{medicineBag.SmallCost} gold", ConsoleColor.DarkYellow);
+            Text($"{medicineBag.Title[0]}\t");
+            Text($"{medicineBag.Cost[0]} gold", ConsoleColor.DarkYellow);
             Text("  / ");
-            Text($"you have {medicineBag.SmallAmount}\n", ConsoleColor.Cyan);
+            Text($"you have {medicineBag.Amount[0]}\n", ConsoleColor.Cyan);
             Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("medium healing potion\t");
-            Text($"{medicineBag.MediumCost} gold", ConsoleColor.DarkYellow);
+            Text($"{medicineBag.Title[1]}\t");
+            Text($"{medicineBag.Cost[1]} gold", ConsoleColor.DarkYellow);
             Text("  / ");
-            Text($"you have {medicineBag.MediumAmount}\n", ConsoleColor.Cyan);
+            Text($"you have {medicineBag.Amount[1]}\n", ConsoleColor.Cyan);
             Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("big healing potion\t");
-            Text($"{medicineBag.BigCost} gold", ConsoleColor.DarkYellow);
+            Text($"{medicineBag.Title[2]}\t");
+            Text($"{medicineBag.Cost[2]} gold", ConsoleColor.DarkYellow);
             Text(" / ");
-            Text($"you have {medicineBag.BigAmount}\n\n", ConsoleColor.Cyan);
+            Text($"you have {medicineBag.Amount[2]}\n\n", ConsoleColor.Cyan);
 
             //you can see weapon according to the selected class of player
             Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{weapon.Weapon1}\t", ConsoleColor.DarkCyan);
-            Text($"+{weapon.Damage1}\t", ConsoleColor.DarkRed);
-            Text($"{weapon.Cost1} gold\n", ConsoleColor.DarkYellow);
+            Text($"{weapon.Title[0]}\t", ConsoleColor.DarkCyan);
+            Text($"+{weapon.Damage[0]}\t", ConsoleColor.DarkRed);
+            Text($"{weapon.Cost[0]} gold\n", ConsoleColor.DarkYellow);
             Text(" [5] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{weapon.Weapon2}\t", ConsoleColor.DarkCyan);
-            Text($"+{weapon.Damage2}\t", ConsoleColor.DarkRed);
-            Text($"{weapon.Cost2} gold\n\n", ConsoleColor.DarkYellow);
+            Text($"{weapon.Title[1]}\t", ConsoleColor.DarkCyan);
+            Text($"+{weapon.Damage[1]}\t", ConsoleColor.DarkRed);
+            Text($"{weapon.Cost[1]} gold\n\n", ConsoleColor.DarkYellow);
 
             //gold in your bag
             Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
@@ -168,13 +168,13 @@ namespace EternityRPG
             Text("Choose a potion:".PadLeft(25, ' '));
             Text(" [1] ", ConsoleColor.DarkYellow);
             Text($"small\t");
-            Text($"{medicineBag.SmallAmount}\n", ConsoleColor.DarkYellow);
+            Text($"{medicineBag.Amount[0]}\n", ConsoleColor.DarkYellow);
             Text(" [2] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"medium\t");
-            Text($"{medicineBag.MediumAmount}\n", ConsoleColor.DarkYellow);
+            Text($"{medicineBag.Amount[1]}\n", ConsoleColor.DarkYellow);
             Text(" [3] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"big\t");
-            Text($"{medicineBag.BigAmount}\n\n", ConsoleColor.DarkYellow);
+            Text($"{medicineBag.Amount[2]}\n\n", ConsoleColor.DarkYellow);
             Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"back\n\n");
         }
@@ -219,7 +219,7 @@ namespace EternityRPG
             Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.DarkGreen, false, 2);
             Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.DarkGreen, false, 2);
 
-            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+            if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
             {
                 Text("\n");
                 Text("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
@@ -227,21 +227,21 @@ namespace EternityRPG
                 Text("".PadLeft(30, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
-            if (weapon.Weapon1Bought || weapon.Weapon2Bought)
+            if (weapon.WeaponIsBought[0] || weapon.WeaponIsBought[1])
             {
                 Text("\n");
                 Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
 
-                if (weapon.Weapon1Bought)
+                if (weapon.WeaponIsBought[0])
                 {
                     Text(" weapon:          ");
-                    Text($"{weapon.Weapon1}\n", ConsoleColor.DarkRed);
+                    Text($"{weapon.Title[0]}\n", ConsoleColor.DarkRed);
                 }
-                if (weapon.Weapon2Bought)
+                if (weapon.WeaponIsBought[1])
                 {
                     Text(" weapon:          ");
-                    Text($"{weapon.Weapon2}\n", ConsoleColor.DarkRed);
+                    Text($"{weapon.Title[1]}\n", ConsoleColor.DarkRed);
                 }
 
                 Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
@@ -371,7 +371,7 @@ namespace EternityRPG
         public static void PlayerStatistics(Player player, Weapon weapon)
         {
             //if you didn't buy any weapon from the shop
-            if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+            if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
             {
                 Text("\n");
                 Text("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
@@ -380,21 +380,21 @@ namespace EternityRPG
             }
 
             //if you have bought any weapon from the shop
-            if (weapon.Weapon1Bought || weapon.Weapon2Bought)
+            if (weapon.WeaponIsBought[0] || weapon.WeaponIsBought[1])
             {
                 Text("\n");
                 Text("".PadLeft(35, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
 
-                if (weapon.Weapon1Bought)
+                if (weapon.WeaponIsBought[0])
                 {
                     Text(" weapon:   ");
-                    Text($"{weapon.Weapon1}\n", ConsoleColor.DarkRed);
+                    Text($"{weapon.Title[0]}\n", ConsoleColor.DarkRed);
                 }
-                if (weapon.Weapon2Bought)
+                if (weapon.WeaponIsBought[1])
                 {
                     Text(" weapon:   ");
-                    Text($"{weapon.Weapon2}\n", ConsoleColor.DarkRed);
+                    Text($"{weapon.Title[1]}\n", ConsoleColor.DarkRed);
                 }
 
                 Text("".PadLeft(35, '<') + "\n\n", ConsoleColor.Magenta);

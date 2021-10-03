@@ -9,8 +9,8 @@ namespace EternityRPG
             Name = "Evil forest spirit";
             Health = 2000;
             CurrentHealth = Health;
-            MinDamage = 70;
-            MaxDamage = 110;
+            MinDamage = 60;
+            MaxDamage = 100;
             CritChance = 10;
             Exp = 250;
             Gold = 450;

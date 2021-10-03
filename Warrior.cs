@@ -8,7 +8,7 @@ namespace EternityRPG
         {
             Name = name;
             Gender = gender;
-            Class = "knight";
+            Class = "warrior";
             Health = 200;
             CurrentHealth = Health;
             MinDamage = 7;

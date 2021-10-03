@@ -2,53 +2,44 @@
 {
     public class Weapon
     {
-        public int PlayerClass { get; set; }
-        public int Damage1 { get; set; }
-        public int Damage2 { get; set; }
-        public string Weapon1 { get; set; }
-        public string Weapon2 { get; set; }
-        public int Cost1 { get; set; }
-        public int Cost2 { get; set; }
-        public bool Weapon1Bought { get; set; }
-        public bool Weapon2Bought { get; set; }
+        public bool[] WeaponIsBought = new bool[2];
+        public string[] Title = new string[2];
+        public int[] Damage = new int[2];
+        public int[] Cost = new int[2];
 
         public Weapon() { }
 
-        public Weapon(int playerClass)
-        {
-            PlayerClass = playerClass;
-            GetWeapon();
-        }
+        public Weapon(int playerClass) => GetWeapon(playerClass);
 
-        private void GetWeapon()
+        private void GetWeapon(int playerClass)
         {
-            switch (PlayerClass)
+            switch (playerClass)
             {
                 case 1: //warrior
-                    Weapon1 = "Crystal Sword";
-                    Damage1 = 90;
-                    Cost1 = 3100;
-                    Weapon2 = "Dark Sword";
-                    Damage2 = 150;
-                    Cost2 = 6700;
+                    Title[0] = "Crystal Sword";
+                    Damage[0] = 90;
+                    Cost[0] = 3100;
+                    Title[1] = "Dark Sword";
+                    Damage[1] = 150;
+                    Cost[1] = 6700;
                     break;
 
                 case 2: //archer
-                    Weapon1 = "Poisoned Bow";
-                    Damage1 = 80;
-                    Cost1 = 3200;
-                    Weapon2 = "Bloody Bow";
-                    Damage2 = 155;
-                    Cost2 = 6650;
+                    Title[0] = "Poisoned Bow";
+                    Damage[0] = 80;
+                    Cost[0] = 3200;
+                    Title[1] = "Bloody Bow";
+                    Damage[1] = 155;
+                    Cost[1] = 6650;
                     break;
 
                 case 3: //mage
-                    Weapon1 = "Staff of Pain";
-                    Damage1 = 70;
-                    Cost1 = 3050;
-                    Weapon2 = "Staff of Light";
-                    Damage2 = 185;
-                    Cost2 = 6900;
+                    Title[0] = "Staff of Pain";
+                    Damage[0] = 70;
+                    Cost[0] = 3050;
+                    Title[1] = "Staff of Light";
+                    Damage[1] = 185;
+                    Cost[1] = 6900;
                     break;
             }
         }

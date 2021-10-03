@@ -9,8 +9,8 @@ namespace EternityRPG
             Name = "Descendant of the fallen gods";
             Health = 8000;
             CurrentHealth = Health;
-            MinDamage = 190;
-            MaxDamage = 350;
+            MinDamage = 180;
+            MaxDamage = 250;
             CritChance = 20;
             Exp = 999;
             Gold = 999;

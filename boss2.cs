@@ -9,8 +9,8 @@ namespace EternityRPG
             Name = "Spiteful golem";
             Health = 3000;
             CurrentHealth = Health;
-            MinDamage = 110;
-            MaxDamage = 150;
+            MinDamage = 100;
+            MaxDamage = 140;
             CritChance = 13;
             Exp = 450;
             Gold = 650;

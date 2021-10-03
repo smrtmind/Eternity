@@ -9,8 +9,8 @@ namespace EternityRPG
             Name = "Fire dragon";
             Health = 4000;
             CurrentHealth = Health;
-            MinDamage = 150;
-            MaxDamage = 190;
+            MinDamage = 140;
+            MaxDamage = 180;
             CritChance = 16;
             Exp = 650;
             Gold = 850;

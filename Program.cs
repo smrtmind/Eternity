@@ -14,7 +14,7 @@ namespace EternityRPG
         {
             MedicineBag medicineBag = new MedicineBag();
             Weapon weapon = new Weapon();
-            Location location;
+            Biome location;
             Player player;
 
             Enemy[] bosses = new Enemy[]
@@ -157,23 +157,23 @@ namespace EternityRPG
                         switch (choiceInTheShop)
                         {
                             case 1:
-                                BuyPotion(medicineBag.SmallCost, choiceInTheShop);
+                                BuyPotion(medicineBag.Cost[0], choiceInTheShop);
                                 break;
 
                             case 2:
-                                BuyPotion(medicineBag.MediumCost, choiceInTheShop);
+                                BuyPotion(medicineBag.Cost[1], choiceInTheShop);
                                 break;
 
                             case 3:
-                                BuyPotion(medicineBag.BigCost, choiceInTheShop);
+                                BuyPotion(medicineBag.Cost[2], choiceInTheShop);
                                 break;
 
                             case 4:
-                                BuyWeapon(weapon.Cost1, choiceInTheShop);
+                                BuyWeapon(weapon.Cost[0], choiceInTheShop);
                                 break;
 
                             case 5:
-                                BuyWeapon(weapon.Cost2, choiceInTheShop);
+                                BuyWeapon(weapon.Cost[1], choiceInTheShop);
                                 break;
                         }
 
@@ -196,14 +196,14 @@ namespace EternityRPG
                                 player.Gold -= cost;
                                 if (type == 4)
                                 {
-                                    weapon.Weapon1Bought = true;
-                                    weapon.Weapon2Bought = false;
+                                    weapon.WeaponIsBought[0] = true;
+                                    weapon.WeaponIsBought[1] = false;
                                 }
 
                                 if (type == 5)
                                 {
-                                    weapon.Weapon2Bought = true;
-                                    weapon.Weapon1Bought = false;
+                                    weapon.WeaponIsBought[0] = false;
+                                    weapon.WeaponIsBought[1] = true;
                                 }
                             }
                             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
@@ -270,7 +270,7 @@ namespace EternityRPG
                 Console.Clear();
 
                 //create location according to the number of chosen location
-                location = new Location(locationType);
+                location = new Biome(locationType);
 
                 //enter to the secret location, if you already killed three bosses
                 if (locationType == 4)
@@ -363,7 +363,7 @@ namespace EternityRPG
             }
         }
 
-        public static void BattleZone(Player player, MedicineBag medicineBag, Location location, Weapon weapon, Enemy[] bosses)
+        public static void BattleZone(Player player, MedicineBag medicineBag, Biome biome, Weapon weapon, Enemy[] bosses)
         {
             //setting counter of defeated enemies to 0 before the start of each battle
             DefeatedEnemiesToFightTheBoss = 0;
@@ -372,11 +372,11 @@ namespace EternityRPG
             while (yesNo.ToLower() != "n")
             {
                 //printing short name of the location before each regular enemy
-                Print.Text($"Location: {location.ShortTitle}\n", ConsoleColor.DarkCyan);
+                Print.Text($"Location: {biome.ShortTitle}\n", ConsoleColor.DarkCyan);
 
                 Random random = new Random();
                 //create new enemy randomly every time when the cycle starts again, according to the chosen location
-                Enemy enemy = location.CreateEnemy();
+                Enemy enemy = biome.CreateEnemy();
 
                 int choice = 0;
                 string keyBoardInput = string.Empty;
@@ -483,15 +483,12 @@ namespace EternityRPG
                             if (keyBoardInput == "<") break;
                         }
 
-                        //check if you have potion according to chosen type of potion
-                        int amountOfAids = medicineBag.UsePotion(choice);
-
                         if (choice == 1 || choice == 2 || choice == 3)
                         {
                             //if you have potion
-                            if (amountOfAids > 0)
+                            if (medicineBag.UsePotion(choice) > 0)
                             {
-                                player.CurrentHealth += medicineBag.HealingPower;
+                                player.CurrentHealth += medicineBag.HealingPower[choice - 1];
 
                                 //if player's current health equal or greater than maximum health
                                 if (player.CurrentHealth > player.Health)
@@ -501,7 +498,7 @@ namespace EternityRPG
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{medicineBag.HealingPower[choice - 1]} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
 
                                 //enemy does his turn, after you used yours for healing
                                 enemy.Attack(player, enemy, enemyDamage);
@@ -513,7 +510,7 @@ namespace EternityRPG
                             //if you don't have any potions
                             else
                             {
-                                Print.Text($"\n\tYou don't have {medicineBag.Name}\n", ConsoleColor.DarkRed);
+                                Print.Text($"\n\tYou don't have {medicineBag.Title[choice - 1]}\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
                                 enemy.Attack(player, enemy, enemyDamage);
@@ -584,7 +581,7 @@ namespace EternityRPG
                 yesNo = string.Empty;
                 while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
                 {
-                    Print.Text($"Farm more at the {location.ShortTitle}?");
+                    Print.Text($"Farm more at the {biome.ShortTitle}?");
                     Print.Text(" [y] ", ConsoleColor.Cyan);
                     Print.Text("/");
                     Print.Text(" [n]", ConsoleColor.Cyan);
@@ -609,7 +606,7 @@ namespace EternityRPG
                 {
                     double playerDamage;
                     //if player bought weapon, it will generate damage + weapon damage
-                    if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                    if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
                         playerDamage = player.GenerateDamage();
                     else
                         playerDamage = player.GenerateDamage(weapon);
@@ -619,12 +616,12 @@ namespace EternityRPG
             }
         }
 
-        public static void BossBattle(Player player, MedicineBag medicineBag, Location location, Weapon weapon, Enemy[] bosses)
+        public static void BossBattle(Player player, MedicineBag medicineBag, Biome biome, Weapon weapon, Enemy[] bosses)
         {
             while (true)
             {
                 //printing short name of the location before each boss
-                Print.Text($"Location: {location.ShortTitle}\n\n", ConsoleColor.DarkCyan);
+                Print.Text($"Location: {biome.ShortTitle}\n\n", ConsoleColor.DarkCyan);
                 Print.Text($"{bosses[index].Name}\n\n");
 
                 Random random = new Random();
@@ -731,15 +728,12 @@ namespace EternityRPG
                             if (keyBoardInput == "<") break;
                         }
 
-                        //check if you have potion according to chosen type of potion
-                        int amountOfAids = medicineBag.UsePotion(choice);
-
                         if (choice == 1 || choice == 2 || choice == 3)
                         {
                             //if you have potion
-                            if (amountOfAids > 0)
+                            if (medicineBag.UsePotion(choice) > 0)
                             {
-                                player.CurrentHealth += medicineBag.HealingPower;
+                                player.CurrentHealth += medicineBag.HealingPower[choice - 1];
 
                                 //if player's current health equal or greater than maximum health
                                 if (player.CurrentHealth > player.Health)
@@ -749,7 +743,7 @@ namespace EternityRPG
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{medicineBag.HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{medicineBag.HealingPower[choice - 1]} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
 
                                 //boss does his turn, after you used yours for healing
                                 bosses[index].Attack(player, bosses[index], bossDamage);
@@ -761,7 +755,7 @@ namespace EternityRPG
                             //if you don't have any potions
                             else
                             {
-                                Print.Text($"\n\tYou don't have {medicineBag.Name}\n", ConsoleColor.DarkRed);
+                                Print.Text($"\n\tYou don't have {medicineBag.Title[choice - 1]}\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
                                 bosses[index].Attack(player, bosses[index], bossDamage);
@@ -804,7 +798,7 @@ namespace EternityRPG
                 {
                     double playerDamage;
                     //if player bought weapon, it will generate damage + weapon damage
-                    if (!weapon.Weapon1Bought && !weapon.Weapon2Bought)
+                    if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
                         playerDamage = player.GenerateDamage();
                     else
                         playerDamage = player.GenerateDamage(weapon);
