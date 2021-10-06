@@ -222,9 +222,9 @@ namespace EternityRPG
             if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
             {
                 Text("\n");
-                Text("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
+                Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
-                Text("".PadLeft(30, '<') + "\n\n", ConsoleColor.Magenta);
+                Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
             if (weapon.WeaponIsBought[0] || weapon.WeaponIsBought[1])
@@ -374,16 +374,16 @@ namespace EternityRPG
             if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
             {
                 Text("\n");
-                Text("".PadLeft(30, '>') + "\n", ConsoleColor.Magenta);
+                Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
-                Text("".PadLeft(30, '<') + "\n\n", ConsoleColor.Magenta);
+                Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
             //if you have bought any weapon from the shop
             if (weapon.WeaponIsBought[0] || weapon.WeaponIsBought[1])
             {
                 Text("\n");
-                Text("".PadLeft(35, '>') + "\n", ConsoleColor.Magenta);
+                Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
 
                 if (weapon.WeaponIsBought[0])
@@ -397,7 +397,7 @@ namespace EternityRPG
                     Text($"{weapon.Title[1]}\n", ConsoleColor.DarkRed);
                 }
 
-                Text("".PadLeft(35, '<') + "\n\n", ConsoleColor.Magenta);
+                Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
             void MainStats()
@@ -410,11 +410,11 @@ namespace EternityRPG
                 Text(" LVL:      ");
                 Text($"{player.Lvl}\n", ConsoleColor.Green);
                 Text(" HP:       ");
-                Text($"{player.CurrentHealth}\t".PadLeft(1, ' '), ConsoleColor.Green);
+                Text($"{player.CurrentHealth}\t\t".PadLeft(1, ' '), ConsoleColor.Green);
                 Text("/ ");
                 Text($"max {player.Health}\n", ConsoleColor.DarkCyan);
                 Text(" EXP:      ");
-                Text($"{player.Exp}\t", ConsoleColor.Green);
+                Text($"{player.Exp}\t\t", ConsoleColor.Green);
                 Text("/ ");
                 Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
                 Text(" GOLD:     ");

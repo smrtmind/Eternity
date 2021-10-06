@@ -13,9 +13,9 @@ namespace EternityRPG
         static void Main(string[] args)
         {
             MedicineBag medicineBag = new MedicineBag();
-            Weapon weapon = new Weapon();
-            Biome location;
-            Player player;
+            Player player = new Player();
+            Weapon weapon;
+            Biome biome;
 
             Enemy[] bosses = new Enemy[]
             {
@@ -25,14 +25,11 @@ namespace EternityRPG
                 new boss4()
             };
 
-            string keyBoardInput = string.Empty;
-            string playerName = string.Empty;
-            string gender = string.Empty;
+            string input = string.Empty;
             string yesNo = string.Empty;
 
             int changeDirection = 0;
-            int locationType = 1;
-            int playerClass = 0;
+            int biomeType = 1;
             int choice = 0;
 
             Print.GameTitle();
@@ -47,53 +44,44 @@ namespace EternityRPG
             while (yesNo.ToLower() != "y")
             {
                 yesNo = string.Empty;
-                playerName = string.Empty;
 
+                //selection of player's name
                 Print.Text("Enter your name or press ENTER: ");
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                keyBoardInput = Console.ReadLine();
+                input = Console.ReadLine();
                 Console.ResetColor();
-
-                //your name
-                if (keyBoardInput.Length > 0) playerName = keyBoardInput;
-                //default name
-                else playerName = "Ash";
+                
+                player.SetName(input);
 
                 //selection of player's gender
                 Print.GenderOptions();
-
                 choice = 0;
-                //gender of your character
                 while (choice == 0 || choice > 2)
                 {
                     Print.Text("choose gender: ".PadLeft(47, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
-                    keyBoardInput = Console.ReadLine();
-                    int.TryParse(keyBoardInput, out choice);
+                    input = Console.ReadLine();
+                    int.TryParse(input, out choice);
                     Console.ResetColor();
 
-                    if (choice == 1) gender = "male";
-                    if (choice == 2) gender = "female";
+                    player.SetGender(choice);
                 }
 
-                //selection of the player class before start of the game
+                //selection of the player's class
                 Print.PlayerClassOptions();
-
-                playerClass = 0;
-                while (playerClass == 0 || playerClass > 3)
+                choice = 0;
+                while (choice == 0 || choice > 3)
                 {
                     Print.Text("choose class: ".PadLeft(46, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
-                    keyBoardInput = Console.ReadLine();
-                    int.TryParse(keyBoardInput, out playerClass);
+                    input = Console.ReadLine();
+                    int.TryParse(input, out choice);
                     Console.ResetColor();
+
+                    player.SetClass(choice);
                 }
                 Console.Clear();
-
-                //creating player and weapon according to collected data
-                player = CreatePlayer(playerClass, playerName, gender);
-                weapon = new Weapon(playerClass);
 
                 //card of player before start of the game
                 Print.PlayerShortInfo(player);
@@ -115,12 +103,13 @@ namespace EternityRPG
             }
             Console.Clear();
 
-            player = CreatePlayer(playerClass, playerName, gender);
+            //creating player and weapon according to chosen class
+            player = player.CreatePlayer();
+            weapon = new Weapon(player.Class);
 
             Print.Text("The adventure begins\n\n");
             Print.RainbowLoading();
             Console.Clear();
-            //end with collecting the player data
 
             //section of the main gameplay
             while (true)
@@ -140,11 +129,11 @@ namespace EternityRPG
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.Green;
-                            keyBoardInput = Console.ReadLine();
-                            int.TryParse(keyBoardInput, out choiceInTheShop);
+                            input = Console.ReadLine();
+                            int.TryParse(input, out choiceInTheShop);
                             Console.ResetColor();
 
-                            if (keyBoardInput == "<")
+                            if (input == "<")
                             {
                                 Console.Clear();
                                 break;
@@ -152,7 +141,7 @@ namespace EternityRPG
                         }
 
                         //exit from the shop
-                        if (keyBoardInput == "<") break;
+                        if (input == "<") break;
 
                         switch (choiceInTheShop)
                         {
@@ -234,7 +223,7 @@ namespace EternityRPG
                 {
                     Print.SelectLocation(bosses);
 
-                    locationType = 0;
+                    biomeType = 0;
 
                     //if all bosses are dead, you can see menu with the last location
                     int deathCounter = 0;
@@ -242,38 +231,38 @@ namespace EternityRPG
 
                     if (deathCounter == 3)
                     {
-                        while (locationType == 0 || locationType > 4)
+                        while (biomeType == 0 || biomeType > 4)
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.Green;
-                            int.TryParse(Console.ReadLine(), out locationType);
+                            int.TryParse(Console.ReadLine(), out biomeType);
                             Console.ResetColor();
 
-                            index = locationType - 1;
+                            index = biomeType - 1;
                         }
                     }
 
                     //if not, you can choose between three locations
                     else
                     {
-                        while (locationType == 0 || locationType > 3)
+                        while (biomeType == 0 || biomeType > 3)
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.Green;
-                            int.TryParse(Console.ReadLine(), out locationType);
+                            int.TryParse(Console.ReadLine(), out biomeType);
                             Console.ResetColor();
 
-                            index = locationType - 1;
+                            index = biomeType - 1;
                         }
                     }
                 }
                 Console.Clear();
 
                 //create location according to the number of chosen location
-                location = new Biome(locationType);
+                biome = new Biome(biomeType);
 
                 //enter to the secret location, if you already killed three bosses
-                if (locationType == 4)
+                if (biomeType == 4)
                 {
                     yesNo = string.Empty;
                     while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
@@ -293,7 +282,7 @@ namespace EternityRPG
                     //final fight of the game
                     if (yesNo.ToLower() == "y")
                     {
-                        BossBattle(player, medicineBag, location, weapon, bosses);
+                        BossBattle(player, medicineBag, biome, weapon, bosses);
 
                         //if you win final battle
                         if (bosses[index].CurrentHealth <= 0)
@@ -316,9 +305,9 @@ namespace EternityRPG
                 else
                 {
                     //printing full info about the location, only once in each location, according to the chosen location
-                    Print.Text($"{location.LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
+                    Print.Text($"{biome.LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
                     //start battle section with regular enemies
-                    BattleZone(player, medicineBag, location, weapon, bosses);
+                    BattleZone(player, medicineBag, biome, weapon, bosses);
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
@@ -329,7 +318,7 @@ namespace EternityRPG
                     Print.PressEnter();
                     Console.Clear();
                     //start boss fight
-                    BossBattle(player, medicineBag, location, weapon, bosses);
+                    BossBattle(player, medicineBag, biome, weapon, bosses);
                 }
 
                 //if you were killed in the battle
@@ -806,13 +795,6 @@ namespace EternityRPG
                     return playerDamage;
                 }
             }
-        }
-
-        public static Player CreatePlayer(int playerClass, string playerName, string gender)
-        {
-            if (playerClass == 1) return new Warrior(playerName, gender);
-            if (playerClass == 2) return new Archer(playerName, gender);
-            else return new Mage(playerName, gender);
         }
     }
 }

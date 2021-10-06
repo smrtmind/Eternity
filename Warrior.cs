@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace EternityRPG
+﻿namespace EternityRPG
 {
     public class Warrior : Player
     {
-        public Warrior(string name, string gender)
+        public Warrior(string Name, string Gender, string Class)
         {
-            Name = name;
-            Gender = gender;
-            Class = "warrior";
+            base.Name = Name;
+            base.Gender = Gender;
+            base.Class = Class;
             Health = 200;
             CurrentHealth = Health;
             MinDamage = 7;

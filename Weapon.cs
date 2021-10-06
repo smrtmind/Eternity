@@ -7,15 +7,13 @@
         public int[] Damage = new int[2];
         public int[] Cost = new int[2];
 
-        public Weapon() { }
+        public Weapon(string playerClass) => GetWeapon(playerClass);
 
-        public Weapon(int playerClass) => GetWeapon(playerClass);
-
-        private void GetWeapon(int playerClass)
+        private void GetWeapon(string playerClass)
         {
             switch (playerClass)
             {
-                case 1: //warrior
+                case "warrior":
                     Title[0] = "Crystal Sword";
                     Damage[0] = 90;
                     Cost[0] = 3100;
@@ -24,7 +22,7 @@
                     Cost[1] = 6700;
                     break;
 
-                case 2: //archer
+                case "archer":
                     Title[0] = "Poisoned Bow";
                     Damage[0] = 80;
                     Cost[0] = 3200;
@@ -33,7 +31,7 @@
                     Cost[1] = 6650;
                     break;
 
-                case 3: //mage
+                case "mage":
                     Title[0] = "Staff of Pain";
                     Damage[0] = 70;
                     Cost[0] = 3050;

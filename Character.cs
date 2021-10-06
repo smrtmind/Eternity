@@ -5,14 +5,14 @@ namespace EternityRPG
     public abstract class Character
     {
         public Random random = new Random();
-        public string NormalAttackPhrase { get; set; }
-        public string SpecialAttackPhrase { get; set; }
-        public string Name { get; set; }
-        public double Health { get; set; }
+        public string NormalAttackPhrase { get; protected set; }
+        public string SpecialAttackPhrase { get; protected set; }
+        public string Name { get; protected set; }
+        public double Health { get; protected set; }
         public double CurrentHealth { get; set; }
-        public double Damage { get; set; }
-        public double MinDamage { get; set; }
-        public double MaxDamage { get; set; }
+        public double Damage { get; protected set; }
+        public double MinDamage { get; protected set; }
+        public double MaxDamage { get; protected set; }
         public int CritChance { get; set; } = 5;
         public int Exp { get; set; }
         public int Gold { get; set; }

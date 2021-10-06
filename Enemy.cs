@@ -2,10 +2,10 @@
 
 namespace EternityRPG
 {
-    public abstract class Enemy : Character
+    public class Enemy : Character
     {
-        public int CounterToReachTheBoss { get; set; }
-        public int ChanceToInterruptTheEscape { get; set; }
+        public int CounterToReachTheBoss { get; protected set; }
+        public int ChanceToInterruptTheEscape { get; protected set; }
         public bool IsDead { get; set; }
 
         public override void Attack(Player player, Enemy enemy, double damage)

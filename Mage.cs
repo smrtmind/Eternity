@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace EternityRPG
+﻿namespace EternityRPG
 {
     public class Mage : Player
     {
-        public Mage(string name, string gender)
+        public Mage(string Name, string Gender, string Class)
         {
-            Name = name;
-            Gender = gender;
-            Class = "mage";
+            base.Name = Name;
+            base.Gender = Gender;
+            base.Class = Class;
             Health = 120;
             CurrentHealth = Health;
             MinDamage = 13;

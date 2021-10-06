@@ -2,12 +2,41 @@
 
 namespace EternityRPG
 {
-    public abstract class Player : Character
+    public class Player : Character
     {
-        public string Gender { get; set; }
-        public string Class { get; set; }
-        public int Lvl { get; set; } = 1;
-        public double NextLvl { get; set; } = 150;
+        public string Gender { get; protected set; }
+        public string Class { get; protected set; }
+        public int Lvl { get; private set; } = 1;
+        public double NextLvl { get; private set; } = 150;
+
+        public Player() { }
+
+        public void SetName(string keyBoardInput)
+        {
+            if (keyBoardInput.Length > 0) 
+                Name = keyBoardInput;
+            else Name = "Ash";
+        }
+
+        public void SetGender(int choice)
+        {
+            if (choice == 1) Gender = "male";
+            if (choice == 2) Gender = "female";
+        }
+
+        public void SetClass(int choice)
+        {
+            if (choice == 1) Class = "warrior";
+            if (choice == 2) Class = "archer";
+            if (choice == 3) Class = "mage";
+        }
+
+        public Player CreatePlayer()
+        {
+            if (Class == "warrior") return new Warrior(Name, Gender, Class);
+            if (Class == "archer") return new Archer(Name, Gender, Class);
+            else return new Mage(Name, Gender, Class);
+        }
 
         public double GenerateDamage(Weapon weapon)
         {
