@@ -5,30 +5,29 @@ namespace EternityRPG
 {
     class Program
     {
-        public static int index { get; set; }
+        public static int DefeatedEnemiesToFightTheBoss { get; set; }
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
-        public static int DefeatedEnemiesToFightTheBoss { get; set; }
+        public static int index { get; set; }
+      
+        public static MedicineBag medicineBag = new MedicineBag();
+        public static Player player = new Player();
+        public static Weapon weapon;
+        public static Biome biome;
+
+        public static Enemy[] bosses = new Enemy[]
+        {
+            new boss1(),
+            new boss2(),
+            new boss3(),
+            new boss4()
+        };
 
         static void Main(string[] args)
         {
-            MedicineBag medicineBag = new MedicineBag();
-            Player player = new Player();
-            Weapon weapon;
-            Biome biome;
-
-            Enemy[] bosses = new Enemy[]
-            {
-                new boss1(),
-                new boss2(),
-                new boss3(),
-                new boss4()
-            };
-
+            string YesOrNo = string.Empty;
             string input = string.Empty;
-            string yesNo = string.Empty;
-
-            int changeDirection = 0;
+            int selectDirection = 0;
             int biomeType = 1;
             int choice = 0;
 
@@ -41,9 +40,9 @@ namespace EternityRPG
             Print.Text("Can you help me with this?\n\n", ConsoleColor.Cyan);
             Thread.Sleep(2000);
 
-            while (yesNo.ToLower() != "y")
+            while (YesOrNo.ToLower() != "y")
             {
-                yesNo = string.Empty;
+                YesOrNo = string.Empty;
 
                 //selection of player's name
                 Print.Text("Enter your name or press ENTER: ");
@@ -51,7 +50,7 @@ namespace EternityRPG
                 Console.ForegroundColor = ConsoleColor.Green;
                 input = Console.ReadLine();
                 Console.ResetColor();
-                
+
                 player.SetName(input);
 
                 //selection of player's gender
@@ -86,8 +85,8 @@ namespace EternityRPG
                 //card of player before start of the game
                 Print.PlayerShortInfo(player);
 
-                yesNo = string.Empty;
-                while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
+                YesOrNo = string.Empty;
+                while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
                 {
                     Print.Text("Are you ready to start the adventure with this character?");
                     Print.Text(" [y] ", ConsoleColor.Green);
@@ -96,7 +95,7 @@ namespace EternityRPG
                     Print.Text(": ");
 
                     Console.ForegroundColor = ConsoleColor.Green;
-                    yesNo = Console.ReadLine();
+                    YesOrNo = Console.ReadLine();
                     Console.ResetColor();
                 }
                 Console.Clear();
@@ -115,12 +114,12 @@ namespace EternityRPG
             while (true)
             {
                 //shop
-                if (changeDirection == 1)
+                if (selectDirection == 1)
                 {
                     Console.Clear();
 
-                    yesNo = string.Empty;
-                    while (yesNo.ToLower() != "n")
+                    YesOrNo = string.Empty;
+                    while (YesOrNo.ToLower() != "n")
                     {
                         Print.ShopOptions(player, weapon, medicineBag);
 
@@ -199,8 +198,8 @@ namespace EternityRPG
                         }
                         Console.WriteLine();
 
-                        yesNo = string.Empty;
-                        while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
+                        YesOrNo = string.Empty;
+                        while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
                         {
                             Print.Text("anything else?".PadLeft(40, ' '));
                             Print.Text(" [y] ", ConsoleColor.Green);
@@ -209,17 +208,17 @@ namespace EternityRPG
                             Print.Text(": ");
 
                             Console.ForegroundColor = ConsoleColor.Green;
-                            yesNo = Console.ReadLine();
+                            YesOrNo = Console.ReadLine();
                             Console.ResetColor();
 
-                            if (yesNo.ToLower() == "y" || yesNo.ToLower() == "n") Console.Clear();
+                            if (YesOrNo.ToLower() == "y" || YesOrNo.ToLower() == "n") Console.Clear();
                         }
                     }
-                    changeDirection = 2;
+                    selectDirection = 2;
                 }
 
                 //select between locations
-                if (changeDirection == 2)
+                if (selectDirection == 2)
                 {
                     Print.SelectLocation(bosses);
 
@@ -264,8 +263,8 @@ namespace EternityRPG
                 //enter to the secret location, if you already killed three bosses
                 if (biomeType == 4)
                 {
-                    yesNo = string.Empty;
-                    while (yesNo.ToLower() != "y" && yesNo.ToLower() != "n")
+                    YesOrNo = string.Empty;
+                    while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
                     {
                         Print.Text($"Are you ready for final battle?");
                         Print.Text(" [y] ", ConsoleColor.Cyan);
@@ -274,15 +273,15 @@ namespace EternityRPG
                         Print.Text(": ");
 
                         Console.ForegroundColor = ConsoleColor.Cyan;
-                        yesNo = Console.ReadLine();
+                        YesOrNo = Console.ReadLine();
                         Console.ResetColor();
                     }
                     Console.Clear();
 
                     //final fight of the game
-                    if (yesNo.ToLower() == "y")
+                    if (YesOrNo.ToLower() == "y")
                     {
-                        BossBattle(player, medicineBag, biome, weapon, bosses);
+                        BossBattle();
 
                         //if you win final battle
                         if (bosses[index].CurrentHealth <= 0)
@@ -307,7 +306,7 @@ namespace EternityRPG
                     //printing full info about the location, only once in each location, according to the chosen location
                     Print.Text($"{biome.LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
                     //start battle section with regular enemies
-                    BattleZone(player, medicineBag, biome, weapon, bosses);
+                    BattleZone();
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
@@ -318,7 +317,7 @@ namespace EternityRPG
                     Print.PressEnter();
                     Console.Clear();
                     //start boss fight
-                    BossBattle(player, medicineBag, biome, weapon, bosses);
+                    BossBattle();
                 }
 
                 //if you were killed in the battle
@@ -331,19 +330,19 @@ namespace EternityRPG
                 //change your direction
                 Print.ChangeDirection();
 
-                changeDirection = 0;
-                while (changeDirection == 0 || changeDirection > 3)
+                selectDirection = 0;
+                while (selectDirection == 0 || selectDirection > 3)
                 {
                     Print.Text("make your choice: ".PadLeft(32, ' '));
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    int.TryParse(Console.ReadLine(), out changeDirection);
+                    int.TryParse(Console.ReadLine(), out selectDirection);
                     Console.ResetColor();
 
                     //show status information
-                    if (changeDirection == 3)
+                    if (selectDirection == 3)
                     {
                         Print.PlayerStatistics(player, weapon);
-                        changeDirection = 0;
+                        selectDirection = 0;
                         continue;
                     }
                 }
@@ -352,7 +351,7 @@ namespace EternityRPG
             }
         }
 
-        public static void BattleZone(Player player, MedicineBag medicineBag, Biome biome, Weapon weapon, Enemy[] bosses)
+        public static void BattleZone(bool bossBattle = false)
         {
             //setting counter of defeated enemies to 0 before the start of each battle
             DefeatedEnemiesToFightTheBoss = 0;
@@ -605,7 +604,7 @@ namespace EternityRPG
             }
         }
 
-        public static void BossBattle(Player player, MedicineBag medicineBag, Biome biome, Weapon weapon, Enemy[] bosses)
+        public static void BossBattle()
         {
             while (true)
             {

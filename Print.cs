@@ -257,7 +257,7 @@ namespace EternityRPG
                 Text(" LVL:             ");
                 Text($"{player.Lvl}\n", ConsoleColor.Green);
                 Text(" EXP:             ");
-                Text($"{player.Exp}\t", ConsoleColor.Green);
+                Text($"{player.Exp}\t\t", ConsoleColor.Green);
                 Text("/ ");
                 Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
                 Text(" GOLD:            ");

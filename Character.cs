@@ -20,8 +20,8 @@ namespace EternityRPG
 
         public double GenerateDamage() => Damage = random.Next((int) MinDamage, (int) MaxDamage);
 
-        public virtual void Attack(Player player, Enemy enemy, double damage) { }
+        public abstract void Attack(Player player, Enemy enemy, double damage);
 
-        public virtual void SpecialAttack(Player player, Enemy enemy, double damage) { }
+        public abstract void SpecialAttack(Player player, Enemy enemy, double damage);
     }
 }
