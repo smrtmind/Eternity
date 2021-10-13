@@ -5,20 +5,20 @@ namespace EternityRPG
 {
     class Program
     {
-        public static int DefeatedEnemiesToFightTheBoss { get; set; }
+        private static int DefeatedEnemiesToFightTheBoss { get; set; }
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
-        public static int index { get; set; }
+        private static int index { get; set; }
 
-        public static Random random = new Random();
-      
-        public static MedicineBag medicineBag = new MedicineBag();
-        public static Player player = new Player();
-        public static Weapon weapon;
-        public static Biome biome;
-        public static Enemy enemy;
+        private static Random random = new Random();
 
-        public static Enemy[] bosses = new Enemy[]
+        private static MedicineBag medicineBag = new MedicineBag();
+        private static Player player = new Player();
+        private static Weapon weapon;
+        private static Biome biome;
+        private static Enemy enemy;
+
+        private static Enemy[] bosses = new Enemy[]
         {
             new boss1(),
             new boss2(),
@@ -148,58 +148,52 @@ namespace EternityRPG
                         switch (choiceInTheShop)
                         {
                             case 1:
-                                BuyPotion(medicineBag.Cost[0], choiceInTheShop);
+                                Buy(medicineBag.Cost[0], choiceInTheShop, potion: true);
                                 break;
 
                             case 2:
-                                BuyPotion(medicineBag.Cost[1], choiceInTheShop);
+                                Buy(medicineBag.Cost[1], choiceInTheShop, potion: true);
                                 break;
 
                             case 3:
-                                BuyPotion(medicineBag.Cost[2], choiceInTheShop);
+                                Buy(medicineBag.Cost[2], choiceInTheShop, potion: true);
                                 break;
 
                             case 4:
-                                BuyWeapon(weapon.Cost[0], choiceInTheShop);
+                                Buy(weapon.Cost[0], choiceInTheShop);
                                 break;
 
                             case 5:
-                                BuyWeapon(weapon.Cost[1], choiceInTheShop);
+                                Buy(weapon.Cost[1], choiceInTheShop);
                                 break;
                         }
 
-                        //buying potions
-                        void BuyPotion(int cost, int type)
+                        //buying items
+                        void Buy(int cost, int type, bool potion = false)
                         {
                             if (player.Gold >= cost)
                             {
                                 player.Gold -= cost;
-                                medicineBag.AddPotion(potionType: type);
-                            }
-                            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
-                        }
 
-                        //buying weapon
-                        void BuyWeapon(int cost, int type)
-                        {
-                            if (player.Gold >= cost)
-                            {
-                                player.Gold -= cost;
-                                if (type == 4)
+                                if (potion)
+                                    medicineBag.AddPotion(potionType: type);
+                                else
                                 {
-                                    weapon.WeaponIsBought[0] = true;
-                                    weapon.WeaponIsBought[1] = false;
-                                }
+                                    if (type == 4)
+                                    {
+                                        weapon.WeaponIsBought[0] = true;
+                                        weapon.WeaponIsBought[1] = false;
+                                    }
 
-                                if (type == 5)
-                                {
-                                    weapon.WeaponIsBought[0] = false;
-                                    weapon.WeaponIsBought[1] = true;
+                                    if (type == 5)
+                                    {
+                                        weapon.WeaponIsBought[0] = false;
+                                        weapon.WeaponIsBought[1] = true;
+                                    }
                                 }
                             }
-                            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
+                            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n\n", ConsoleColor.DarkRed);
                         }
-                        Console.WriteLine();
 
                         YesOrNo = string.Empty;
                         while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
