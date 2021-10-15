@@ -8,7 +8,7 @@ namespace EternityRPG
         private static int DefeatedEnemiesToFightTheBoss { get; set; }
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
-        private static int index { get; set; }
+        private static int bossType { get; set; }
 
         private static Random random = new Random();
         private static Player player = new Player();
@@ -188,7 +188,7 @@ namespace EternityRPG
                             int.TryParse(Console.ReadLine(), out biomeType);
                             Console.ResetColor();
 
-                            index = biomeType - 1;
+                            bossType = biomeType - 1;
                         }
                     }
 
@@ -202,7 +202,7 @@ namespace EternityRPG
                             int.TryParse(Console.ReadLine(), out biomeType);
                             Console.ResetColor();
 
-                            index = biomeType - 1;
+                            bossType = biomeType - 1;
                         }
                     }
                 }
@@ -235,7 +235,7 @@ namespace EternityRPG
                         BattleZone(bossBattle: true);
 
                         //if you win final battle
-                        if (bosses[index].CurrentHealth <= 0)
+                        if (bosses[bossType].CurrentHealth <= 0)
                         {
                             Console.Clear();
                             Print.TheEnd(player, inventory);
@@ -261,10 +261,10 @@ namespace EternityRPG
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
-                if (DefeatedEnemiesToFightTheBoss == bosses[index].CounterToReachTheBoss && !bosses[index].IsDead)
+                if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead)
                 {
                     Print.BoosFight();
-                    Print.Text($"\tGet ready for battle, the {bosses[index].Name} is coming...\n\n");
+                    Print.Text($"\tGet ready for battle, the {bosses[bossType].Name} is coming...\n\n");
                     Print.PressEnter();
                     Console.Clear();
                     //start boss fight
@@ -332,7 +332,7 @@ namespace EternityRPG
 
                 else
                 {
-                    enemy = bosses[index];
+                    enemy = bosses[bossType];
                     Print.Text($"\n{enemy.Name}\n\n");
                 }
 
@@ -554,8 +554,8 @@ namespace EternityRPG
                 }
 
                 if (player.CurrentHealth <= 0) break;
-                if (bosses[index].CurrentHealth <= 0) break;
-                if (DefeatedEnemiesToFightTheBoss == bosses[index].CounterToReachTheBoss && !bosses[index].IsDead) break;
+                if (bosses[bossType].CurrentHealth <= 0) break;
+                if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead) break;
 
                 //asking if you want to continue grinding or not
                 YesOrNo = string.Empty;
