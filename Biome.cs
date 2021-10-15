@@ -25,12 +25,12 @@ namespace EternityRPG
 
                 case 2:
                     LocationInfo = "You see a large system of tangled caves in front of you. It's time to go.\n";
-                    ShortTitle = "Caves";
+                    ShortTitle = "Mysterious caves";
                     break;
 
                 case 3:
                     LocationInfo = "The heat from volcanic rocks burns your body, you need to move forward, it is dangerous to stand still.\n";
-                    ShortTitle = "Volcano";
+                    ShortTitle = "Ancient volcano";
                     break;
 
                 case 4:

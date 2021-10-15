@@ -23,7 +23,7 @@
                 case "mage":
                     Title = "Staff of Pain";
                     Damage = 70;
-                    Cost = 3;// 3050;
+                    Cost = 3050;
                     break;
             }
         }

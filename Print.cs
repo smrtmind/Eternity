@@ -96,15 +96,15 @@ namespace EternityRPG
             {
                 Text("Where do you want to go? ");
                 Text(" [1] ", ConsoleColor.Green);
-                Text("Dark forest\t");
+                Text("Dark forest\t\t");
                 Condition(bosses[0]);
 
                 Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Caves\t\t");
+                Text("Mysterious caves\t\t");
                 Condition(bosses[1]);
 
                 Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Volcano\t\t");
+                Text("Ancient volcano\t\t");
                 Condition(bosses[2]);
 
                 Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
@@ -116,15 +116,15 @@ namespace EternityRPG
             {
                 Text("Where do you want to go? ");
                 Text(" [1] ", ConsoleColor.Green);
-                Text("Dark forest\t");
+                Text("Dark forest\t\t");
                 Condition(bosses[0]);
 
                 Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Caves\t\t");
+                Text("Mysterious caves\t\t");
                 Condition(bosses[1]);
 
                 Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Volcano\t\t");
+                Text("Ancient volcano\t\t");
                 Condition(bosses[2]);
                 Text("\n");
             }
@@ -364,7 +364,7 @@ namespace EternityRPG
         public static void PressEnter()
         {
             Thread.Sleep(1500);
-            Text("Press Enter to continue\n");
+            Text("Press Enter to continue");
             Console.ReadLine();
         }
 
