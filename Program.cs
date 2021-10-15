@@ -11,12 +11,11 @@ namespace EternityRPG
         private static int index { get; set; }
 
         private static Random random = new Random();
-
-        private static MedicineBag medicineBag = new MedicineBag();
         private static Player player = new Player();
-        private static Weapon weapon;
         private static Biome biome;
         private static Enemy enemy;
+
+        private static Item[] inventory;
 
         private static Enemy[] bosses = new Enemy[]
         {
@@ -107,7 +106,15 @@ namespace EternityRPG
 
             //creating player and weapon according to chosen class
             player = player.CreatePlayer();
-            weapon = new Weapon(player.Class);
+
+            inventory = new Item[]
+            {
+                new Potion(90, 30, "small healing potion"),
+                new Potion(180, 90, "medium healing potion"),
+                new Potion(350, 150, "big healing potion"),
+                new Weapon1(player.Class),
+                new Weapon2(player.Class)
+            };
 
             Print.Text("The adventure begins\n\n");
             Print.RainbowLoading();
@@ -124,7 +131,7 @@ namespace EternityRPG
                     YesOrNo = string.Empty;
                     while (YesOrNo.ToLower() != "n")
                     {
-                        Print.ShopOptions(player, weapon, medicineBag);
+                        Print.ShopOptions(player, inventory);
 
                         int choiceInTheShop = 0;
                         while (choiceInTheShop == 0 || choiceInTheShop > 5)
@@ -144,61 +151,17 @@ namespace EternityRPG
 
                         //exit from the shop
                         if (input == "<") break;
-
-                        switch (choiceInTheShop)
-                        {
-                            case 1:
-                                Buy(medicineBag.Cost[0], choiceInTheShop, potion: true);
-                                break;
-
-                            case 2:
-                                Buy(medicineBag.Cost[1], choiceInTheShop, potion: true);
-                                break;
-
-                            case 3:
-                                Buy(medicineBag.Cost[2], choiceInTheShop, potion: true);
-                                break;
-
-                            case 4:
-                                Buy(weapon.Cost[0], choiceInTheShop);
-                                break;
-
-                            case 5:
-                                Buy(weapon.Cost[1], choiceInTheShop);
-                                break;
-                        }
-
-                        //buying items
-                        void Buy(int cost, int type, bool potion = false)
-                        {
-                            if (player.Gold >= cost)
-                            {
-                                player.Gold -= cost;
-
-                                if (potion)
-                                    medicineBag.AddPotion(potionType: type);
-                                else
-                                {
-                                    if (type == 4)
-                                    {
-                                        weapon.WeaponIsBought[0] = true;
-                                        weapon.WeaponIsBought[1] = false;
-                                    }
-
-                                    if (type == 5)
-                                    {
-                                        weapon.WeaponIsBought[0] = false;
-                                        weapon.WeaponIsBought[1] = true;
-                                    }
-                                }
-                            }
-                            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n\n", ConsoleColor.DarkRed);
-                        }
+                        //continue bwosing in the shop
+                        else if (choiceInTheShop == 1) inventory[0].Add(player, inventory, choiceInTheShop);
+                        else if (choiceInTheShop == 2) inventory[1].Add(player, inventory, choiceInTheShop);
+                        else if (choiceInTheShop == 3) inventory[2].Add(player, inventory, choiceInTheShop);
+                        else if (choiceInTheShop == 4) inventory[3].Add(player, inventory, choiceInTheShop);
+                        else if (choiceInTheShop == 5) inventory[4].Add(player, inventory, choiceInTheShop);
 
                         YesOrNo = string.Empty;
                         while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
                         {
-                            Print.Text("anything else?".PadLeft(40, ' '));
+                            Print.Text("\n" + "anything else?".PadLeft(40, ' '));
                             Print.Text(" [y] ", ConsoleColor.Green);
                             Print.Text("/");
                             Print.Text(" [n]", ConsoleColor.Green);
@@ -284,7 +247,7 @@ namespace EternityRPG
                         if (bosses[index].CurrentHealth <= 0)
                         {
                             Console.Clear();
-                            Print.TheEnd(player, weapon);
+                            Print.TheEnd(player, inventory);
                             break;
                         }
 
@@ -338,7 +301,7 @@ namespace EternityRPG
                     //show status information
                     if (selectDirection == 3)
                     {
-                        Print.PlayerStatistics(player, weapon);
+                        Print.PlayerStatistics(player, inventory);
                         selectDirection = 0;
                         continue;
                     }
@@ -389,7 +352,7 @@ namespace EternityRPG
                     //every new cycle of fight generate unic damage for player and enemy
                     double playerDamage = PlayerDamage();
                     double enemyDamage = enemy.GenerateDamage();
-                        
+
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
                     keyBoardInput = Console.ReadLine();
@@ -411,7 +374,7 @@ namespace EternityRPG
                             player.Exp += enemy.Exp;
                             //check if player has enough experience to get new level
                             player.LevelUp(player.Exp);
-                            Print.PlayerStatistics(player, weapon);
+                            Print.PlayerStatistics(player, inventory);
 
                             if (!bossBattle)
                             {
@@ -459,7 +422,7 @@ namespace EternityRPG
                                 player.Exp += enemy.Exp;
                                 //check if player has enough experience to get new level
                                 player.LevelUp(player.Exp);
-                                Print.PlayerStatistics(player, weapon);
+                                Print.PlayerStatistics(player, inventory);
 
                                 if (!bossBattle)
                                 {
@@ -494,7 +457,7 @@ namespace EternityRPG
                     //battle optins => healing options
                     if (battleChoice == 3)
                     {
-                        Print.HealingOptions(medicineBag);
+                        Print.HealingOptions(inventory);
 
                         choice = 0;
                         while (choice == 0 || choice > 3)
@@ -511,9 +474,9 @@ namespace EternityRPG
                         if (choice == 1 || choice == 2 || choice == 3)
                         {
                             //if you have potion
-                            if (medicineBag.UsePotion(choice) > 0)
+                            if (inventory[choice - 1].Amount > 0)
                             {
-                                player.CurrentHealth += medicineBag.HealingPower[choice - 1];
+                                inventory[choice - 1].Use(player, inventory, choice);
 
                                 //if player's current health equal or greater than maximum health
                                 if (player.CurrentHealth > player.Health)
@@ -523,7 +486,7 @@ namespace EternityRPG
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{medicineBag.HealingPower[choice - 1]} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{inventory[choice - 1].HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
 
                                 //enemy does his turn, after you used yours for healing
                                 enemy.Attack(player, enemy, enemyDamage);
@@ -535,7 +498,7 @@ namespace EternityRPG
                             //if you don't have any potions
                             else
                             {
-                                Print.Text($"\n\tYou don't have {medicineBag.Title[choice - 1]}\n", ConsoleColor.DarkRed);
+                                Print.Text($"\n\tYou don't have {inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
                                 enemy.Attack(player, enemy, enemyDamage);
@@ -624,10 +587,10 @@ namespace EternityRPG
                 {
                     double playerDamage;
                     //if player bought weapon, it will generate damage + weapon damage
-                    if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
+                    if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
                         playerDamage = player.GenerateDamage();
                     else
-                        playerDamage = player.GenerateDamage(weapon);
+                        playerDamage = player.GenerateDamage(inventory);
 
                     return playerDamage;
                 }

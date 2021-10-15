@@ -38,13 +38,13 @@ namespace EternityRPG
             else return new Mage(Name, Gender, Class);
         }
 
-        public double GenerateDamage(Weapon weapon)
+        public double GenerateDamage(Item[] weapon)
         {
-            if (weapon.WeaponIsBought[0])
-                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage[0];
+            if (weapon[3].WeaponIsBought)
+                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon[3].Damage;
 
-            if (weapon.WeaponIsBought[1])
-                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage[1];
+            if (weapon[4].WeaponIsBought)
+                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon[4].Damage;
 
             return Damage;
         }

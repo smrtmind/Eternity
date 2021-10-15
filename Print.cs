@@ -49,34 +49,34 @@ namespace EternityRPG
             Text("".PadLeft(25, '<') + "\n\n", ConsoleColor.Magenta);
         }
 
-        public static void ShopOptions(Player player, Weapon weapon, MedicineBag medicineBag)
+        public static void ShopOptions(Player player, Item[] inventory)
         {
             Text("You are in the shop.\nWhat do you want to buy? ");
             Text(" [1] ", ConsoleColor.Green);
-            Text($"{medicineBag.Title[0]}\t");
-            Text($"{medicineBag.Cost[0]} gold", ConsoleColor.DarkYellow);
+            Text($"{inventory[0].Title}\t");
+            Text($"{inventory[0].Cost} gold", ConsoleColor.DarkYellow);
             Text("  / ");
-            Text($"you have {medicineBag.Amount[0]}\n", ConsoleColor.Cyan);
+            Text($"you have {inventory[0].Amount}\n", ConsoleColor.Cyan);
             Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{medicineBag.Title[1]}\t");
-            Text($"{medicineBag.Cost[1]} gold", ConsoleColor.DarkYellow);
+            Text($"{inventory[1].Title}\t");
+            Text($"{inventory[1].Cost} gold", ConsoleColor.DarkYellow);
             Text("  / ");
-            Text($"you have {medicineBag.Amount[1]}\n", ConsoleColor.Cyan);
+            Text($"you have {inventory[1].Amount}\n", ConsoleColor.Cyan);
             Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{medicineBag.Title[2]}\t");
-            Text($"{medicineBag.Cost[2]} gold", ConsoleColor.DarkYellow);
+            Text($"{inventory[2].Title}\t");
+            Text($"{inventory[2].Cost} gold", ConsoleColor.DarkYellow);
             Text(" / ");
-            Text($"you have {medicineBag.Amount[2]}\n\n", ConsoleColor.Cyan);
+            Text($"you have {inventory[2].Amount}\n\n", ConsoleColor.Cyan);
 
             //you can see weapon according to the selected class of player
             Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{weapon.Title[0]}\t", ConsoleColor.DarkCyan);
-            Text($"+{weapon.Damage[0]}\t", ConsoleColor.DarkRed);
-            Text($"{weapon.Cost[0]} gold\n", ConsoleColor.DarkYellow);
+            Text($"{inventory[3].Title}\t", ConsoleColor.DarkCyan);
+            Text($"+{inventory[3].Damage}\t", ConsoleColor.DarkRed);
+            Text($"{inventory[3].Cost} gold\n", ConsoleColor.DarkYellow);
             Text(" [5] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{weapon.Title[1]}\t", ConsoleColor.DarkCyan);
-            Text($"+{weapon.Damage[1]}\t", ConsoleColor.DarkRed);
-            Text($"{weapon.Cost[1]} gold\n\n", ConsoleColor.DarkYellow);
+            Text($"{inventory[4].Title}\t", ConsoleColor.DarkCyan);
+            Text($"+{inventory[4].Damage}\t", ConsoleColor.DarkRed);
+            Text($"{inventory[4].Cost} gold\n\n", ConsoleColor.DarkYellow);
 
             //gold in your bag
             Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
@@ -162,19 +162,19 @@ namespace EternityRPG
             Text("run away\n\n");
         }
 
-        public static void HealingOptions(MedicineBag medicineBag)//battle optins => healing options
+        public static void HealingOptions(Item[] potions)//battle optins => healing options
         {
             Text("\n");
             Text("Choose a potion:".PadLeft(25, ' '));
             Text(" [1] ", ConsoleColor.DarkYellow);
             Text($"small\t");
-            Text($"{medicineBag.Amount[0]}\n", ConsoleColor.DarkYellow);
+            Text($"{potions[0].Amount}\n", ConsoleColor.DarkYellow);
             Text(" [2] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"medium\t");
-            Text($"{medicineBag.Amount[1]}\n", ConsoleColor.DarkYellow);
+            Text($"{potions[1].Amount}\n", ConsoleColor.DarkYellow);
             Text(" [3] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"big\t");
-            Text($"{medicineBag.Amount[2]}\n\n", ConsoleColor.DarkYellow);
+            Text($"{potions[2].Amount}\n\n", ConsoleColor.DarkYellow);
             Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"back\n\n");
         }
@@ -208,7 +208,7 @@ namespace EternityRPG
             Text($@"{"\t"}|___/  \___/  |___/ |___/     \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkBlue, false, 2);
         }
 
-        public static void TheEnd(Player player, Weapon weapon)
+        public static void TheEnd(Player player, Item[] inventory)
         {
             Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.Cyan, false, 2);
             Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkCyan, false, 2);
@@ -219,7 +219,7 @@ namespace EternityRPG
             Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.Blue, false, 2);
             Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.Cyan, false, 2);
 
-            if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
+            if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
             {
                 Text("\n");
                 Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
@@ -227,21 +227,21 @@ namespace EternityRPG
                 Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
-            if (weapon.WeaponIsBought[0] || weapon.WeaponIsBought[1])
+            if (inventory[3].WeaponIsBought || inventory[4].WeaponIsBought)
             {
                 Text("\n");
                 Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
 
-                if (weapon.WeaponIsBought[0])
+                if (inventory[3].WeaponIsBought)
                 {
                     Text(" weapon:          ");
-                    Text($"{weapon.Title[0]}\n", ConsoleColor.DarkRed);
+                    Text($"{inventory[3].Title}\n", ConsoleColor.DarkRed);
                 }
-                if (weapon.WeaponIsBought[1])
+                if (inventory[4].WeaponIsBought)
                 {
                     Text(" weapon:          ");
-                    Text($"{weapon.Title[1]}\n", ConsoleColor.DarkRed);
+                    Text($"{inventory[4].Title}\n", ConsoleColor.DarkRed);
                 }
 
                 Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
@@ -368,10 +368,10 @@ namespace EternityRPG
             Console.ReadLine();
         }
 
-        public static void PlayerStatistics(Player player, Weapon weapon)
+        public static void PlayerStatistics(Player player, Item[] inventory)
         {
             //if you didn't buy any weapon from the shop
-            if (!weapon.WeaponIsBought[0] && !weapon.WeaponIsBought[1])
+            if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
             {
                 Text("\n");
                 Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
@@ -380,21 +380,21 @@ namespace EternityRPG
             }
 
             //if you have bought any weapon from the shop
-            if (weapon.WeaponIsBought[0] || weapon.WeaponIsBought[1])
+            if (inventory[3].WeaponIsBought || inventory[4].WeaponIsBought)
             {
                 Text("\n");
                 Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
                 MainStats();
 
-                if (weapon.WeaponIsBought[0])
+                if (inventory[3].WeaponIsBought)
                 {
                     Text(" weapon:   ");
-                    Text($"{weapon.Title[0]}\n", ConsoleColor.DarkRed);
+                    Text($"{inventory[3].Title}\n", ConsoleColor.DarkRed);
                 }
-                if (weapon.WeaponIsBought[1])
+                if (inventory[4].WeaponIsBought)
                 {
                     Text(" weapon:   ");
-                    Text($"{weapon.Title[1]}\n", ConsoleColor.DarkRed);
+                    Text($"{inventory[4].Title}\n", ConsoleColor.DarkRed);
                 }
 
                 Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
