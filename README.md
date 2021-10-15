@@ -1,5 +1,5 @@
 # Eternity
-It is a console action-rpg, if I could say so. It was one of my training projects, where I tried to program a fully functional game in one of my fovourite game ganres. And I think I succed in it. I tried to use OOP, to give all in-game characters their own personality.
+It is a console D&D like text based game. It was one of my training projects, where I tried to program a fully functional game in one of my fovourite game ganres. And I think I succed in it. I tried to use OOP, to give all in-game characters their own personality.
 
 # Features I implemented
 ⭐Endless level-up system. Every lvl you achieve, you will upgrade your health and strengh.

@@ -10,8 +10,9 @@ namespace EternityRPG
             {
                 player.Gold -= Cost;
                 Use(player, inventory, choice);
+                Print.Text("\n");
             }
-            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
+            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n\n", ConsoleColor.DarkRed);
         }
 
         public override void Use(Player player, Item[] inventory, int choice)

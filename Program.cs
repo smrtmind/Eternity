@@ -126,20 +126,18 @@ namespace EternityRPG
                 //shop
                 if (selectDirection == 1)
                 {
-                    Console.Clear();
-
                     YesOrNo = string.Empty;
                     while (YesOrNo.ToLower() != "n")
                     {
-                        Print.ShopOptions(player, inventory);
-
-                        int choiceInTheShop = 0;
-                        while (choiceInTheShop == 0 || choiceInTheShop > 5)
+                        choice = 0;
+                        while (choice == 0 || choice > 5)
                         {
+                            Console.Clear();
+                            Print.ShopOptions(player, inventory);
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.Green;
                             input = Console.ReadLine();
-                            int.TryParse(input, out choiceInTheShop);
+                            int.TryParse(input, out choice);
                             Console.ResetColor();
 
                             if (input == "<")
@@ -151,17 +149,13 @@ namespace EternityRPG
 
                         //exit from the shop
                         if (input == "<") break;
-                        //continue bwosing in the shop
-                        else if (choiceInTheShop == 1) inventory[0].Add(player, inventory, choiceInTheShop);
-                        else if (choiceInTheShop == 2) inventory[1].Add(player, inventory, choiceInTheShop);
-                        else if (choiceInTheShop == 3) inventory[2].Add(player, inventory, choiceInTheShop);
-                        else if (choiceInTheShop == 4) inventory[3].Add(player, inventory, choiceInTheShop);
-                        else if (choiceInTheShop == 5) inventory[4].Add(player, inventory, choiceInTheShop);
+                        //continue browsing in the shop
+                        inventory[choice - 1].Add(player, inventory, choice);
 
                         YesOrNo = string.Empty;
                         while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
                         {
-                            Print.Text("\n" + "anything else?".PadLeft(40, ' '));
+                            Print.Text("anything else?".PadLeft(40, ' '));
                             Print.Text(" [y] ", ConsoleColor.Green);
                             Print.Text("/");
                             Print.Text(" [n]", ConsoleColor.Green);
