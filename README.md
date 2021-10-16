@@ -20,9 +20,9 @@ It is a console D&D like text based game. It was one of my training projects, wh
 
 ⭐You can run from the battle (if it is not a boss battle) and if you are lucky enough, because there is the system according to it every enemy has his own chance to catch you while you are trying to run from the fight.
 
-⭐In battle menu, you can choose healing menu, to use any potion you have. But if you chaged your mind it is not a problem. You can go back to battle menu, it is allowed.
+⭐In battle menu, you can choose healing menu, to use any potion you have. But if you changed your mind it is not a problem. You can go back to battle menu, it is allowed.
 
-⭐It is easy to see all potions you have in your bag int healing menu.
+⭐It is easy to see all potions you have in your bag int healing menu or in the shop.
 
 ⭐There is a shop in game. You can refill your bag with potions, if amount of your money allow you that.
 
