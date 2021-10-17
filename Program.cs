@@ -41,6 +41,7 @@ namespace EternityRPG
             Print.Text("Can you help me with this?\n\n", ConsoleColor.Cyan);
             Thread.Sleep(2000);
 
+            //******************** SECTION OF CREATING A PLAYER ********************
             while (yesOrNo.ToLower() != "y")
             {
                 yesOrNo = string.Empty;
@@ -67,7 +68,7 @@ namespace EternityRPG
                     player.SetGender(choice);
                 }
 
-                //selection of the player's class
+                //selection of player's class
                 Print.PlayerClassOptions();
                 choice = 0;
                 while (choice == 0 || choice > 3)
@@ -116,7 +117,7 @@ namespace EternityRPG
             Print.RainbowLoading();
             Console.Clear();
 
-            //section of the main gameplay
+            //******************** SECTION OF THE MAIN GAMEPLAY ********************
             while (true)
             {
                 //shop
@@ -125,8 +126,8 @@ namespace EternityRPG
                     yesOrNo = string.Empty;
                     while (yesOrNo.ToLower() != "n")
                     {
-                        choice = 0;
-                        while (choice == 0 || choice > 5)
+                        input = string.Empty;
+                        while (input != "<")
                         {
                             Console.Clear();
                             Print.ShopOptions(player, inventory);
@@ -137,18 +138,16 @@ namespace EternityRPG
                             Console.ResetColor();
 
                             int.TryParse(input, out choice);
-
-                            if (input == "<")
+                            if (choice > 0 && choice <= 5)
                             {
-                                Console.Clear();
+                                //trying to buy something
+                                inventory[choice - 1].Add(player, inventory, choice);
                                 break;
                             }
                         }
 
                         //exit from the shop
                         if (input == "<") break;
-                        //continue browsing in the shop
-                        inventory[choice - 1].Add(player, inventory, choice);
 
                         yesOrNo = string.Empty;
                         while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
@@ -302,6 +301,7 @@ namespace EternityRPG
             }
         }
 
+        //******************** SECTION OF BATTLE LOGIC ********************
         public static void BattleZone(bool bossBattle = false)
         {
             if (!bossBattle)
