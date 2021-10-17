@@ -89,7 +89,9 @@ namespace EternityRPG
         public static void SelectLocation(Enemy[] bosses)
         {
             int deathCounter = 0;
-            foreach (var boss in bosses) if (boss.IsDead) deathCounter++;
+            foreach (var boss in bosses) 
+                if (boss.IsDead) 
+                    deathCounter++;
 
             //if all bosses are dead, you can see last secret location
             if (deathCounter == 3)
@@ -257,9 +259,7 @@ namespace EternityRPG
                 Text(" LVL:             ");
                 Text($"{player.Lvl}\n", ConsoleColor.Green);
                 Text(" EXP:             ");
-                Text($"{player.Exp}\t\t", ConsoleColor.Green);
-                Text("/ ");
-                Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
+                Text($"{player.Exp}\n", ConsoleColor.Green);
                 Text(" GOLD:            ");
                 Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
                 Text(" enemies killed:  ");

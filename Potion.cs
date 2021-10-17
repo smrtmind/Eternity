@@ -11,7 +11,7 @@ namespace EternityRPG
             Title = title;
         }
 
-        public override void Add(Player player, Item[] inventory, int choice)
+        public override void Buy(Player player, Item[] inventory, int choice)
         {
             if (player.Gold >= Cost)
             {

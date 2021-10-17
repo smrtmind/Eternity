@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EternityRPG
+﻿namespace EternityRPG
 {
     public class boss4 : Enemy
     {

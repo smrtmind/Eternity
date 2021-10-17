@@ -9,7 +9,7 @@
         public bool WeaponIsBought { get; set; } = false;
         public int Damage { get; set; }
 
-        public abstract void Add(Player player, Item[] inventory, int choice);
+        public abstract void Buy(Player player, Item[] inventory, int choice);
 
         public abstract void Use(Player player, Item[] inventory, int choice);
     }

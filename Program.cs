@@ -141,7 +141,7 @@ namespace EternityRPG
                             if (choice > 0 && choice <= 5)
                             {
                                 //trying to buy something
-                                inventory[choice - 1].Add(player, inventory, choice);
+                                inventory[choice - 1].Buy(player, inventory, choice);
                                 break;
                             }
                         }
@@ -176,7 +176,9 @@ namespace EternityRPG
 
                     //if all bosses are dead, you can see menu with the last location
                     int deathCounter = 0;
-                    foreach (var boss in bosses) if (boss.IsDead) deathCounter++;
+                    foreach (var boss in bosses) 
+                        if (boss.IsDead) 
+                            deathCounter++;
 
                     if (deathCounter == 3)
                     {
@@ -240,13 +242,6 @@ namespace EternityRPG
                             Print.TheEnd(player, inventory);
                             break;
                         }
-
-                        //if you lost final battle
-                        if (player.CurrentHealth <= 0)
-                        {
-                            Print.YouDied();
-                            break;
-                        }
                     }
                 }
 
@@ -296,7 +291,6 @@ namespace EternityRPG
                         continue;
                     }
                 }
-
                 Console.Clear();
             }
         }
@@ -459,7 +453,11 @@ namespace EternityRPG
                             int.TryParse(keyBoardInput, out choice);
                             Console.ResetColor();
 
-                            if (keyBoardInput == "<") break;
+                            if (keyBoardInput == "<")
+                            {
+                                Print.Text("\n");
+                                break;
+                            }
                         }
 
                         if (choice == 1 || choice == 2 || choice == 3)
@@ -497,13 +495,6 @@ namespace EternityRPG
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
                             }
-                        }
-
-                        //if you want to exit healing options and return to the battle options
-                        if (keyBoardInput == "<")
-                        {
-                            Print.Text("\n");
-                            continue;
                         }
                     }
 
@@ -554,7 +545,8 @@ namespace EternityRPG
                 }
 
                 if (player.CurrentHealth <= 0) break;
-                if (bosses[bossType].CurrentHealth <= 0) break;
+                if (bossBattle)
+                    if (bosses[bossType].CurrentHealth <= 0) break;
                 if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead) break;
 
                 //asking if you want to continue grinding or not

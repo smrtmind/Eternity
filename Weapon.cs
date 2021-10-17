@@ -4,7 +4,7 @@ namespace EternityRPG
 {
     public class Weapon : Item
     {
-        public override void Add(Player player, Item[] inventory, int choice)
+        public override void Buy(Player player, Item[] inventory, int choice)
         {
             if (player.Gold >= Cost)
             {
