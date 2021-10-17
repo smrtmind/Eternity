@@ -59,6 +59,8 @@ namespace EternityRPG
                 Health = (int)(((Health / 100) * 10) + Health);
                 MinDamage = (int)(((MinDamage / 100) * 10) + MinDamage);
                 MaxDamage = (int)(((MaxDamage / 100) * 10) + MaxDamage);
+
+                Print.Text($"\tYou have promoted to level {Lvl}\n", ConsoleColor.DarkGreen);
             }
         }
 
@@ -86,7 +88,7 @@ namespace EternityRPG
                 }
 
                 else
-                    Print.Text($"\n\tVICTORY. You have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
+                    Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
             }
 
             else
@@ -125,7 +127,7 @@ namespace EternityRPG
                 }
 
                 else
-                    Print.Text($"\n\tVICTORY. You have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
+                    Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
             }
 
             else

@@ -4,10 +4,10 @@ namespace EternityRPG
 {
     public class Potion : Item
     { 
-        public Potion(int healingPower, int cost, string title)
+        public Potion(int cost, int healingPower, string title)
         {
-            HealingPower = healingPower;
             Cost = cost;
+            HealingPower = healingPower;
             Title = title;
         }
 

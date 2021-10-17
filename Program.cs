@@ -106,9 +106,9 @@ namespace EternityRPG
             player = player.CreatePlayer();
             inventory = new Item[]
             {
-                new Potion(90, 30, "small healing potion"),
-                new Potion(180, 90, "medium healing potion"),
-                new Potion(350, 150, "big healing potion"),
+                new Potion(cost: 30, healingPower: 90, "small healing potion"),
+                new Potion(cost: 90, healingPower: 180, "medium healing potion"),
+                new Potion(cost: 150, healingPower: 350, "big healing potion"),
                 new Weapon1(player.Class),
                 new Weapon2(player.Class)
             };
@@ -304,12 +304,12 @@ namespace EternityRPG
                 DefeatedEnemiesToFightTheBoss = 0;
             }
 
-            string YesOrNo = string.Empty;
-            while (YesOrNo.ToLower() != "n")
+            string yesOrNo = string.Empty;
+            while (yesOrNo.ToLower() != "n")
             {
                 int choice = 0;
                 string keyBoardInput = string.Empty;
-                YesOrNo = string.Empty;
+                yesOrNo = string.Empty;
 
                 //printing short name of the location before each regular enemy
                 Print.Text($"Location: {biome.ShortTitle}\n", ConsoleColor.DarkCyan);
@@ -550,8 +550,8 @@ namespace EternityRPG
                 if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead) break;
 
                 //asking if you want to continue grinding or not
-                YesOrNo = string.Empty;
-                while (YesOrNo.ToLower() != "y" && YesOrNo.ToLower() != "n")
+                yesOrNo = string.Empty;
+                while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
                 {
                     Print.Text($"Farm more at the {biome.ShortTitle}?");
                     Print.Text(" [y] ", ConsoleColor.Cyan);
@@ -560,10 +560,10 @@ namespace EternityRPG
                     Print.Text(": ");
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    YesOrNo = Console.ReadLine();
+                    yesOrNo = Console.ReadLine();
                     Console.ResetColor();
 
-                    if (YesOrNo.ToLower() == "y" || YesOrNo.ToLower() == "n") Console.Clear();
+                    if (yesOrNo.ToLower() == "y" || yesOrNo.ToLower() == "n") Console.Clear();
                 }
 
                 double PlayerDamage()
