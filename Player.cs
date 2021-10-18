@@ -77,10 +77,7 @@ namespace EternityRPG
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
-                if (enemy.GetType() == typeof(boss1) ||
-                    enemy.GetType() == typeof(boss2) ||
-                    enemy.GetType() == typeof(boss3) ||
-                    enemy.GetType() == typeof(boss4))
+                if (enemy.GetType() == typeof(Boss))
                 {
                     enemy.IsDead = true;
                     Print.BossVanquished();
@@ -116,10 +113,7 @@ namespace EternityRPG
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
-                if (enemy.GetType() == typeof(boss1) ||
-                    enemy.GetType() == typeof(boss2) ||
-                    enemy.GetType() == typeof(boss3) ||
-                    enemy.GetType() == typeof(boss4))
+                if (enemy.GetType() == typeof(Boss))
                 {
                     enemy.IsDead = true;
                     Print.BossVanquished();

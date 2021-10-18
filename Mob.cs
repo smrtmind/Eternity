@@ -2,11 +2,11 @@
 {
     public class Mob : Enemy
     {
-        public Mob(int typeOfEnemy) => CreateEnemy(typeOfEnemy);
+        public Mob(int enemyType) => CreateEnemy(enemyType);
 
-        private void CreateEnemy(int typeOfEnemy)
+        private void CreateEnemy(int enemyType)
         {
-            switch (typeOfEnemy)
+            switch (enemyType)
             {
                 case 1:
                     Name = "Stinky rat";

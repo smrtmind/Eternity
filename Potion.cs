@@ -3,12 +3,31 @@
 namespace EternityRPG
 {
     public class Potion : Item
-    { 
-        public Potion(int cost, int healingPower, string title)
+    {
+        public Potion(int potionType) => GetPotion(potionType);
+
+        private void GetPotion(int potionType)
         {
-            Cost = cost;
-            HealingPower = healingPower;
-            Title = title;
+            switch (potionType)
+            {
+                case 1:
+                    Cost = 30;
+                    HealingPower = 90;
+                    Title = "Small healing potion";
+                    break;
+
+                case 2:
+                    Cost = 90;
+                    HealingPower = 180;
+                    Title = "Medium healing potion";
+                    break;
+
+                case 3:
+                    Cost = 150;
+                    HealingPower = 350;
+                    Title = "Big healing potion";
+                    break;
+            }
         }
 
         public override void Buy(Player player, Item[] inventory, int choice)

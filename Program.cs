@@ -18,10 +18,10 @@ namespace EternityRPG
 
         private static Enemy[] bosses = new Enemy[]
         {
-            new boss1(),
-            new boss2(),
-            new boss3(),
-            new boss4()
+            new Boss(bossType: 1),
+            new Boss(bossType: 2),
+            new Boss(bossType: 3),
+            new Boss(bossType: 4)
         };
 
         static void Main(string[] args)
@@ -106,11 +106,11 @@ namespace EternityRPG
             player = player.CreatePlayer();
             inventory = new Item[]
             {
-                new Potion(cost: 30, healingPower: 90, "small healing potion"),
-                new Potion(cost: 90, healingPower: 180, "medium healing potion"),
-                new Potion(cost: 150, healingPower: 350, "big healing potion"),
-                new Weapon1(player.Class),
-                new Weapon2(player.Class)
+                new Potion(potionType: 1),
+                new Potion(potionType: 2),
+                new Potion(potionType: 3),
+                new Weapon(player.Class, weaponType: 1),
+                new Weapon(player.Class, weaponType: 2)
             };
 
             Print.Text("The adventure begins\n");
@@ -478,7 +478,10 @@ namespace EternityRPG
                                 else Print.Text($"\n\t+{inventory[choice - 1].HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
 
                                 //enemy does his turn, after you used yours for healing
-                                enemy.Attack(player, enemy, enemyDamage);
+                                if (random.Next(0, 100) > enemy.CritChance)
+                                    enemy.Attack(player, enemy, enemyDamage);
+                                else
+                                    enemy.SpecialAttack(player, enemy, enemyDamage);
 
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
@@ -490,7 +493,10 @@ namespace EternityRPG
                                 Print.Text($"\n\tYou don't have {inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
 
                                 //boss does his turn, after you used yours for healing
-                                enemy.Attack(player, enemy, enemyDamage);
+                                if (random.Next(0, 100) > enemy.CritChance)
+                                    enemy.Attack(player, enemy, enemyDamage);
+                                else
+                                    enemy.SpecialAttack(player, enemy, enemyDamage);
 
                                 //if you died after this attack
                                 if (player.CurrentHealth <= 0) break;
