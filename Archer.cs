@@ -15,7 +15,7 @@
             Gold = 0;
             Exp = 0;
             NormalAttackPhrase = "shoot an arrow";
-            SpecialAttackPhrase = "launches a rain of arrows";
+            CriticalAttackPhrase = "launches a rain of arrows";
         }
     }
 }

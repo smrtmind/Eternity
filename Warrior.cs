@@ -15,7 +15,7 @@
             Gold = 0;
             Exp = 0;
             NormalAttackPhrase = "strikes with a sword";
-            SpecialAttackPhrase = "cuts with a sword from above";
+            CriticalAttackPhrase = "cuts with a sword from above";
         }
     }
 }

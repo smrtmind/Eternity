@@ -176,8 +176,8 @@ namespace EternityRPG
 
                     //if all bosses are dead, you can see menu with the last location
                     int deathCounter = 0;
-                    foreach (var boss in bosses) 
-                        if (boss.IsDead) 
+                    foreach (var boss in bosses)
+                        if (boss.IsDead)
                             deathCounter++;
 
                     if (deathCounter == 3)
@@ -334,71 +334,18 @@ namespace EternityRPG
 
                 while (true)
                 {
-                    //every new cycle of fight generate unic damage for player and enemy
-                    double playerDamage = PlayerDamage();
-                    double enemyDamage = enemy.GenerateDamage();
-
                     Console.Write("choose action: ".PadLeft(41, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
                     keyBoardInput = Console.ReadLine();
                     int.TryParse(keyBoardInput, out int battleChoice);
                     Console.ResetColor();
 
-                    //manual fight
-                    if (battleChoice == 1)
-                    {
-                        if (random.Next(0, 100) > player.CritChance)
-                            player.Attack(player, enemy, playerDamage);
-                        else
-                            player.SpecialAttack(player, enemy, playerDamage);
-
-                        //if an enemy is dead
-                        if (enemy.CurrentHealth <= 0)
-                        {
-                            player.Gold += enemy.Gold;
-                            player.Exp += enemy.Exp;
-                            //check if player has enough experience to get new level
-                            player.LevelUp(player.Exp);
-                            Print.PlayerStatistics(player, inventory);
-
-                            if (!bossBattle)
-                            {
-                                DefeatedEnemiesOverall++;
-                                DefeatedEnemiesToFightTheBoss++;
-                                break;
-                            }
-
-                            else
-                            {
-                                DefeatedBossesOverall++;
-                                Print.PressEnter();
-                                Console.Clear();
-                                break;
-                            }
-                        }
-
-                        if (random.Next(0, 100) > enemy.CritChance)
-                            enemy.Attack(player, enemy, enemyDamage);
-                        else
-                            enemy.SpecialAttack(player, enemy, enemyDamage);
-
-                        //if the player is dead
-                        if (player.CurrentHealth <= 0) break;
-                    }
-
-                    //automatic fight
-                    if (battleChoice == 2)
+                    //manual fight - 1 && automatic fight - 2
+                    if (battleChoice == 1 || battleChoice == 2)
                     {
                         while (player.CurrentHealth > 0 || enemy.CurrentHealth > 0)
                         {
-                            //every new cycle of fight generate unic damage for player and enemy
-                            playerDamage = PlayerDamage();
-                            enemyDamage = enemy.GenerateDamage();
-
-                            if (random.Next(0, 100) > player.CritChance)
-                                player.Attack(player, enemy, playerDamage);
-                            else
-                                player.SpecialAttack(player, enemy, playerDamage);
+                            NextAttack(player, PlayerDamage());
 
                             //if an enemy is dead
                             if (enemy.CurrentHealth <= 0)
@@ -421,22 +368,22 @@ namespace EternityRPG
                                     DefeatedBossesOverall++;
                                     Print.PressEnter();
                                     Console.Clear();
-                                    break;
+                                    return;
                                 }
                             }
 
-                            if (random.Next(0, 100) > enemy.CritChance)
-                                enemy.Attack(player, enemy, enemyDamage);
-                            else
-                                enemy.SpecialAttack(player, enemy, enemyDamage);
+                            NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.CurrentHealth <= 0) break;
-                            //continue battle
+                            if (player.CurrentHealth <= 0) return;
+
+                            //if manual fight, break to choose next option
+                            if (battleChoice == 1) break;
+                            //else continue automatic fight 
                             else Thread.Sleep(500);
                         }
 
-                        break;
+                        if (enemy.CurrentHealth <= 0) break;
                     }
 
                     //battle optins => healing options
@@ -460,7 +407,7 @@ namespace EternityRPG
                             }
                         }
 
-                        if (choice == 1 || choice == 2 || choice == 3)
+                        if (choice > 0 && choice <= 3)
                         {
                             //if you have potion
                             if (inventory[choice - 1].Amount > 0)
@@ -476,31 +423,16 @@ namespace EternityRPG
 
                                 //if not => heal
                                 else Print.Text($"\n\t+{inventory[choice - 1].HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
-
-                                //enemy does his turn, after you used yours for healing
-                                if (random.Next(0, 100) > enemy.CritChance)
-                                    enemy.Attack(player, enemy, enemyDamage);
-                                else
-                                    enemy.SpecialAttack(player, enemy, enemyDamage);
-
-                                //if you died after this attack
-                                if (player.CurrentHealth <= 0) break;
                             }
 
                             //if you don't have any potions
-                            else
-                            {
-                                Print.Text($"\n\tYou don't have {inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
+                            else Print.Text($"\n\tYou don't have {inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
 
-                                //boss does his turn, after you used yours for healing
-                                if (random.Next(0, 100) > enemy.CritChance)
-                                    enemy.Attack(player, enemy, enemyDamage);
-                                else
-                                    enemy.SpecialAttack(player, enemy, enemyDamage);
+                            //enemy does his turn, after you tried to heal
+                            NextAttack(enemy, enemy.GenerateDamage());
 
-                                //if you died after this attack
-                                if (player.CurrentHealth <= 0) break;
-                            }
+                            //if the player is dead
+                            if (player.CurrentHealth <= 0) return;
                         }
                     }
 
@@ -529,31 +461,23 @@ namespace EternityRPG
                         }
 
                         //you can't avoid a battle with some enemies
-                        else if (enemy.ChanceToInterruptTheEscape == 100)
+                        else 
                         {
-                            Print.Text($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
-                            //if you failed to escape, an enemy does his critical attack
-                            enemy.SpecialAttack(player, enemy, enemyDamage);
+                            if (enemy.ChanceToInterruptTheEscape == 100)
+                                Print.Text($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
+                            else
+                                Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
 
-                            if (player.CurrentHealth <= 0) break;
-                        }
+                            //if you failed to escape, an enemy does his attack
+                            NextAttack(enemy, enemy.GenerateDamage());
 
-                        else
-                        {
-                            Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
-                            //if you failed to escape, an enemy does his critical attack
-                            enemy.SpecialAttack(player, enemy, enemyDamage);
-
-                            if (player.CurrentHealth <= 0) break;
-                            else continue;
+                            //if the player is dead
+                            if (player.CurrentHealth <= 0) return;
                         }
                     }
                 }
 
-                if (player.CurrentHealth <= 0) break;
-                if (bossBattle)
-                    if (bosses[bossType].CurrentHealth <= 0) break;
-                if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead) break;
+                if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead) return;
 
                 //asking if you want to continue grinding or not
                 yesOrNo = string.Empty;
@@ -582,6 +506,14 @@ namespace EternityRPG
                         playerDamage = player.GenerateDamage(inventory);
 
                     return playerDamage;
+                }
+
+                void NextAttack(Character attacker, double damage)
+                {
+                    if (random.Next(0, 100) > attacker.CritChance)
+                        attacker.Attack(player, enemy, damage);
+                    else
+                        attacker.CriticalAttack(player, enemy, damage);
                 }
             }
         }

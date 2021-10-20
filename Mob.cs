@@ -18,7 +18,7 @@
                     Exp = 25;
                     ChanceToInterruptTheEscape = 10;
                     NormalAttackPhrase = "shoots claws";
-                    SpecialAttackPhrase = "hits with two paws at a time";
+                    CriticalAttackPhrase = "hits with two paws at a time";
                     break;
 
                 case 2:
@@ -31,7 +31,7 @@
                     Exp = 45;
                     ChanceToInterruptTheEscape = 13;
                     NormalAttackPhrase = "attacks with a vile tongue";
-                    SpecialAttackPhrase = "shoots out toxin";
+                    CriticalAttackPhrase = "shoots out toxin";
                     break;
 
                 case 3:
@@ -44,7 +44,7 @@
                     Exp = 60;
                     ChanceToInterruptTheEscape = 16;
                     NormalAttackPhrase = "sprinkles with poisonous mucus";
-                    SpecialAttackPhrase = "tightly grips with ivy";
+                    CriticalAttackPhrase = "tightly grips with ivy";
                     break;
 
                 case 4:
@@ -57,7 +57,7 @@
                     Exp = 80;
                     ChanceToInterruptTheEscape = 20;
                     NormalAttackPhrase = "bites the body with its teeth";
-                    SpecialAttackPhrase = "ripping apart the armor with claws";
+                    CriticalAttackPhrase = "ripping apart the armor with claws";
                     break;
 
                 case 5:
@@ -70,7 +70,7 @@
                     Exp = 100;
                     ChanceToInterruptTheEscape = 23;
                     NormalAttackPhrase = "releases a psychedelic wave";
-                    SpecialAttackPhrase = "compresses your insides with darkness";
+                    CriticalAttackPhrase = "compresses your insides with darkness";
                     break;
 
                 case 6:
@@ -83,7 +83,7 @@
                     Exp = 135;
                     ChanceToInterruptTheEscape = 26;
                     NormalAttackPhrase = "hits with a terrifying mace";
-                    SpecialAttackPhrase = "strikes with two paws";
+                    CriticalAttackPhrase = "strikes with two paws";
                     break;
 
                 case 7:
@@ -96,7 +96,7 @@
                     Exp = 150;
                     ChanceToInterruptTheEscape = 30;
                     NormalAttackPhrase = "shoots many spikes";
-                    SpecialAttackPhrase = "floods the entire floor with magma";
+                    CriticalAttackPhrase = "floods the entire floor with magma";
                     break;
 
                 case 8:
@@ -109,7 +109,7 @@
                     Exp = 180;
                     ChanceToInterruptTheEscape = 33;
                     NormalAttackPhrase = "attacks with spear and shield";
-                    SpecialAttackPhrase = "throws a shield at your head";
+                    CriticalAttackPhrase = "throws a shield at your head";
                     break;
 
                 case 9:
@@ -122,7 +122,7 @@
                     Exp = 230;
                     ChanceToInterruptTheEscape = 36;
                     NormalAttackPhrase = "hits with claws from the ground";
-                    SpecialAttackPhrase = "summons its copies and beat all together";
+                    CriticalAttackPhrase = "summons its copies and beat all together";
                     break;
             }
         }

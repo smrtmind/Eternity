@@ -11,20 +11,20 @@ namespace EternityRPG
             switch (potionType)
             {
                 case 1:
-                    Cost = 30;
-                    HealingPower = 90;
+                    Cost = 45;
+                    HealingPower = 100;
                     Title = "Small healing potion";
                     break;
 
                 case 2:
-                    Cost = 90;
-                    HealingPower = 180;
+                    Cost = 95;
+                    HealingPower = 200;
                     Title = "Medium healing potion";
                     break;
 
                 case 3:
-                    Cost = 150;
-                    HealingPower = 350;
+                    Cost = 190;
+                    HealingPower = 400;
                     Title = "Big healing potion";
                     break;
             }

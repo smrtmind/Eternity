@@ -15,7 +15,7 @@
             Gold = 0;
             Exp = 0;
             NormalAttackPhrase = "throws a fireball";
-            SpecialAttackPhrase = "causes a firestorm";
+            CriticalAttackPhrase = "causes a firestorm";
         }
     }
 }

@@ -100,14 +100,14 @@ namespace EternityRPG
             }
         }
 
-        public override void SpecialAttack(Player player, Enemy enemy, double playerDamage)
+        public override void CriticalAttack(Player player, Enemy enemy, double playerDamage)
         {
             enemy.CurrentHealth -= playerDamage *= random.Next(2, 4);
 
             if (enemy.CurrentHealth <= 0)
             {
                 Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
-                Print.Text($"{SpecialAttackPhrase} deals ");
+                Print.Text($"{CriticalAttackPhrase} deals ");
                 Print.Text($"CRITICAL {playerDamage} DMG", ConsoleColor.DarkGreen);
                 Print.Text(", ");
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
@@ -127,7 +127,7 @@ namespace EternityRPG
             else
             {
                 Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
-                Print.Text($"{SpecialAttackPhrase} deals ");
+                Print.Text($"{CriticalAttackPhrase} deals ");
                 Print.Text($"CRITICAL {playerDamage} DMG", ConsoleColor.DarkGreen);
                 Print.Text(", ");
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);

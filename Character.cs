@@ -6,7 +6,7 @@ namespace EternityRPG
     {
         public Random random = new Random();
         public string NormalAttackPhrase { get; protected set; }
-        public string SpecialAttackPhrase { get; protected set; }
+        public string CriticalAttackPhrase { get; protected set; }
         public string Name { get; protected set; }
         public double Health { get; protected set; }
         public double CurrentHealth { get; set; }
@@ -22,6 +22,6 @@ namespace EternityRPG
 
         public abstract void Attack(Player player, Enemy enemy, double damage);
 
-        public abstract void SpecialAttack(Player player, Enemy enemy, double damage);
+        public abstract void CriticalAttack(Player player, Enemy enemy, double damage);
     }
 }

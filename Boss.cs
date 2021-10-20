@@ -21,7 +21,7 @@
                     CounterToReachTheBoss = random.Next(15, 25);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "strikes with a branch";
-                    SpecialAttackPhrase = "brings a tree down on you";
+                    CriticalAttackPhrase = "brings a tree down on you";
                     break;
 
                 case 2:
@@ -37,7 +37,7 @@
                     CounterToReachTheBoss = random.Next(20, 30);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "throws a huge stone";
-                    SpecialAttackPhrase = "throws many sharp stalactites";
+                    CriticalAttackPhrase = "throws many sharp stalactites";
                     break;
 
                 case 3:
@@ -53,7 +53,7 @@
                     CounterToReachTheBoss = random.Next(25, 35);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "attacks with fire breath";
-                    SpecialAttackPhrase = "grabs you and pushes you into the fire";
+                    CriticalAttackPhrase = "grabs you and pushes you into the fire";
                     break;
 
                 case 4:
@@ -68,7 +68,7 @@
                     IsDead = false;
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "pierces with the sword of darkness";
-                    SpecialAttackPhrase = "devours you with darkness from within";
+                    CriticalAttackPhrase = "devours you with darkness from within";
                     break;
             }
         }
