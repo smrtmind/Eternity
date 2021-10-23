@@ -43,7 +43,7 @@ namespace EternityRPG
 
         public override void Use(Player player, Item[] inventory, int choice)
         {
-            player.CurrentHealth += HealingPower;
+            player.HP += HealingPower;
             Amount--;
         }
     }

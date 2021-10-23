@@ -10,9 +10,9 @@ namespace EternityRPG
 
         public override void Attack(Player player, Enemy enemy, double damage)
         {
-            player.CurrentHealth -= damage;
+            player.HP -= damage;
 
-            if (player.CurrentHealth <= 0)
+            if (player.HP <= 0)
             {
                 Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text($"{NormalAttackPhrase} deals ");
@@ -30,15 +30,15 @@ namespace EternityRPG
                 Print.Text(", ");
                 Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
                 Print.Text("have ");
-                Print.Text($"{player.CurrentHealth} HP\n\n", ConsoleColor.DarkGreen);
+                Print.Text($"{player.HP} HP\n\n", ConsoleColor.DarkGreen);
             }
         }
 
         public override void CriticalAttack(Player player, Enemy enemy, double damage)
         {
-            player.CurrentHealth -= damage *= random.Next(2, 4);
+            player.HP -= damage *= random.Next(2, 4);
 
-            if (player.CurrentHealth <= 0)
+            if (player.HP <= 0)
             {
                 Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text($"{CriticalAttackPhrase} deals ");
@@ -56,7 +56,7 @@ namespace EternityRPG
                 Print.Text(", ");
                 Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
                 Print.Text("have ");
-                Print.Text($"{player.CurrentHealth} HP\n\n", ConsoleColor.DarkGreen);
+                Print.Text($"{player.HP} HP\n\n", ConsoleColor.DarkGreen);
             }
         }
     }

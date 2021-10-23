@@ -410,9 +410,9 @@ namespace EternityRPG
                 Text(" LVL:      ");
                 Text($"{player.Lvl}\n", ConsoleColor.Green);
                 Text(" HP:       ");
-                Text($"{player.CurrentHealth}\t\t".PadLeft(1, ' '), ConsoleColor.Green);
+                Text($"{player.HP}\t\t".PadLeft(1, ' '), ConsoleColor.Green);
                 Text("/ ");
-                Text($"max {player.Health}\n", ConsoleColor.DarkCyan);
+                Text($"max {player.MaxHP}\n", ConsoleColor.DarkCyan);
                 Text(" EXP:      ");
                 Text($"{player.Exp}\t\t", ConsoleColor.Green);
                 Text("/ ");

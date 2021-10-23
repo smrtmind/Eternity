@@ -236,7 +236,7 @@ namespace EternityRPG
                         BattleZone(bossBattle: true);
 
                         //if you win final battle
-                        if (bosses[bossType].CurrentHealth <= 0)
+                        if (bosses[bossType].HP <= 0)
                         {
                             Console.Clear();
                             Print.TheEnd(player, inventory);
@@ -266,7 +266,7 @@ namespace EternityRPG
                 }
 
                 //if you were killed in the battle
-                if (player.CurrentHealth <= 0)
+                if (player.HP <= 0)
                 {
                     Print.YouDied();
                     break;
@@ -343,12 +343,12 @@ namespace EternityRPG
                     //manual fight - 1 && automatic fight - 2
                     if (battleChoice == 1 || battleChoice == 2)
                     {
-                        while (player.CurrentHealth > 0 || enemy.CurrentHealth > 0)
+                        while (player.HP > 0 || enemy.HP > 0)
                         {
                             NextAttack(player, PlayerDamage());
 
                             //if an enemy is dead
-                            if (enemy.CurrentHealth <= 0)
+                            if (enemy.HP <= 0)
                             {
                                 player.Gold += enemy.Gold;
                                 player.Exp += enemy.Exp;
@@ -375,7 +375,7 @@ namespace EternityRPG
                             NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.CurrentHealth <= 0) return;
+                            if (player.HP <= 0) return;
 
                             //if manual fight, break to choose next option
                             if (battleChoice == 1) break;
@@ -383,7 +383,7 @@ namespace EternityRPG
                             else Thread.Sleep(500);
                         }
 
-                        if (enemy.CurrentHealth <= 0) break;
+                        if (enemy.HP <= 0) break;
                     }
 
                     //battle optins => healing options
@@ -415,14 +415,14 @@ namespace EternityRPG
                                 inventory[choice - 1].Use(player, inventory, choice);
 
                                 //if player's current health equal or greater than maximum health
-                                if (player.CurrentHealth > player.Health)
+                                if (player.HP > player.MaxHP)
                                 {
-                                    player.CurrentHealth = player.Health;
+                                    player.HP = player.MaxHP;
                                     Print.Text("\n\tmax health\n", ConsoleColor.DarkGreen);
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{inventory[choice - 1].HealingPower} health. {player.Name} have {player.CurrentHealth} now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{inventory[choice - 1].HealingPower} health. {player.Name} have {player.HP} now\n", ConsoleColor.DarkGreen);
                             }
 
                             //if you don't have any potions
@@ -432,7 +432,7 @@ namespace EternityRPG
                             NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.CurrentHealth <= 0) return;
+                            if (player.HP <= 0) return;
                         }
                     }
 
@@ -472,7 +472,7 @@ namespace EternityRPG
                             NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.CurrentHealth <= 0) return;
+                            if (player.HP <= 0) return;
                         }
                     }
                 }

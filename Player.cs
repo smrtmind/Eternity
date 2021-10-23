@@ -56,7 +56,7 @@ namespace EternityRPG
                 NextLvl = (int)(((NextLvl / 100) * 50) + NextLvl);
 
                 Lvl++;
-                Health = (int)(((Health / 100) * 10) + Health);
+                MaxHP = (int)(((MaxHP / 100) * 10) + MaxHP);
                 MinDamage = (int)(((MinDamage / 100) * 10) + MinDamage);
                 MaxDamage = (int)(((MaxDamage / 100) * 10) + MaxDamage);
 
@@ -66,9 +66,9 @@ namespace EternityRPG
 
         public override void Attack(Player player, Enemy enemy, double playerDamage)
         {
-            enemy.CurrentHealth -= playerDamage;
+            enemy.HP -= playerDamage;
 
-            if (enemy.CurrentHealth <= 0)
+            if (enemy.HP <= 0)
             {
                 Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
                 Print.Text($"{NormalAttackPhrase} deals ");
@@ -77,7 +77,7 @@ namespace EternityRPG
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
-                if (enemy.GetType() == typeof(Boss))
+                if (enemy is Boss)
                 {
                     enemy.IsDead = true;
                     Print.BossVanquished();
@@ -96,15 +96,15 @@ namespace EternityRPG
                 Print.Text(", ");
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("has ");
-                Print.Text($"{enemy.CurrentHealth} HP\n", ConsoleColor.DarkRed);
+                Print.Text($"{enemy.HP} HP\n", ConsoleColor.DarkRed);
             }
         }
 
         public override void CriticalAttack(Player player, Enemy enemy, double playerDamage)
         {
-            enemy.CurrentHealth -= playerDamage *= random.Next(2, 4);
+            enemy.HP -= playerDamage *= random.Next(2, 4);
 
-            if (enemy.CurrentHealth <= 0)
+            if (enemy.HP <= 0)
             {
                 Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
                 Print.Text($"{CriticalAttackPhrase} deals ");
@@ -113,7 +113,7 @@ namespace EternityRPG
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
-                if (enemy.GetType() == typeof(Boss))
+                if (enemy is Boss)
                 {
                     enemy.IsDead = true;
                     Print.BossVanquished();
@@ -132,7 +132,7 @@ namespace EternityRPG
                 Print.Text(", ");
                 Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("has ");
-                Print.Text($"{enemy.CurrentHealth} HP\n", ConsoleColor.DarkRed);
+                Print.Text($"{enemy.HP} HP\n", ConsoleColor.DarkRed);
             }
         }
     }

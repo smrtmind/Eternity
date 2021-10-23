@@ -7,8 +7,8 @@
             base.Name = Name;
             base.Gender = Gender;
             base.Class = Class;
-            Health = 120;
-            CurrentHealth = Health;
+            MaxHP = 120;
+            HP = MaxHP;
             MinDamage = 13;
             MaxDamage = 18;
             CritChance = 10;

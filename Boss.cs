@@ -10,8 +10,8 @@
             { 
                 case 1:
                     Name = "Evil forest spirit";
-                    Health = 2000;
-                    CurrentHealth = Health;
+                    MaxHP = 2000;
+                    HP = MaxHP;
                     MinDamage = 60;
                     MaxDamage = 100;
                     CritChance = 10;
@@ -26,8 +26,8 @@
 
                 case 2:
                     Name = "Spiteful golem";
-                    Health = 3000;
-                    CurrentHealth = Health;
+                    MaxHP = 3000;
+                    HP = MaxHP;
                     MinDamage = 100;
                     MaxDamage = 140;
                     CritChance = 13;
@@ -42,8 +42,8 @@
 
                 case 3:
                     Name = "Fire dragon";
-                    Health = 4000;
-                    CurrentHealth = Health;
+                    MaxHP = 4000;
+                    HP = MaxHP;
                     MinDamage = 140;
                     MaxDamage = 180;
                     CritChance = 16;
@@ -58,8 +58,8 @@
 
                 case 4:
                     Name = "Descendant of the fallen gods";
-                    Health = 8000;
-                    CurrentHealth = Health;
+                    MaxHP = 8000;
+                    HP = MaxHP;
                     MinDamage = 180;
                     MaxDamage = 250;
                     CritChance = 20;

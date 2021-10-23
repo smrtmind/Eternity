@@ -10,8 +10,8 @@
             {
                 case 1:
                     Name = "Stinky rat";
-                    Health = 20;
-                    CurrentHealth = Health;
+                    MaxHP = 20;
+                    HP = MaxHP;
                     MinDamage = 4;
                     MaxDamage = 9;
                     Gold = 10;
@@ -23,8 +23,8 @@
 
                 case 2:
                     Name = "Sticky frog";
-                    Health = 40;
-                    CurrentHealth = Health;
+                    MaxHP = 40;
+                    HP = MaxHP;
                     MinDamage = 8;
                     MaxDamage = 13;
                     Gold = 20;
@@ -36,8 +36,8 @@
 
                 case 3:
                     Name = "Poison ivy";
-                    Health = 70;
-                    CurrentHealth = Health;
+                    MaxHP = 70;
+                    HP = MaxHP;
                     MinDamage = 12;
                     MaxDamage = 17;
                     Gold = 35;
@@ -49,8 +49,8 @@
 
                 case 4:
                     Name = "Bloody bat";
-                    Health = 100;
-                    CurrentHealth = Health;
+                    MaxHP = 100;
+                    HP = MaxHP;
                     MinDamage = 16;
                     MaxDamage = 21;
                     Gold = 50;
@@ -62,8 +62,8 @@
 
                 case 5:
                     Name = "Dark whisperer";
-                    Health = 130;
-                    CurrentHealth = Health;
+                    MaxHP = 130;
+                    HP = MaxHP;
                     MinDamage = 20;
                     MaxDamage = 25;
                     Gold = 70;
@@ -75,8 +75,8 @@
 
                 case 6:
                     Name = "Goblin";
-                    Health = 160;
-                    CurrentHealth = Health;
+                    MaxHP = 160;
+                    HP = MaxHP;
                     MinDamage = 24;
                     MaxDamage = 29;
                     Gold = 85;
@@ -88,8 +88,8 @@
 
                 case 7:
                     Name = "Fire thorn";
-                    Health = 250;
-                    CurrentHealth = Health;
+                    MaxHP = 250;
+                    HP = MaxHP;
                     MinDamage = 28;
                     MaxDamage = 33;
                     Gold = 100;
@@ -101,8 +101,8 @@
 
                 case 8:
                     Name = "Ork warrior";
-                    Health = 300;
-                    CurrentHealth = Health;
+                    MaxHP = 300;
+                    HP = MaxHP;
                     MinDamage = 32;
                     MaxDamage = 37;
                     Gold = 120;
@@ -114,8 +114,8 @@
 
                 case 9:
                     Name = "Mutant";
-                    Health = 340;
-                    CurrentHealth = Health;
+                    MaxHP = 340;
+                    HP = MaxHP;
                     MinDamage = 36;
                     MaxDamage = 41;
                     Gold = 140;
