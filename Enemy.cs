@@ -10,7 +10,9 @@ namespace EternityRPG
 
         public override void Attack(Player player, Enemy enemy, double damage, bool crit = false)
         {
+            //normal attack
             if (!crit) player.HP -= damage;
+            //critical attack
             else player.HP -= damage *= random.Next(2, 4);
 
             Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
@@ -27,7 +29,13 @@ namespace EternityRPG
             Print.Text(", ");
             Print.Text($"{player.Name} ", ConsoleColor.DarkCyan);
 
-            if (player.HP <= 0) Print.Text("died\n");
+            //if player died
+            if (player.HP <= 0)
+            {
+                Print.Text("died\n");
+                Print.YouDied();
+            }
+            //otherwise continue
             else
             {
                 Print.Text("have ");

@@ -253,11 +253,7 @@ namespace EternityRPG
                 }
 
                 //if you were killed in the battle
-                if (player.HP <= 0)
-                {
-                    Print.YouDied();
-                    break;
-                }
+                if (player.HP <= 0) break;
 
                 //change your direction
                 Print.ChangeDirection();
@@ -430,21 +426,22 @@ namespace EternityRPG
                         //if you succeed in escaping
                         if (random.Next(0, 100) > enemy.ChanceToInterruptTheEscape)
                         {
-                            //lost some gold from your bag
-                            player.Gold -= 10;
+                            //lost 10 percent of all gold you own
+                            double penalty = (int)((player.Gold / 100) * 10);
+                            player.Gold -= penalty;
 
-                            Print.Text("\n\tYou escaped successfully ");
-                            Print.Text("-10 ", ConsoleColor.DarkRed);
-                            Print.Text("gold", ConsoleColor.DarkYellow);
+                            Print.Text("\n\tYou escaped successfully", ConsoleColor.DarkGreen);
+                            Print.Text($"\n\t-{penalty} gold", ConsoleColor.DarkRed);
                             Print.Text(", ");
 
                             if (player.Gold <= 0) player.Gold = 0;
 
-                            Print.Text($"{player.Gold} ", ConsoleColor.DarkGreen);
-                            Print.Text("gold ", ConsoleColor.DarkYellow);
+                            Print.Text($"{player.Gold} gold ", ConsoleColor.DarkYellow);
                             Print.Text("remaining\n\n");
 
-                            break;
+                            Print.PressEnter();
+                            Console.Clear();
+                            return;
                         }
 
                         //you can't avoid a battle with some enemies

@@ -67,7 +67,9 @@ namespace EternityRPG
 
         public override void Attack(Player player, Enemy enemy, double playerDamage, bool crit = false)
         {
+            //normal attack
             if (!crit) enemy.HP -= playerDamage;
+            //critical attack
             else enemy.HP -= playerDamage *= random.Next(2, 4);
 
             Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
@@ -84,21 +86,23 @@ namespace EternityRPG
             Print.Text(", ");
             Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
 
+            //if enemy died
             if (enemy.HP <= 0)
             {
                 Print.Text("died\n");
 
+                //boss
                 if (enemy is Boss)
                 {
                     enemy.IsDead = true;
                     Print.BossVanquished();
                     Print.Text($"\n\tYou have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
                 }
-
+                //common enemy
                 else
                     Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
             }
-                
+            //otherwise continue    
             else
             {
                 Print.Text("has ");
