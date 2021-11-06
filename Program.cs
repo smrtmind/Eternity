@@ -88,12 +88,7 @@ namespace EternityRPG
                     Console.Clear();
                     //card of player before start of the game
                     Print.PlayerShortInfo(player);
-
-                    Print.Text("Are you ready to start the adventure with this character?");
-                    Print.Text(" [y] ", ConsoleColor.Green);
-                    Print.Text("/");
-                    Print.Text(" [n]", ConsoleColor.Green);
-                    Print.Text(": ");
+                    Print.Question("Are you ready to start the adventure with this character?");
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     yesOrNo = Console.ReadLine();
@@ -152,11 +147,7 @@ namespace EternityRPG
                         yesOrNo = string.Empty;
                         while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
                         {
-                            Print.Text("anything else?".PadLeft(40, ' '));
-                            Print.Text(" [y] ", ConsoleColor.Green);
-                            Print.Text("/");
-                            Print.Text(" [n]", ConsoleColor.Green);
-                            Print.Text(": ");
+                            Print.Question("anything else?".PadLeft(40, ' '));
 
                             Console.ForegroundColor = ConsoleColor.Green;
                             yesOrNo = Console.ReadLine();
@@ -218,11 +209,7 @@ namespace EternityRPG
                     yesOrNo = string.Empty;
                     while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
                     {
-                        Print.Text($"Are you ready for final battle?");
-                        Print.Text(" [y] ", ConsoleColor.Cyan);
-                        Print.Text("/");
-                        Print.Text(" [n]", ConsoleColor.Cyan);
-                        Print.Text(": ");
+                        Print.Question($"Are you ready for final battle?", ConsoleColor.Cyan);
 
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         yesOrNo = Console.ReadLine();
@@ -483,11 +470,7 @@ namespace EternityRPG
                 yesOrNo = string.Empty;
                 while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
                 {
-                    Print.Text($"Farm more at the {biome.ShortTitle}?");
-                    Print.Text(" [y] ", ConsoleColor.Cyan);
-                    Print.Text("/");
-                    Print.Text(" [n]", ConsoleColor.Cyan);
-                    Print.Text(": ");
+                    Print.Question($"Farm more at the {biome.ShortTitle}?", ConsoleColor.Cyan);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     yesOrNo = Console.ReadLine();

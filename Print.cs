@@ -5,6 +5,15 @@ namespace EternityRPG
 {
     public static class Print
     {
+        public static void Question(string text, ConsoleColor color = ConsoleColor.Green)
+        {
+            Text($"{text}");
+            Text(" [y] ", color);
+            Text("/");
+            Text(" [n]", color);
+            Text(": ");
+        }
+
         public static void GenderOptions()//selection of player's gender
         {
             Text("\nChoose your character's gender:");

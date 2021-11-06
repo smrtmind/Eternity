@@ -60,7 +60,8 @@ namespace EternityRPG
                 MinDamage = (int)(((MinDamage / 100) * 10) + MinDamage);
                 MaxDamage = (int)(((MaxDamage / 100) * 10) + MaxDamage);
 
-                Print.Text($"\tYou have promoted to level {Lvl}\n", ConsoleColor.DarkGreen);
+                Print.Text($"\tYou have promoted to level {Lvl} ", ConsoleColor.DarkGreen);
+                Print.Text("HP+ / DMG+\n");
             }
         }
 
