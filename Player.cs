@@ -13,7 +13,7 @@ namespace EternityRPG
 
         public void SetName(string keyBoardInput)
         {
-            if (keyBoardInput.Length > 0) 
+            if (keyBoardInput.Length > 0)
                 Name = keyBoardInput;
             else Name = "Ash";
         }
@@ -65,17 +65,27 @@ namespace EternityRPG
             }
         }
 
-        public override void Attack(Player player, Enemy enemy, double playerDamage)
+        public override void Attack(Player player, Enemy enemy, double playerDamage, bool crit = false)
         {
-            enemy.HP -= playerDamage;
+            if (!crit) enemy.HP -= playerDamage;
+            else enemy.HP -= playerDamage *= random.Next(2, 4);
+
+            Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
+            if (!crit)
+            {
+                Print.Text($"{NormalAttackPhrase} deals ");
+                Print.Text($"{playerDamage} DMG", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                Print.Text($"{CriticalAttackPhrase} deals ");
+                Print.Text($"CRITICAL {playerDamage} DMG", ConsoleColor.DarkGreen);
+            }
+            Print.Text(", ");
+            Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
 
             if (enemy.HP <= 0)
             {
-                Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
-                Print.Text($"{NormalAttackPhrase} deals ");
-                Print.Text($"{playerDamage} DMG", ConsoleColor.DarkGreen);
-                Print.Text(", ");
-                Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("died\n");
 
                 if (enemy is Boss)
@@ -88,50 +98,9 @@ namespace EternityRPG
                 else
                     Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
             }
-
+                
             else
             {
-                Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
-                Print.Text($"{NormalAttackPhrase} deals ");
-                Print.Text($"{playerDamage} DMG", ConsoleColor.DarkGreen);
-                Print.Text(", ");
-                Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
-                Print.Text("has ");
-                Print.Text($"{enemy.HP} HP\n", ConsoleColor.DarkRed);
-            }
-        }
-
-        public override void CriticalAttack(Player player, Enemy enemy, double playerDamage)
-        {
-            enemy.HP -= playerDamage *= random.Next(2, 4);
-
-            if (enemy.HP <= 0)
-            {
-                Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
-                Print.Text($"{CriticalAttackPhrase} deals ");
-                Print.Text($"CRITICAL {playerDamage} DMG", ConsoleColor.DarkGreen);
-                Print.Text(", ");
-                Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
-                Print.Text("died\n");
-
-                if (enemy is Boss)
-                {
-                    enemy.IsDead = true;
-                    Print.BossVanquished();
-                    Print.Text($"\n\tYou have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
-                }
-
-                else
-                    Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
-            }
-
-            else
-            {
-                Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
-                Print.Text($"{CriticalAttackPhrase} deals ");
-                Print.Text($"CRITICAL {playerDamage} DMG", ConsoleColor.DarkGreen);
-                Print.Text(", ");
-                Print.Text($"{enemy.Name} ", ConsoleColor.DarkMagenta);
                 Print.Text("has ");
                 Print.Text($"{enemy.HP} HP\n", ConsoleColor.DarkRed);
             }

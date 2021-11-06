@@ -496,7 +496,7 @@ namespace EternityRPG
                     if (random.Next(0, 100) > attacker.CritChance)
                         attacker.Attack(player, enemy, damage);
                     else
-                        attacker.CriticalAttack(player, enemy, damage);
+                        attacker.Attack(player, enemy, damage, crit: true);
                 }
             }
         }
