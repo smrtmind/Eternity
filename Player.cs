@@ -90,11 +90,11 @@ namespace EternityRPG
             if (enemy.HP <= 0)
             {
                 Print.Text("died\n");
+                enemy.IsDead = true;
 
                 //boss
                 if (enemy is Boss)
                 {
-                    enemy.IsDead = true;
                     Print.BossVanquished();
                     Print.Text($"\n\tYou have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
                 }

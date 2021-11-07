@@ -17,7 +17,6 @@
                     CritChance = 10;
                     Exp = 250;
                     Gold = 450;
-                    IsDead = false;
                     CounterToReachTheBoss = random.Next(15, 25);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "strikes with a branch";
@@ -33,7 +32,6 @@
                     CritChance = 13;
                     Exp = 450;
                     Gold = 650;
-                    IsDead = false;
                     CounterToReachTheBoss = random.Next(20, 30);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "throws a huge stone";
@@ -49,7 +47,6 @@
                     CritChance = 16;
                     Exp = 650;
                     Gold = 850;
-                    IsDead = false;
                     CounterToReachTheBoss = random.Next(25, 35);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "attacks with fire breath";
@@ -65,7 +62,6 @@
                     CritChance = 20;
                     Exp = 999;
                     Gold = 999;
-                    IsDead = false;
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "pierces with the sword of darkness";
                     CriticalAttackPhrase = "devours you with darkness from within";

@@ -6,7 +6,6 @@ namespace EternityRPG
     {
         public int CounterToReachTheBoss { get; protected set; }
         public int ChanceToInterruptTheEscape { get; protected set; }
-        public bool IsDead { get; set; }
 
         public override void Attack(Player player, Enemy enemy, double damage, bool crit = false)
         {
@@ -32,6 +31,7 @@ namespace EternityRPG
             //if player died
             if (player.HP <= 0)
             {
+                player.IsDead = true;
                 Print.Text("died\n");
                 Print.YouDied();
             }

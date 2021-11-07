@@ -16,6 +16,7 @@ namespace EternityRPG
         public int CritChance { get; set; } = 5;
         public int Exp { get; set; }
         public double Gold { get; set; }
+        public bool IsDead { get; set; } = false;
 
 
         public double GenerateDamage() => Damage = random.Next((int) MinDamage, (int) MaxDamage);

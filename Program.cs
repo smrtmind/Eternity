@@ -253,7 +253,7 @@ namespace EternityRPG
                 }
 
                 //if you were killed in the battle
-                if (player.HP <= 0) break;
+                if (player.IsDead) break;
 
                 //change your direction
                 Print.ChangeDirection();
@@ -331,7 +331,7 @@ namespace EternityRPG
                             NextAttack(player, PlayerDamage());
 
                             //if an enemy is dead
-                            if (enemy.HP <= 0)
+                            if (enemy.IsDead)
                             {
                                 player.Gold += enemy.Gold;
                                 player.Exp += enemy.Exp;
@@ -358,7 +358,7 @@ namespace EternityRPG
                             NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.HP <= 0) return;
+                            if (player.IsDead) return;
 
                             //if manual fight, break to choose next option
                             if (battleChoice == 1) break;
@@ -366,7 +366,7 @@ namespace EternityRPG
                             else Thread.Sleep(500);
                         }
 
-                        if (enemy.HP <= 0) break;
+                        if (enemy.IsDead) break;
                     }
 
                     //battle optins => healing options
@@ -415,7 +415,7 @@ namespace EternityRPG
                             NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.HP <= 0) return;
+                            if (player.IsDead) return;
                         }
                     }
 
@@ -430,12 +430,11 @@ namespace EternityRPG
                             double penalty = (int)((player.Gold / 100) * 10);
                             player.Gold -= penalty;
 
+                            if (player.Gold <= 0) player.Gold = 0;
+
                             Print.Text("\n\tYou escaped successfully", ConsoleColor.DarkGreen);
                             Print.Text($"\n\t-{penalty} gold", ConsoleColor.DarkRed);
                             Print.Text(", ");
-
-                            if (player.Gold <= 0) player.Gold = 0;
-
                             Print.Text($"{player.Gold} gold ", ConsoleColor.DarkYellow);
                             Print.Text("remaining\n\n");
 
@@ -456,7 +455,7 @@ namespace EternityRPG
                             NextAttack(enemy, enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.HP <= 0) return;
+                            if (player.IsDead) return;
                         }
                     }
                 }
