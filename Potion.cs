@@ -36,7 +36,7 @@ namespace EternityRPG
             {
                 player.Gold -= Cost;
                 Amount++;
-                Print.Text("\n");
+                Print.Text($"\t\t\t  +1 {Title}\n\n", ConsoleColor.DarkGreen);
             }
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n\n", ConsoleColor.DarkRed);
         }

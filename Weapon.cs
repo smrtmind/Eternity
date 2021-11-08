@@ -63,7 +63,7 @@ namespace EternityRPG
             {
                 player.Gold -= Cost;
                 Use(player, inventory, choice);
-                Print.Text("\n");
+                Print.Text($"\t\t\t  {Title} purchased and equipped\n\n", ConsoleColor.DarkCyan);
             }
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n\n", ConsoleColor.DarkRed);
         }

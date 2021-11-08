@@ -42,7 +42,7 @@ namespace EternityRPG
             Thread.Sleep(2000);
 
             //******************** SECTION OF CREATING A PLAYER ********************
-            while (yesOrNo.ToLower() != "y")
+            while (yesOrNo != "y")
             {
                 yesOrNo = string.Empty;
 
@@ -83,7 +83,7 @@ namespace EternityRPG
                 }
 
                 yesOrNo = string.Empty;
-                while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
+                while (yesOrNo != "y" && yesOrNo != "n")
                 {
                     Console.Clear();
                     //card of player before start of the game
@@ -91,7 +91,7 @@ namespace EternityRPG
                     Print.Question("Are you ready to start the adventure with this character?");
 
                     Console.ForegroundColor = ConsoleColor.Green;
-                    yesOrNo = Console.ReadLine();
+                    yesOrNo = Console.ReadLine().ToLower();
                     Console.ResetColor();
                 }
                 Console.Clear();
@@ -119,7 +119,7 @@ namespace EternityRPG
                 if (selectDirection == 1)
                 {
                     yesOrNo = string.Empty;
-                    while (yesOrNo.ToLower() != "n")
+                    while (yesOrNo != "n")
                     {
                         input = string.Empty;
                         while (input != "<")
@@ -145,12 +145,12 @@ namespace EternityRPG
                         if (input == "<") break;
 
                         yesOrNo = string.Empty;
-                        while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
+                        while (yesOrNo != "y" && yesOrNo != "n")
                         {
                             Print.Question("anything else?".PadLeft(40, ' '));
 
                             Console.ForegroundColor = ConsoleColor.Green;
-                            yesOrNo = Console.ReadLine();
+                            yesOrNo = Console.ReadLine().ToLower();
                             Console.ResetColor();
                         }
                     }
@@ -207,23 +207,23 @@ namespace EternityRPG
                 if (biomeType == 4)
                 {
                     yesOrNo = string.Empty;
-                    while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
+                    while (yesOrNo != "y" && yesOrNo != "n")
                     {
                         Print.Question($"Are you ready for final battle?", ConsoleColor.Cyan);
 
                         Console.ForegroundColor = ConsoleColor.Cyan;
-                        yesOrNo = Console.ReadLine();
+                        yesOrNo = Console.ReadLine().ToLower();
                         Console.ResetColor();
                     }
                     Console.Clear();
 
                     //final fight of the game
-                    if (yesOrNo.ToLower() == "y")
+                    if (yesOrNo == "y")
                     {
                         BattleZone(bossBattle: true);
 
                         //if you win final battle
-                        if (bosses[bossType].HP <= 0)
+                        if (bosses[bossType].IsDead)
                         {
                             Console.Clear();
                             Print.TheEnd(player, inventory);
@@ -464,15 +464,16 @@ namespace EternityRPG
 
                 //asking if you want to continue grinding or not
                 yesOrNo = string.Empty;
-                while (yesOrNo.ToLower() != "y" && yesOrNo.ToLower() != "n")
+                while (yesOrNo != "y" && yesOrNo != "n")
                 {
                     Print.Question($"Farm more at the {biome.ShortTitle}?", ConsoleColor.Cyan);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    yesOrNo = Console.ReadLine();
+                    yesOrNo = Console.ReadLine().ToLower();
                     Console.ResetColor();
 
-                    if (yesOrNo.ToLower() == "y" || yesOrNo.ToLower() == "n") Console.Clear();
+                    if (yesOrNo == "y" || yesOrNo == "n") 
+                        Console.Clear();
                 }
 
                 double PlayerDamage()

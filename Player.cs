@@ -89,8 +89,8 @@ namespace EternityRPG
             //if enemy died
             if (enemy.HP <= 0)
             {
-                Print.Text("died\n");
                 enemy.IsDead = true;
+                Print.Text("died\n");
 
                 //boss
                 if (enemy is Boss)
