@@ -120,7 +120,7 @@ namespace EternityRPG
                     //change your direction
                     Print.ChangeDirection();
 
-                    Print.Text("make your choice: ".PadLeft(32, ' '));
+                    Print.Text("make your choice: ".PadLeft(23, ' '));
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     int.TryParse(Console.ReadLine(), out selectDirection);
                     Console.ResetColor();
@@ -154,7 +154,6 @@ namespace EternityRPG
                 if (selectDirection == 2)
                 {
                     int maxLocations;
-                    int biomeType = default;
                     int deathCounter = default;
 
                     foreach (var boss in bosses)
@@ -164,7 +163,8 @@ namespace EternityRPG
                     if (deathCounter == bosses.Length - 1) maxLocations = 4;
                     else maxLocations = 3;
 
-                    while (biomeType == 0 || biomeType > maxLocations)
+                    choice = default;
+                    while (choice == 0 || choice > maxLocations)
                     {
                         Console.Clear();
                         Print.SelectLocation(bosses);
@@ -177,16 +177,16 @@ namespace EternityRPG
                         //exit from choosing locations
                         if (input == "<") break;
 
-                        int.TryParse(input, out biomeType);
+                        int.TryParse(input, out choice);
                     }
                     if (input == "<") continue;
 
                     //create location according to the number of chosen location
-                    biome = new Biome(biomeType);
-                    bossType = biomeType - 1;
+                    biome = new Biome(choice);
+                    bossType = choice - 1;
 
                     //enter to the secret location, if you already killed three bosses
-                    if (biomeType == 4)
+                    if (choice == 4)
                     {
                         yesOrNo = string.Empty;
                         while (yesOrNo != "y" && yesOrNo != "n")
@@ -232,7 +232,6 @@ namespace EternityRPG
                     Print.PlayerStatistics(player, inventory);
                     Print.PressEnter();
                 }
-
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
                 if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead)

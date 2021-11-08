@@ -5,6 +5,25 @@ namespace EternityRPG
 {
     public static class Print
     {
+        public static void ChangeDirection()//options to choose between shop, locations
+        {
+            Text(@"   ___        /           _             _            _______________ " + "\n", ConsoleColor.Blue);
+            Text(@"  |___|      /           |\     /|\     /|          |               |" + "\n", ConsoleColor.Blue);
+            Text(@"  _| |_     / /\           \     |     /            |  CLASS .....  |" + "\n", ConsoleColor.Blue);
+            Text(@" |     |   / | |            \    |    /             |  EXP   .....  |" + "\n", ConsoleColor.Blue);
+            Text(@" | HP  |  /  | |                                    |  GOLD  .....  |" + "\n", ConsoleColor.Blue);
+            Text(@" |_____| /   | |              \  O                  |_______________|" + "\n", ConsoleColor.Blue);   
+            Text("        /  __|_|__             \\/\u25A0\\ _                      | |       " + "\n", ConsoleColor.Blue);
+            Text("       /      \u25A0                  \u25A0 |_|                     | |       " + "\n", ConsoleColor.Blue);
+            Text("      /       \u25A0                 / \\                        |_|       " + "\n\n", ConsoleColor.Blue);
+            Text("     [1] ", ConsoleColor.Cyan);
+            Text("shop");
+            Text("\t\t   [2] ", ConsoleColor.Cyan);
+            Text("locations");
+            Text("\t     [3] ", ConsoleColor.Cyan);
+            Text("player stats\n\n");
+        }
+
         public static void Question(string text, ConsoleColor color = ConsoleColor.Green)
         {
             Text($"{text}");
@@ -60,7 +79,12 @@ namespace EternityRPG
 
         public static void ShopOptions(Player player, Item[] inventory)
         {
-            Text("You are in the shop.\nWhat do you want to buy? ");
+            Text(@" ___   _  _    ___    ___ " + "\n", ConsoleColor.DarkYellow);
+            Text(@"/ __| | || |  / _ \  | _ \" + "\n", ConsoleColor.Red);
+            Text(@"\__ \ | __ | | (_) | |  _/" + "\n", ConsoleColor.DarkRed);
+            Text(@"|___/ |_||_|  \___/  |_|  " + "\n\n", ConsoleColor.DarkMagenta);
+
+            Text("What do you want to buy? ");
             Text(" [1] ", ConsoleColor.Green);
             Text($"{inventory[0].Title}\t");
             Text($"{inventory[0].Cost} gold", ConsoleColor.DarkYellow);
@@ -102,6 +126,11 @@ namespace EternityRPG
                 if (boss.IsDead)
                     deathCounter++;
 
+            Text(@" _       ___     ___     _     _____   ___    ___    _  _   ___ " + "\n", ConsoleColor.DarkYellow);
+            Text(@"| |     / _ \   / __|   /_\   |_   _| |_ _|  / _ \  | \| | / __|" + "\n", ConsoleColor.Red);
+            Text(@"| |__  | (_) | | (__   / _ \    | |    | |  | (_) | | .` | \__ \" + "\n", ConsoleColor.DarkRed);
+            Text(@"|____|  \___/   \___| /_/ \_\   |_|   |___|  \___/  |_|\_| |___/" + "\n\n", ConsoleColor.DarkMagenta);
+
             Text("Where do you want to go? ");
             Text(" [1] ", ConsoleColor.Green);
             Text("Dark forest\t\t");
@@ -133,17 +162,6 @@ namespace EternityRPG
                 else
                     Text("boss is defeated\n", ConsoleColor.DarkGreen);
             }
-        }
-
-        public static void ChangeDirection()//options to choose between shop, locations...
-        {
-            Text("What is next?");
-            Text(" [1] ", ConsoleColor.Cyan);
-            Text("go to the shop\n");
-            Text(" [2] ".PadLeft(18, ' '), ConsoleColor.Cyan);
-            Text("change location\n");
-            Text(" [3] ".PadLeft(18, ' '), ConsoleColor.Cyan);
-            Text("show stats\n\n");
         }
 
         public static void BattleOptions()
@@ -405,11 +423,11 @@ namespace EternityRPG
                 Text(" LVL:      ");
                 Text($"{player.Lvl}\n", ConsoleColor.Green);
                 Text(" HP:       ");
-                Text($"{player.HP}\t\t".PadLeft(1, ' '), ConsoleColor.Green);
+                Text($"{player.HP}\t", ConsoleColor.Green);
                 Text("/ ");
                 Text($"max {player.MaxHP}\n", ConsoleColor.DarkCyan);
                 Text(" EXP:      ");
-                Text($"{player.Exp}\t\t", ConsoleColor.Green);
+                Text($"{player.Exp}\t", ConsoleColor.Green);
                 Text("/ ");
                 Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
                 Text(" GOLD:     ");

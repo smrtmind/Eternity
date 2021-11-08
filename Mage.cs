@@ -7,10 +7,10 @@
             base.Name = Name;
             base.Gender = Gender;
             base.Class = Class;
-            MaxHP = 12000;
+            MaxHP = 120;
             HP = MaxHP;
-            MinDamage = 1300;
-            MaxDamage = 1800;
+            MinDamage = 13;
+            MaxDamage = 18;
             CritChance = 10;
             Gold = 0;
             Exp = 0;
