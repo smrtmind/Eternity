@@ -28,8 +28,6 @@ namespace EternityRPG
         {
             string yesOrNo = string.Empty;
             string input = string.Empty;
-            int selectDirection = 0;
-            int biomeType = 1;
             int choice = 0;
 
             Print.GameTitle();
@@ -115,6 +113,19 @@ namespace EternityRPG
             //******************** SECTION OF THE MAIN GAMEPLAY ********************
             while (true)
             {
+                int selectDirection = 0;
+                while (selectDirection == 0 || selectDirection > 3)
+                {
+                    Console.Clear();
+                    //change your direction
+                    Print.ChangeDirection();
+
+                    Print.Text("make your choice: ".PadLeft(32, ' '));
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    int.TryParse(Console.ReadLine(), out selectDirection);
+                    Console.ResetColor();
+                }
+
                 //shop
                 if (selectDirection == 1)
                 {
@@ -137,93 +148,91 @@ namespace EternityRPG
                         if (choice > 0 && choice <= inventory.Length)
                             inventory[choice - 1].Buy(player, inventory, choice);
                     }
-
-                    selectDirection = 2;
-                    Console.Clear();
                 }
 
                 //select between locations
                 if (selectDirection == 2)
                 {
-                    Print.SelectLocation(bosses);
+                    int maxLocations;
+                    int biomeType = default;
+                    int deathCounter = default;
 
-                    biomeType = 0;
-
-                    //if all bosses are dead, you can see menu with the last location
-                    int deathCounter = 0;
                     foreach (var boss in bosses)
                         if (boss.IsDead)
                             deathCounter++;
 
-                    if (deathCounter == 3)
+                    if (deathCounter == bosses.Length - 1) maxLocations = 4;
+                    else maxLocations = 3;
+
+                    while (biomeType == 0 || biomeType > maxLocations)
                     {
-                        while (biomeType == 0 || biomeType > 4)
-                        {
-                            Console.Write("make your choice: ".PadLeft(44, ' '));
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            int.TryParse(Console.ReadLine(), out biomeType);
-                            Console.ResetColor();
+                        Console.Clear();
+                        Print.SelectLocation(bosses);
+                        Console.Write("make your choice: ".PadLeft(44, ' '));
 
-                            bossType = biomeType - 1;
-                        }
-                    }
-
-                    //if not, you can choose between three locations
-                    else
-                    {
-                        while (biomeType == 0 || biomeType > 3)
-                        {
-                            Console.Write("make your choice: ".PadLeft(44, ' '));
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            int.TryParse(Console.ReadLine(), out biomeType);
-                            Console.ResetColor();
-
-                            bossType = biomeType - 1;
-                        }
-                    }
-                }
-                Console.Clear();
-
-                //create location according to the number of chosen location
-                biome = new Biome(biomeType);
-
-                //enter to the secret location, if you already killed three bosses
-                if (biomeType == 4)
-                {
-                    yesOrNo = string.Empty;
-                    while (yesOrNo != "y" && yesOrNo != "n")
-                    {
-                        Print.Question($"Are you ready for final battle?", ConsoleColor.Cyan);
-
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        yesOrNo = Console.ReadLine().ToLower();
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        input = Console.ReadLine();
                         Console.ResetColor();
+
+                        //exit from choosing locations
+                        if (input == "<") break;
+
+                        int.TryParse(input, out biomeType);
                     }
-                    Console.Clear();
+                    if (input == "<") continue;
 
-                    //final fight of the game
-                    if (yesOrNo == "y")
+                    //create location according to the number of chosen location
+                    biome = new Biome(biomeType);
+                    bossType = biomeType - 1;
+
+                    //enter to the secret location, if you already killed three bosses
+                    if (biomeType == 4)
                     {
-                        BattleZone(bossBattle: true);
-
-                        //if you win final battle
-                        if (bosses[bossType].IsDead)
+                        yesOrNo = string.Empty;
+                        while (yesOrNo != "y" && yesOrNo != "n")
                         {
                             Console.Clear();
-                            Print.TheEnd(player, inventory);
-                            break;
+                            Print.Question($"Are you ready for final battle?", ConsoleColor.Cyan);
+
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            yesOrNo = Console.ReadLine().ToLower();
+                            Console.ResetColor();
                         }
+                        Console.Clear();
+
+                        //final fight of the game
+                        if (yesOrNo == "y")
+                        {
+                            BattleZone(bossBattle: true);
+
+                            //if you win final battle
+                            if (bosses[bossType].IsDead)
+                            {
+                                Console.Clear();
+                                Print.TheEnd(player, inventory);
+                                break;
+                            }
+                        }
+                    }
+
+                    //starting battle section according to the chosen location
+                    else
+                    {
+                        Console.Clear();
+                        //printing full info about the location, only once in each location, according to the chosen location
+                        Print.Text($"{biome.LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
+                        //start battle section with regular enemies
+                        BattleZone();
                     }
                 }
 
-                //starting battle section according to the chosen location
-                else
+                //show status information
+                if (selectDirection == 3)
                 {
-                    //printing full info about the location, only once in each location, according to the chosen location
-                    Print.Text($"{biome.LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
-                    //start battle section with regular enemies
-                    BattleZone();
+                    Print.PlayerStatistics(player, inventory);
+                    Print.PressEnter();
                 }
+
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
                 if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead)
@@ -238,27 +247,6 @@ namespace EternityRPG
 
                 //if you were killed in the battle
                 if (player.IsDead) break;
-
-                //change your direction
-                Print.ChangeDirection();
-
-                selectDirection = 0;
-                while (selectDirection == 0 || selectDirection > 3)
-                {
-                    Print.Text("make your choice: ".PadLeft(32, ' '));
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    int.TryParse(Console.ReadLine(), out selectDirection);
-                    Console.ResetColor();
-
-                    //show status information
-                    if (selectDirection == 3)
-                    {
-                        Print.PlayerStatistics(player, inventory);
-                        selectDirection = 0;
-                        continue;
-                    }
-                }
-                Console.Clear();
             }
         }
 

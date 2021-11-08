@@ -17,7 +17,7 @@
                     CritChance = 10;
                     Exp = 250;
                     Gold = 450;
-                    CounterToReachTheBoss = random.Next(15, 25);
+                    CounterToReachTheBoss = 1;// random.Next(15, 25);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "strikes with a branch";
                     CriticalAttackPhrase = "brings a tree down on you";
@@ -32,7 +32,7 @@
                     CritChance = 13;
                     Exp = 450;
                     Gold = 650;
-                    CounterToReachTheBoss = random.Next(20, 30);
+                    CounterToReachTheBoss = 1;// random.Next(20, 30);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "throws a huge stone";
                     CriticalAttackPhrase = "throws many sharp stalactites";
@@ -47,7 +47,7 @@
                     CritChance = 16;
                     Exp = 650;
                     Gold = 850;
-                    CounterToReachTheBoss = random.Next(25, 35);
+                    CounterToReachTheBoss = 1;// random.Next(25, 35);
                     ChanceToInterruptTheEscape = 100;
                     NormalAttackPhrase = "attacks with fire breath";
                     CriticalAttackPhrase = "grabs you and pushes you into the fire";

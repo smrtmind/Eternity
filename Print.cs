@@ -38,7 +38,7 @@ namespace EternityRPG
         {
             Text("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
             Text("Your character\n", ConsoleColor.DarkYellow);
-            
+
             if (player.Name == "Ash")
             {
                 Text("name:\t");
@@ -98,47 +98,33 @@ namespace EternityRPG
         public static void SelectLocation(Enemy[] bosses)
         {
             int deathCounter = 0;
-            foreach (var boss in bosses) 
-                if (boss.IsDead) 
+            foreach (var boss in bosses)
+                if (boss.IsDead)
                     deathCounter++;
 
-            //if all bosses are dead, you can see last secret location
+            Text("Where do you want to go? ");
+            Text(" [1] ", ConsoleColor.Green);
+            Text("Dark forest\t\t");
+            Condition(bosses[0]);
+
+            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("Mysterious caves\t\t");
+            Condition(bosses[1]);
+
+            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text("Ancient volcano\t\t");
+            Condition(bosses[2]);
+
+            //if all bosses are dead you can see the last location
             if (deathCounter == 3)
             {
-                Text("Where do you want to go? ");
-                Text(" [1] ", ConsoleColor.Green);
-                Text("Dark forest\t\t");
-                Condition(bosses[0]);
-
-                Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Mysterious caves\t\t");
-                Condition(bosses[1]);
-
-                Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Ancient volcano\t\t");
-                Condition(bosses[2]);
-
                 Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
                 Text("Lair of true evil\n\n", ConsoleColor.DarkRed);
             }
+            else Text("\n");
 
-            //if not, you can see only three locations
-            else
-            {
-                Text("Where do you want to go? ");
-                Text(" [1] ", ConsoleColor.Green);
-                Text("Dark forest\t\t");
-                Condition(bosses[0]);
-
-                Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Mysterious caves\t\t");
-                Condition(bosses[1]);
-
-                Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Ancient volcano\t\t");
-                Condition(bosses[2]);
-                Text("\n");
-            }
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text($"exit\n\n");
 
             void Condition(Enemy boss)
             {

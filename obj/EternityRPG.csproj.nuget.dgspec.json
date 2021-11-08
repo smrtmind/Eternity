@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\docs\\code\\TextRPG\\EternityRPG.csproj": {}
+    "C:\\docs\\code\\Eternity\\EternityRPG.csproj": {}
   },
   "projects": {
-    "C:\\docs\\code\\TextRPG\\EternityRPG.csproj": {
+    "C:\\docs\\code\\Eternity\\EternityRPG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\docs\\code\\TextRPG\\EternityRPG.csproj",
+        "projectUniqueName": "C:\\docs\\code\\Eternity\\EternityRPG.csproj",
         "projectName": "EternityRPG",
-        "projectPath": "C:\\docs\\code\\TextRPG\\EternityRPG.csproj",
+        "projectPath": "C:\\docs\\code\\Eternity\\EternityRPG.csproj",
         "packagesPath": "C:\\Users\\Oleg\\.nuget\\packages\\",
-        "outputPath": "C:\\docs\\code\\TextRPG\\obj\\",
+        "outputPath": "C:\\docs\\code\\Eternity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
