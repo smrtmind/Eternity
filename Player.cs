@@ -53,15 +53,23 @@ namespace EternityRPG
         {
             if (exp >= NextLvl)
             {
-                NextLvl = (int)(((NextLvl / 100) * 50) + NextLvl);
+                if (Lvl > 0 && Lvl <= 10)
+                    NextLvl = (int)(((NextLvl / 100) * 50) + NextLvl);
+                else
+                    NextLvl = (int)(((NextLvl / 100) * 30) + NextLvl);
 
                 Lvl++;
+                CritChance++;
                 MaxHP = (int)(((MaxHP / 100) * 10) + MaxHP);
                 MinDamage = (int)(((MinDamage / 100) * 10) + MinDamage);
                 MaxDamage = (int)(((MaxDamage / 100) * 10) + MaxDamage);
 
-                Print.Text($"\tYou have promoted to level {Lvl} ", ConsoleColor.DarkGreen);
-                Print.Text("HP+ / DMG+\n");
+                Print.Text($"\tYou have promoted to level {Lvl}\n", ConsoleColor.DarkGreen);
+                Print.Text("\tHP+");
+                Print.Text(" | ", ConsoleColor.DarkGray);
+                Print.Text("DMG+");
+                Print.Text(" | ", ConsoleColor.DarkGray);
+                Print.Text("CRIT+\n");
             }
         }
 
