@@ -118,42 +118,26 @@ namespace EternityRPG
                 //shop
                 if (selectDirection == 1)
                 {
-                    yesOrNo = string.Empty;
-                    while (yesOrNo != "n")
+                    input = string.Empty;
+                    while (input != "<")
                     {
-                        input = string.Empty;
-                        while (input != "<")
-                        {
-                            Console.Clear();
-                            Print.ShopOptions(player, inventory);
-                            Console.Write("make your choice: ".PadLeft(44, ' '));
+                        Console.Clear();
+                        Print.ShopOptions(player, inventory);
+                        Console.Write("make your choice: ".PadLeft(44, ' '));
 
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            input = Console.ReadLine();
-                            Console.ResetColor();
-
-                            int.TryParse(input, out choice);
-                            if (choice > 0 && choice <= 5)
-                            {
-                                //trying to buy something
-                                inventory[choice - 1].Buy(player, inventory, choice);
-                                break;
-                            }
-                        }
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        input = Console.ReadLine();
+                        Console.ResetColor();
 
                         //exit from the shop
                         if (input == "<") break;
 
-                        yesOrNo = string.Empty;
-                        while (yesOrNo != "y" && yesOrNo != "n")
-                        {
-                            Print.Question("anything else?".PadLeft(40, ' '));
-
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            yesOrNo = Console.ReadLine().ToLower();
-                            Console.ResetColor();
-                        }
+                        int.TryParse(input, out choice);
+                        //trying to buy something
+                        if (choice > 0 && choice <= inventory.Length)
+                            inventory[choice - 1].Buy(player, inventory, choice);
                     }
+
                     selectDirection = 2;
                     Console.Clear();
                 }
@@ -444,7 +428,7 @@ namespace EternityRPG
                         }
 
                         //you can't avoid a battle with some enemies
-                        else 
+                        else
                         {
                             if (enemy.ChanceToInterruptTheEscape == 100)
                                 Print.Text($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
@@ -472,7 +456,7 @@ namespace EternityRPG
                     yesOrNo = Console.ReadLine().ToLower();
                     Console.ResetColor();
 
-                    if (yesOrNo == "y" || yesOrNo == "n") 
+                    if (yesOrNo == "y" || yesOrNo == "n")
                         Console.Clear();
                 }
 

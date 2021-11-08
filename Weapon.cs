@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace EternityRPG
 {
@@ -63,9 +64,10 @@ namespace EternityRPG
             {
                 player.Gold -= Cost;
                 Use(player, inventory, choice);
-                Print.Text($"\t\t\t  {Title} purchased and equipped\n\n", ConsoleColor.DarkCyan);
+                Print.Text($"\t\t\t  {Title} purchased and equipped\n", ConsoleColor.DarkCyan);
             }
-            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n\n", ConsoleColor.DarkRed);
+            else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
+            Thread.Sleep(2000);
         }
 
         public override void Use(Player player, Item[] inventory, int choice)
