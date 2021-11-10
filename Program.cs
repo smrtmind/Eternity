@@ -28,7 +28,7 @@ namespace EternityRPG
         {
             string yesOrNo = string.Empty;
             string input = string.Empty;
-            int choice = 0;
+            int choice = default;
 
             Print.GameTitle();
             Print.PressEnter();
@@ -54,7 +54,7 @@ namespace EternityRPG
 
                 //selection of player's gender
                 Print.GenderOptions();
-                choice = 0;
+                choice = default;
                 while (choice == 0 || choice > 2)
                 {
                     Print.Text("choose gender: ".PadLeft(47, ' '));
@@ -68,7 +68,7 @@ namespace EternityRPG
 
                 //selection of player's class
                 Print.PlayerClassOptions();
-                choice = 0;
+                choice = default;
                 while (choice == 0 || choice > 3)
                 {
                     Print.Text("choose class: ".PadLeft(46, ' '));
@@ -113,7 +113,8 @@ namespace EternityRPG
             //******************** SECTION OF THE MAIN GAMEPLAY ********************
             while (true)
             {
-                int selectDirection = 0;
+                //******************** CHOOSING DIRECTION ********************
+                int selectDirection = default;
                 while (selectDirection == 0 || selectDirection > 3)
                 {
                     Console.Clear();
@@ -126,7 +127,7 @@ namespace EternityRPG
                     Console.ResetColor();
                 }
 
-                //shop
+                //******************** SHOP ********************
                 if (selectDirection == 1)
                 {
                     input = string.Empty;
@@ -150,12 +151,13 @@ namespace EternityRPG
                     }
                 }
 
-                //select between locations
+                //******************** LOCATIONS ********************
                 if (selectDirection == 2)
                 {
                     int maxLocations;
                     int deathCounter = default;
 
+                    //checking if you killed enough bosses to unlock final location
                     foreach (var boss in bosses)
                         if (boss.IsDead)
                             deathCounter++;
@@ -226,7 +228,7 @@ namespace EternityRPG
                     }
                 }
 
-                //show status information
+                //******************** PLAYER STATS ********************
                 if (selectDirection == 3)
                 {
                     Print.PlayerStatistics(player, inventory);
@@ -261,7 +263,7 @@ namespace EternityRPG
             string yesOrNo = string.Empty;
             while (yesOrNo.ToLower() != "n")
             {
-                int choice = 0;
+                int choice = default;
                 string keyBoardInput = string.Empty;
                 yesOrNo = string.Empty;
 
@@ -345,7 +347,7 @@ namespace EternityRPG
                     {
                         Print.HealingOptions(inventory);
 
-                        choice = 0;
+                        choice = default;
                         while (choice == 0 || choice > 3)
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
