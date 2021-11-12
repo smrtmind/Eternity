@@ -7,11 +7,27 @@
             base.Name = Name;
             base.Gender = Gender;
             base.Class = Class;
-            MaxHP = 200;
+
+            //male
+            if (Gender == "male")
+            {
+                MaxHP = 200;
+                MinDamage = 7;
+                MaxDamage = 12;
+                CritChance = 10;
+                Luck = 5;
+            }
+            //female
+            else
+            {
+                MaxHP = 180;
+                MinDamage = 5;
+                MaxDamage = 10;
+                CritChance = 15;
+                Luck = 10;
+            }
+
             HP = MaxHP;
-            MinDamage = 7;
-            MaxDamage = 12;
-            CritChance = 10;
             Gold = 0;
             Exp = 0;
             NormalAttackPhrase = "strikes with a sword";

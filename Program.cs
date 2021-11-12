@@ -12,7 +12,7 @@ namespace EternityRPG
 
         private static Random random = new Random();
         private static Player player = new Player();
-        private static Item[] inventory;
+        public static Item[] inventory;
         private static Biome biome;
         private static Enemy enemy;
 
@@ -332,7 +332,7 @@ namespace EternityRPG
 
                             //if the player is dead
                             if (player.IsDead) return;
-                            //if the player is dying
+                            //if the player has low hp
                             if (player.HP <= 20) break;
                             //if manual fight, break to choose next option
                             if (battleChoice == 1) break;

@@ -4,6 +4,7 @@ namespace EternityRPG
 {
     public class Player : Character
     {
+        public int Luck { get; protected set; }
         public string Gender { get; protected set; }
         public string Class { get; protected set; }
         public int Lvl { get; private set; } = 1;
@@ -60,6 +61,7 @@ namespace EternityRPG
 
                 Lvl++;
                 CritChance++;
+                Luck++;
                 MaxHP = (int)(((MaxHP / 100) * 10) + MaxHP);
                 MinDamage = (int)(((MinDamage / 100) * 10) + MinDamage);
                 MaxDamage = (int)(((MaxDamage / 100) * 10) + MaxDamage);
@@ -69,7 +71,9 @@ namespace EternityRPG
                 Print.Text(" | ", ConsoleColor.DarkGray);
                 Print.Text("DMG+");
                 Print.Text(" | ", ConsoleColor.DarkGray);
-                Print.Text("CRIT+\n");
+                Print.Text("CRIT+");
+                Print.Text(" | ", ConsoleColor.DarkGray);
+                Print.Text("LUCK+\n");
             }
         }
 
@@ -105,7 +109,20 @@ namespace EternityRPG
                 }
                 //common enemy
                 else
+                {
                     Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
+
+                    //drop of items after victory
+                    if (random.Next(0, 100) <= player.Luck)
+                    {
+                        int typeOfPotion = random.Next(0, 3);
+
+                        Program.inventory[typeOfPotion].Amount++;
+                        Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
+                        Print.Text("has dropped ");
+                        Print.Text($"{Program.inventory[typeOfPotion].Title}\n", ConsoleColor.DarkGreen);
+                    }
+                } 
             }
             //otherwise continue    
             else

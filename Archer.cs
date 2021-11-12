@@ -7,11 +7,27 @@
             base.Name = Name;
             base.Gender = Gender;
             base.Class = Class;
-            MaxHP = 160;
+
+            //male
+            if (Gender == "male")
+            {
+                MaxHP = 160;
+                MinDamage = 10;
+                MaxDamage = 15;
+                CritChance = 10;
+                Luck = 5;
+            }
+            //female
+            else
+            {
+                MaxHP = 140;
+                MinDamage = 8;
+                MaxDamage = 13;
+                CritChance = 15;
+                Luck = 10;
+            }
+            
             HP = MaxHP;
-            MinDamage = 10;
-            MaxDamage = 15;
-            CritChance = 10;
             Gold = 0;
             Exp = 0;
             NormalAttackPhrase = "shoot an arrow";
