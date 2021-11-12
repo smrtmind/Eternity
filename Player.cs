@@ -75,19 +75,16 @@ namespace EternityRPG
 
         public override void Attack(Player player, Enemy enemy, double playerDamage, bool crit = false)
         {
-            //normal attack
-            if (!crit) enemy.HP -= playerDamage;
-            //critical attack
-            else enemy.HP -= playerDamage *= random.Next(2, 4);
-
             Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
             if (!crit)
             {
+                enemy.HP -= playerDamage;
                 Print.Text($"{NormalAttackPhrase} deals ");
                 Print.Text($"{playerDamage} DMG", ConsoleColor.DarkGreen);
             }
             else
             {
+                enemy.HP -= playerDamage *= random.Next(2, 4);
                 Print.Text($"{CriticalAttackPhrase} deals ");
                 Print.Text($"CRITICAL {playerDamage} DMG", ConsoleColor.DarkGreen);
             }
