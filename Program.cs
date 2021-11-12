@@ -332,7 +332,8 @@ namespace EternityRPG
 
                             //if the player is dead
                             if (player.IsDead) return;
-
+                            //if the player is dying
+                            if (player.HP <= 20) break;
                             //if manual fight, break to choose next option
                             if (battleChoice == 1) break;
                             //else continue automatic fight 

@@ -32,11 +32,18 @@ namespace EternityRPG
                 Print.Text("died\n");
                 Print.YouDied();
             }
+
             //otherwise continue
             else
             {
                 Print.Text("have ");
                 Print.Text($"{player.HP} HP\n\n", ConsoleColor.DarkGreen);
+
+                if (player.HP <= 20)
+                {
+                    Print.Text($"\tWARNING, you have {player.HP} HP!\n\n", ConsoleColor.DarkRed);
+                    return;
+                }
             }
         }
     }
