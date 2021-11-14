@@ -77,6 +77,9 @@ namespace EternityRPG
             }
         }
 
+        //20 is a low level of HP in percentage
+        public double DangerousLevelOfHealth() => (int)((MaxHP / 100) * 20);
+
         public override void Attack(Player player, Enemy enemy, double playerDamage, bool crit = false)
         {
             Print.Text($"\n\t{player.Name} ", ConsoleColor.DarkCyan);
@@ -105,14 +108,14 @@ namespace EternityRPG
                 if (enemy is Boss)
                 {
                     Print.BossVanquished();
-                    Print.Text($"\n\tYou have earned {enemy.Gold} gold and {enemy.Exp} exp\n", ConsoleColor.DarkYellow);
+                    Print.Text($"\n\t+{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
                 }
                 //common enemy
                 else
                 {
                     Print.Text($"\n\tVICTORY. +{enemy.Gold} gold / +{enemy.Exp} exp\n", ConsoleColor.DarkYellow);
 
-                    //drop of items after victory
+                    //drop of items after victory, only regular mobs
                     if (random.Next(0, 100) <= player.Luck)
                     {
                         int typeOfPotion = random.Next(0, 3);

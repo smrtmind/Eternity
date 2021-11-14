@@ -40,7 +40,7 @@ namespace EternityRPG
                 Print.Text($"{player.HP} HP\n\n", ConsoleColor.DarkGreen);
 
                 //if the player has low HP
-                if (player.HP <= 20)
+                if (player.HP <= player.DangerousLevelOfHealth())
                 {
                     Print.Text($"\tWARNING, you have {player.HP} HP!\n\n", ConsoleColor.DarkRed);
                     return;

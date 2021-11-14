@@ -15,7 +15,7 @@
                 MinDamage = 13;
                 MaxDamage = 18;
                 CritChance = 10;
-                Luck = 5;
+                Luck = 1;
             }  
             //female
             else
@@ -24,7 +24,7 @@
                 MinDamage = 11;
                 MaxDamage = 16;
                 CritChance = 15;
-                Luck = 10;
+                Luck = 5;
             }
 
             HP = MaxHP;        

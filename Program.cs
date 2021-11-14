@@ -333,7 +333,7 @@ namespace EternityRPG
                             //if the player is dead
                             if (player.IsDead) return;
                             //if the player has low hp
-                            if (player.HP <= 20) break;
+                            if (player.HP <= player.DangerousLevelOfHealth()) break;
                             //if manual fight, break to choose next option
                             if (battleChoice == 1) break;
                             //else continue automatic fight 
@@ -452,14 +452,11 @@ namespace EternityRPG
 
                 double PlayerDamage()
                 {
-                    double playerDamage;
                     //if player bought weapon, it will generate damage + weapon damage
                     if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
-                        playerDamage = player.GenerateDamage();
+                        return player.GenerateDamage();
                     else
-                        playerDamage = player.GenerateDamage(inventory);
-
-                    return playerDamage;
+                        return player.GenerateDamage(inventory);
                 }
 
                 void NextAttack(Character attacker, double damage)

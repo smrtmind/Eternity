@@ -34,7 +34,7 @@ It is a console D&D like text based game. It was one of my training projects, wh
 
 ⭐enemies and bosses can do critical damage, if you try to run away from them and failed.
 
-*There is a feature which can help you not to lose in auto battle mode. It is early death warning, which will interrupt the battle and await for your decision in case you have low healh.
+*There is early death warning, which will interrupt the battle and await for your decision in case you have low healh.
 
 *Every enemy, except of bosses, can drop any potion with random chance after battle.
 
