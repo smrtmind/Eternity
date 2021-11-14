@@ -34,11 +34,11 @@ It is a console D&D like text based game. It was one of my training projects, wh
 
 ⭐enemies and bosses can do critical damage, if you try to run away from them and failed.
 
-*There is early death warning, which will interrupt the battle and await for your decision in case you have low healh.
+⭐There is early death warning, which will interrupt the battle and await for your decision in case you have low health.
 
-*Every enemy, except of bosses, can drop any potion with random chance after battle.
+⭐Every enemy, except of bosses, can drop any potion with random chance after battle.
 
-*Male and female heroes have different base characteristics. 
+⭐Male and female heroes have different base characteristics. 
 
 # Info
-Ofcourse I added some "visuals", to this console project. It is must be more pleasant to play. In conclusion I can say that this game is absolutely correct working and can be traversed from start to finish. There are two point of exiting from this game, one is THE END and the other one is YOU DIED :)
+Ofcourse I added some "visuals", to this console project. It must be more pleasant to play. In conclusion I can say that this game is absolutely correct working and can be traversed from start to finish. There are two point of exiting from this game, one is THE END and the other one is YOU DIED :)

@@ -452,11 +452,22 @@ namespace EternityRPG
 
                 double PlayerDamage()
                 {
+                    bool weaponEquipped = false;
+
                     //if player bought weapon, it will generate damage + weapon damage
-                    if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
+                    for (int i = 0; i < inventory.Length; i++)
+                    {
+                        if (inventory[i].WeaponIsBought)
+                        {
+                            weaponEquipped = true;
+                            return player.GenerateDamage(inventory);
+                        }  
+                    }
+
+                    if (!weaponEquipped)
                         return player.GenerateDamage();
-                    else
-                        return player.GenerateDamage(inventory);
+
+                    else return -1;
                 }
 
                 void NextAttack(Character attacker, double damage)

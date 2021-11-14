@@ -72,16 +72,12 @@ namespace EternityRPG
 
         public override void Use(Player player, Item[] inventory, int choice)
         {
-            if (choice == 4)
-            {
-                inventory[3].WeaponIsBought = true;
-                inventory[4].WeaponIsBought = false;
-            }
-            if (choice == 5)
-            {
-                inventory[3].WeaponIsBought = false;
-                inventory[4].WeaponIsBought = true;
-            }
+            //turning all weapon to false before buying new one
+            for (int i = 0; i < inventory.Length; i++)
+                inventory[i].WeaponIsBought = false;
+
+            //equipping new one
+            inventory[choice - 1].WeaponIsBought = true;
         }
     }
 }

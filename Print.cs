@@ -12,7 +12,7 @@ namespace EternityRPG
             Text(@"  _| |_     / /\           \     |     /            |  CLASS .....  |" + "\n", ConsoleColor.Blue);
             Text(@" |     |   / | |            \    |    /             |  EXP   .....  |" + "\n", ConsoleColor.Blue);
             Text(@" | HP  |  /  | |                                    |  GOLD  .....  |" + "\n", ConsoleColor.Blue);
-            Text(@" |_____| /   | |              \  O                  |_______________|" + "\n", ConsoleColor.Blue);   
+            Text(@" |_____| /   | |              \  O                  |_______________|" + "\n", ConsoleColor.Blue);
             Text("        /  __|_|__             \\/\u25A0\\ _                      | |       " + "\n", ConsoleColor.Blue);
             Text("       /      \u25A0                  \u25A0 |_|                     | |       " + "\n", ConsoleColor.Blue);
             Text("      /       \u25A0                 / \\                        |_|       " + "\n\n", ConsoleColor.Blue);
@@ -234,52 +234,35 @@ namespace EternityRPG
             Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.Blue, false, 2);
             Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.Cyan, false, 2);
 
-            if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
-            {
-                Text("\n");
-                Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
-                MainStats();
-                Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
-            }
+            Text("\n");
+            Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
+            Text($" {player.Name}", ConsoleColor.DarkCyan);
+            Text(" / ");
+            Text($"{player.Gender}", ConsoleColor.DarkGray);
+            Text(" / ");
+            Text($"{player.Class}\n\n", ConsoleColor.DarkGreen);
+            Text(" LVL:             ");
+            Text($"{player.Lvl}\n", ConsoleColor.Green);
+            Text(" EXP:             ");
+            Text($"{player.Exp}\n", ConsoleColor.Green);
+            Text(" GOLD:            ");
+            Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
+            Text(" enemies killed:  ");
+            Text($"{Program.DefeatedEnemiesOverall}\n", ConsoleColor.Green);
+            Text(" bosses killed:   ");
+            Text($"{Program.DefeatedBossesOverall}\n", ConsoleColor.Green);
 
-            if (inventory[3].WeaponIsBought || inventory[4].WeaponIsBought)
+            //if you have bought any weapon
+            for (int i = 0; i < inventory.Length; i++)
             {
-                Text("\n");
-                Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
-                MainStats();
-
-                if (inventory[3].WeaponIsBought)
+                if (inventory[i].WeaponIsBought)
                 {
                     Text(" weapon:          ");
-                    Text($"{inventory[3].Title}\n", ConsoleColor.DarkRed);
+                    Text($"{inventory[i].Title}\n", ConsoleColor.DarkRed);
                 }
-                if (inventory[4].WeaponIsBought)
-                {
-                    Text(" weapon:          ");
-                    Text($"{inventory[4].Title}\n", ConsoleColor.DarkRed);
-                }
-
-                Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
-            void MainStats()
-            {
-                Text($" {player.Name}", ConsoleColor.DarkCyan);
-                Text(" / ");
-                Text($"{player.Gender}", ConsoleColor.DarkGray);
-                Text(" / ");
-                Text($"{player.Class}\n\n", ConsoleColor.DarkGreen);
-                Text(" LVL:             ");
-                Text($"{player.Lvl}\n", ConsoleColor.Green);
-                Text(" EXP:             ");
-                Text($"{player.Exp}\n", ConsoleColor.Green);
-                Text(" GOLD:            ");
-                Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
-                Text(" enemies killed:  ");
-                Text($"{Program.DefeatedEnemiesOverall}\n", ConsoleColor.Green);
-                Text(" bosses killed:   ");
-                Text($"{Program.DefeatedBossesOverall}\n", ConsoleColor.Green);
-            }
+            Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
 
             Thread.Sleep(3000);
             Text("Press Enter to exit");
@@ -383,56 +366,37 @@ namespace EternityRPG
 
         public static void PlayerStatistics(Player player, Item[] inventory)
         {
-            //if you didn't buy any weapon from the shop
-            if (!inventory[3].WeaponIsBought && !inventory[4].WeaponIsBought)
-            {
-                Text("\n");
-                Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
-                MainStats();
-                Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
-            }
+            Text("\n");
+            Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
+            Text($" {player.Name}", ConsoleColor.DarkCyan);
+            Text(" / ");
+            Text($"{player.Gender}", ConsoleColor.DarkGray);
+            Text(" / ");
+            Text($"{player.Class}\n\n", ConsoleColor.DarkGreen);
+            Text(" LVL:      ");
+            Text($"{player.Lvl}\n", ConsoleColor.Green);
+            Text(" HP:       ");
+            Text($"{player.HP}\t", ConsoleColor.Green);
+            Text("/ ");
+            Text($"max {player.MaxHP}\n", ConsoleColor.DarkCyan);
+            Text(" EXP:      ");
+            Text($"{player.Exp}\t", ConsoleColor.Green);
+            Text("/ ");
+            Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
+            Text(" GOLD:     ");
+            Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
 
-            //if you have bought any weapon from the shop
-            if (inventory[3].WeaponIsBought || inventory[4].WeaponIsBought)
+            //if you have bought any weapon
+            for (int i = 0; i < inventory.Length; i++)
             {
-                Text("\n");
-                Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
-                MainStats();
-
-                if (inventory[3].WeaponIsBought)
+                if (inventory[i].WeaponIsBought)
                 {
                     Text(" weapon:   ");
-                    Text($"{inventory[3].Title}\n", ConsoleColor.DarkRed);
+                    Text($"{inventory[i].Title}\n", ConsoleColor.DarkRed);
                 }
-                if (inventory[4].WeaponIsBought)
-                {
-                    Text(" weapon:   ");
-                    Text($"{inventory[4].Title}\n", ConsoleColor.DarkRed);
-                }
-
-                Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
             }
 
-            void MainStats()
-            {
-                Text($" {player.Name}", ConsoleColor.DarkCyan);
-                Text(" / ");
-                Text($"{player.Gender}", ConsoleColor.DarkGray);
-                Text(" / ");
-                Text($"{player.Class}\n\n", ConsoleColor.DarkGreen);
-                Text(" LVL:      ");
-                Text($"{player.Lvl}\n", ConsoleColor.Green);
-                Text(" HP:       ");
-                Text($"{player.HP}\t", ConsoleColor.Green);
-                Text("/ ");
-                Text($"max {player.MaxHP}\n", ConsoleColor.DarkCyan);
-                Text(" EXP:      ");
-                Text($"{player.Exp}\t", ConsoleColor.Green);
-                Text("/ ");
-                Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
-                Text(" GOLD:     ");
-                Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
-            }
+            Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
         }
     }
 }
