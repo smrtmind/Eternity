@@ -85,31 +85,36 @@ namespace EternityRPG
             Text(@"|___/ |_||_|  \___/  |_|  " + "\n\n", ConsoleColor.DarkMagenta);
 
             Text("What do you want to buy? ");
-            Text(" [1] ", ConsoleColor.Green);
-            Text($"{inventory[0].Title}\t");
-            Text($"{inventory[0].Cost} gold", ConsoleColor.DarkYellow);
-            Text("  / ");
-            Text($"you have {inventory[0].Amount}\n", ConsoleColor.Cyan);
-            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{inventory[1].Title}\t");
-            Text($"{inventory[1].Cost} gold", ConsoleColor.DarkYellow);
-            Text("  / ");
-            Text($"you have {inventory[1].Amount}\n", ConsoleColor.Cyan);
-            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{inventory[2].Title}\t");
-            Text($"{inventory[2].Cost} gold", ConsoleColor.DarkYellow);
-            Text(" / ");
-            Text($"you have {inventory[2].Amount}\n\n", ConsoleColor.Cyan);
 
             //you can see weapon according to the selected class of player
-            Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{inventory[3].Title}\t", ConsoleColor.DarkCyan);
-            Text($"+{inventory[3].Damage}\t", ConsoleColor.DarkRed);
-            Text($"{inventory[3].Cost} gold\n", ConsoleColor.DarkYellow);
-            Text(" [5] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"{inventory[4].Title}\t", ConsoleColor.DarkCyan);
-            Text($"+{inventory[4].Damage}\t", ConsoleColor.DarkRed);
-            Text($"{inventory[4].Cost} gold\n\n", ConsoleColor.DarkYellow);
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] is Potion)
+                {
+                    if (i == 0)
+                        Text($" [{i + 1}] ", ConsoleColor.Green);
+                    else
+                        Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+
+                    Text($"{inventory[i].Title}\t");
+                    Text($"{inventory[i].Cost} gold", ConsoleColor.DarkYellow);
+                    Text(" / ");
+                    Text($"you have {inventory[i].Amount}\n", ConsoleColor.Cyan);
+                }
+            }
+            Text("\n");
+
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] is Weapon)
+                {
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+                    Text($"{inventory[i].Title}\t", ConsoleColor.DarkCyan);
+                    Text($"+{inventory[i].Damage}\t", ConsoleColor.DarkRed);
+                    Text($"{inventory[i].Cost} gold\n", ConsoleColor.DarkYellow);
+                }
+            }
+            Text("\n");
 
             //gold in your bag
             Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
@@ -157,10 +162,10 @@ namespace EternityRPG
 
             void Condition(Enemy boss)
             {
-                if (!boss.IsDead)
-                    Text("boss is alive\n", ConsoleColor.DarkRed);
-                else
+                if (boss.IsDead)
                     Text("boss is defeated\n", ConsoleColor.DarkGreen);
+                else
+                    Text("boss is alive\n", ConsoleColor.DarkRed);
             }
         }
 
@@ -259,6 +264,7 @@ namespace EternityRPG
                 {
                     Text(" weapon:          ");
                     Text($"{inventory[i].Title}\n", ConsoleColor.DarkRed);
+                    break;
                 }
             }
 
@@ -393,6 +399,7 @@ namespace EternityRPG
                 {
                     Text(" weapon:   ");
                     Text($"{inventory[i].Title}\n", ConsoleColor.DarkRed);
+                    break;
                 }
             }
 
