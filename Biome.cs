@@ -6,17 +6,17 @@ namespace EternityRPG
     {
         public string LocationInfo { get; set; }
         public string ShortTitle { get; set; }
-        public int TypeOfLocation { get; set; }
+        public int BiomeType { get; set; }
 
-        public Biome(int typeOfLocation)
+        public Biome(int biomeType)
         {
-            TypeOfLocation = typeOfLocation;
+            BiomeType = biomeType;
             CreateLocation();
         }
 
         private void CreateLocation()
         {
-            switch (TypeOfLocation)
+            switch (BiomeType)
             {
                 case 1:
                     LocationInfo = "You are stepped forward to a deep dark forest. Prepare to defend yourself.\n";
@@ -44,8 +44,8 @@ namespace EternityRPG
         {
             Random random = new Random();
 
-            if (TypeOfLocation == 1) return new Mob(random.Next(1, 4));
-            if (TypeOfLocation == 2) return new Mob(random.Next(4, 7));
+            if (BiomeType == 1) return new Mob(random.Next(1, 4));
+            if (BiomeType == 2) return new Mob(random.Next(4, 7));
             else return new Mob(random.Next(7, 10));
         }
     }

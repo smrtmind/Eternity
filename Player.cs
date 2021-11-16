@@ -41,11 +41,11 @@ namespace EternityRPG
 
         public double GenerateDamage(Item[] weapon)
         {
-            if (weapon[3].WeaponIsBought)
-                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon[3].Damage;
-
-            if (weapon[4].WeaponIsBought)
-                Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon[4].Damage;
+            for (int i = 0; i < weapon.Length; i++)
+            {
+                if (weapon[i].WeaponIsBought)
+                    Damage = random.Next((int)MinDamage, (int)MaxDamage) + weapon[i].Damage;
+            }
 
             return Damage;
         }

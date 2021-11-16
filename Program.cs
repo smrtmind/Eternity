@@ -8,12 +8,11 @@ namespace EternityRPG
         private static int DefeatedEnemiesToFightTheBoss { get; set; }
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
-        private static int bossType { get; set; }
+        private static int biomeType { get; set; }
 
         private static Random random = new Random();
         private static Player player = new Player();
         public static Item[] inventory;
-        private static Biome biome;
         private static Enemy enemy;
 
         private static Enemy[] bosses = new Enemy[]
@@ -22,6 +21,14 @@ namespace EternityRPG
             new Boss(bossType: 2),
             new Boss(bossType: 3),
             new Boss(bossType: 4)
+        };
+
+        public static Biome[] biomes = new Biome[]
+        {
+            new Biome(biomeType: 1),
+            new Biome(biomeType: 2),
+            new Biome(biomeType: 3),
+            new Biome(biomeType: 4)
         };
 
         static void Main(string[] args)
@@ -162,14 +169,16 @@ namespace EternityRPG
                         if (boss.IsDead)
                             deathCounter++;
 
-                    if (deathCounter == bosses.Length - 1) maxLocations = 4;
-                    else maxLocations = 3;
+                    if (deathCounter == bosses.Length - 1) 
+                        maxLocations = biomes.Length;
+                    else 
+                        maxLocations = biomes.Length - 1;
 
                     choice = default;
                     while (choice == 0 || choice > maxLocations)
                     {
                         Console.Clear();
-                        Print.SelectLocation(bosses);
+                        Print.SelectLocation(bosses, inventory, biomes, maxLocations);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -180,12 +189,10 @@ namespace EternityRPG
                         if (input == "<") break;
 
                         int.TryParse(input, out choice);
+                        //create location according to the number of chosen location
+                        biomeType = choice - 1;
                     }
                     if (input == "<") continue;
-
-                    //create location according to the number of chosen location
-                    biome = new Biome(choice);
-                    bossType = choice - 1;
 
                     //enter to the secret location, if you already killed three bosses
                     if (choice == 4)
@@ -208,7 +215,7 @@ namespace EternityRPG
                             BattleZone(bossBattle: true);
 
                             //if you win final battle
-                            if (bosses[bossType].IsDead)
+                            if (bosses[biomeType].IsDead)
                             {
                                 Console.Clear();
                                 Print.TheEnd(player, inventory);
@@ -222,7 +229,7 @@ namespace EternityRPG
                     {
                         Console.Clear();
                         //printing full info about the location, only once in each location, according to the chosen location
-                        Print.Text($"{biome.LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
+                        Print.Text($"{biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
                         //start battle section with regular enemies
                         BattleZone();
                     }
@@ -236,10 +243,10 @@ namespace EternityRPG
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
-                if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead)
+                if (DefeatedEnemiesToFightTheBoss == bosses[biomeType].CounterToReachTheBoss && !bosses[biomeType].IsDead)
                 {
                     Print.BoosFight();
-                    Print.Text($"\tGet ready for battle, the {bosses[bossType].Name} is coming...\n\n");
+                    Print.Text($"\tGet ready for battle, the {bosses[biomeType].Name} is coming...\n\n");
                     Print.PressEnter();
                     Console.Clear();
                     //start boss fight
@@ -268,12 +275,12 @@ namespace EternityRPG
                 yesOrNo = string.Empty;
 
                 //printing short name of the location before each regular enemy
-                Print.Text($"Location: {biome.ShortTitle}\n", ConsoleColor.DarkCyan);
+                Print.Text($"Location: {biomes[biomeType].ShortTitle}\n", ConsoleColor.DarkCyan);
 
                 if (!bossBattle)
                 {
                     //create new enemy randomly every time when the cycle starts again, according to the chosen location
-                    enemy = biome.CreateEnemy();
+                    enemy = biomes[biomeType].CreateEnemy();
                     Print.RainbowLoading(random.Next(1, 9));
 
                     //print randomly generated phrase when new enemy appear
@@ -282,7 +289,7 @@ namespace EternityRPG
 
                 else
                 {
-                    enemy = bosses[bossType];
+                    enemy = bosses[biomeType];
                     Print.Text($"\n{enemy.Name}\n\n");
                 }
 
@@ -434,13 +441,13 @@ namespace EternityRPG
                     }
                 }
 
-                if (DefeatedEnemiesToFightTheBoss == bosses[bossType].CounterToReachTheBoss && !bosses[bossType].IsDead) return;
+                if (DefeatedEnemiesToFightTheBoss == bosses[biomeType].CounterToReachTheBoss && !bosses[biomeType].IsDead) return;
 
                 //asking if you want to continue grinding or not
                 yesOrNo = string.Empty;
                 while (yesOrNo != "y" && yesOrNo != "n")
                 {
-                    Print.Question($"Farm more at the {biome.ShortTitle}?", ConsoleColor.Cyan);
+                    Print.Question($"Farm more at the {biomes[biomeType].ShortTitle}?", ConsoleColor.Cyan);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     yesOrNo = Console.ReadLine().ToLower();
@@ -448,6 +455,14 @@ namespace EternityRPG
 
                     if (yesOrNo == "y" || yesOrNo == "n")
                         Console.Clear();
+                }
+
+                void NextAttack(Character attacker, double damage)
+                {
+                    if (random.Next(0, 100) > attacker.CritChance)
+                        attacker.Attack(player, enemy, damage);
+                    else
+                        attacker.Attack(player, enemy, damage, crit: true);
                 }
 
                 double PlayerDamage()
@@ -458,16 +473,8 @@ namespace EternityRPG
                         if (inventory[i].WeaponIsBought)
                             return player.GenerateDamage(inventory);
                     }
-                    //otherwise only base damage oof player
+                    //otherwise only base damage of player
                     return player.GenerateDamage();
-                }
-
-                void NextAttack(Character attacker, double damage)
-                {
-                    if (random.Next(0, 100) > attacker.CritChance)
-                        attacker.Attack(player, enemy, damage);
-                    else
-                        attacker.Attack(player, enemy, damage, crit: true);
                 }
             }
         }

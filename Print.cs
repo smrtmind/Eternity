@@ -124,49 +124,33 @@ namespace EternityRPG
             Text("in your bag\n\n");
         }
 
-        public static void SelectLocation(Enemy[] bosses)
+        public static void SelectLocation(Enemy[] bosses, Item[] inventory, Biome[] biomes, int maxLocations)
         {
-            int deathCounter = 0;
-            foreach (var boss in bosses)
-                if (boss.IsDead)
-                    deathCounter++;
-
             Text(@" _       ___     ___     _     _____   ___    ___    _  _   ___ " + "\n", ConsoleColor.DarkYellow);
             Text(@"| |     / _ \   / __|   /_\   |_   _| |_ _|  / _ \  | \| | / __|" + "\n", ConsoleColor.Red);
             Text(@"| |__  | (_) | | (__   / _ \    | |    | |  | (_) | | .` | \__ \" + "\n", ConsoleColor.DarkRed);
             Text(@"|____|  \___/   \___| /_/ \_\   |_|   |___|  \___/  |_|\_| |___/" + "\n\n", ConsoleColor.DarkMagenta);
 
             Text("Where do you want to go? ");
-            Text(" [1] ", ConsoleColor.Green);
-            Text("Dark forest\t\t");
-            Condition(bosses[0]);
 
-            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("Mysterious caves\t\t");
-            Condition(bosses[1]);
-
-            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("Ancient volcano\t\t");
-            Condition(bosses[2]);
-
-            //if all bosses are dead you can see the last location
-            if (deathCounter == 3)
+            for (int i = 0; i < maxLocations; i++)
             {
-                Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-                Text("Lair of true evil\n\n", ConsoleColor.DarkRed);
-            }
-            else Text("\n");
+                if (i == 0)
+                    Text($" [{i + 1}] ", ConsoleColor.Green);
+                else
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
 
-            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text($"exit\n\n");
+                Text($"{biomes[i].ShortTitle}\t\t");
 
-            void Condition(Enemy boss)
-            {
-                if (boss.IsDead)
+                if (bosses[i].IsDead)
                     Text("boss is defeated\n", ConsoleColor.DarkGreen);
                 else
                     Text("boss is alive\n", ConsoleColor.DarkRed);
             }
+            Text("\n");
+
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text($"exit\n\n");
         }
 
         public static void BattleOptions()
