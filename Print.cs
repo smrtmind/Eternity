@@ -86,7 +86,6 @@ namespace EternityRPG
 
             Text("What do you want to buy? ");
 
-            //you can see weapon according to the selected class of player
             for (int i = 0; i < inventory.Length; i++)
             {
                 if (inventory[i] is Potion)
@@ -104,6 +103,7 @@ namespace EternityRPG
             }
             Text("\n");
 
+            //you can see weapon according to the selected class of player
             for (int i = 0; i < inventory.Length; i++)
             {
                 if (inventory[i] is Weapon)
@@ -133,19 +133,33 @@ namespace EternityRPG
 
             Text("Where do you want to go? ");
 
-            for (int i = 0; i < maxLocations; i++)
+            int index = default;
+            int counterToLastLocation = maxLocations;
+
+            if (maxLocations == biomes.Length) 
+                counterToLastLocation--;
+
+            while (index < counterToLastLocation)
             {
-                if (i == 0)
-                    Text($" [{i + 1}] ", ConsoleColor.Green);
+                if (index == 0)
+                    Text($" [{index + 1}] ", ConsoleColor.Green);
                 else
-                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+                    Text($" [{index + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
 
-                Text($"{biomes[i].ShortTitle}\t\t");
+                Text($"{biomes[index].ShortTitle}\t\t");
 
-                if (bosses[i].IsDead)
+                if (bosses[index].IsDead)
                     Text("boss is defeated\n", ConsoleColor.DarkGreen);
                 else
                     Text("boss is alive\n", ConsoleColor.DarkRed);
+
+                index++;
+            }
+            //the last location will be lined out with red color and without boss state info
+            if (maxLocations == biomes.Length)
+            {
+                Text($" [{index + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+                Text($"{biomes[index].ShortTitle}\n", ConsoleColor.DarkRed);
             }
             Text("\n");
 
