@@ -96,7 +96,7 @@ namespace EternityRPG
                     else
                         Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
 
-                    Text($"{inventory[i].Title}\t");
+                    Text($"{inventory[i].Title} healing potion\t");
                     Text($"{inventory[i].Cost} gold", ConsoleColor.DarkYellow);
                     Text(" / ");
                     Text($"you have {inventory[i].Amount}\n", ConsoleColor.Cyan);
@@ -124,7 +124,7 @@ namespace EternityRPG
             Text("in your bag\n\n");
         }
 
-        public static void SelectLocation(Enemy[] bosses, Item[] inventory, Biome[] biomes, int maxLocations)
+        public static void SelectLocation(Enemy[] bosses, Biome[] biomes, int maxLocations)
         {
             Text(@" _       ___     ___     _     _____   ___    ___    _  _   ___ " + "\n", ConsoleColor.DarkYellow);
             Text(@"| |     / _ \   / __|   /_\   |_   _| |_ _|  / _ \  | \| | / __|" + "\n", ConsoleColor.Red);
@@ -170,15 +170,22 @@ namespace EternityRPG
         {
             Text("\n");
             Text("Choose a potion:".PadLeft(25, ' '));
-            Text(" [1] ", ConsoleColor.DarkYellow);
-            Text($"small\t");
-            Text($"{potions[0].Amount}\n", ConsoleColor.DarkYellow);
-            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
-            Text($"medium\t");
-            Text($"{potions[1].Amount}\n", ConsoleColor.DarkYellow);
-            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
-            Text($"big\t");
-            Text($"{potions[2].Amount}\n\n", ConsoleColor.DarkYellow);
+
+            for (int i = 0; i < potions.Length; i++)
+            {
+                if (potions[i] is Potion)
+                {
+                    if (i == 0)
+                        Text($" [{i + 1}] ", ConsoleColor.DarkYellow);
+                    else
+                        Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
+
+                    Text($"{potions[i].Title}\t");
+                    Text($"{potions[i].Amount}\n", ConsoleColor.DarkYellow);
+                }
+            }
+            Text("\n");
+
             Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"back\n\n");
         }
@@ -271,33 +278,6 @@ namespace EternityRPG
             Text($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.Cyan, false, 2);
         }
 
-        public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slowText = false, int speed = 5)
-        {
-            //slowly printing in the specified color
-            if (slowText)
-            {
-                char[] letters = text.ToCharArray();
-
-                Console.ForegroundColor = color;
-
-                foreach (char element in letters)
-                {
-                    Console.Write(element);
-                    Thread.Sleep(speed);
-                }
-
-                Console.ResetColor();
-            }
-
-            //regular printing in the specified color
-            else
-            {
-                Console.ForegroundColor = color;
-                Console.Write(text);
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-
         public static string EntryBattlePhrase(Character enemy)
         {
             Random random = new Random();
@@ -388,6 +368,33 @@ namespace EternityRPG
             }
 
             Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
+        }
+
+        public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slowText = false, int speed = 5)
+        {
+            //slowly printing in the specified color
+            if (slowText)
+            {
+                char[] letters = text.ToCharArray();
+
+                Console.ForegroundColor = color;
+
+                foreach (char element in letters)
+                {
+                    Console.Write(element);
+                    Thread.Sleep(speed);
+                }
+
+                Console.ResetColor();
+            }
+
+            //regular printing in the specified color
+            else
+            {
+                Console.ForegroundColor = color;
+                Console.Write(text);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
     }
 }

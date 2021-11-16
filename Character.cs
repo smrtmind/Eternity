@@ -10,7 +10,6 @@ namespace EternityRPG
         public string Name { get; protected set; }
         public double MaxHP { get; protected set; }
         public double HP { get; set; }
-        public double Damage { get; protected set; }
         public double MinDamage { get; protected set; }
         public double MaxDamage { get; protected set; }
         public int CritChance { get; set; } = 5;

@@ -112,7 +112,7 @@ namespace EternityRPG
                         Program.inventory[typeOfPotion].Amount++;
                         Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
                         Print.Text("has dropped ");
-                        Print.Text($"{Program.inventory[typeOfPotion].Title}\n", ConsoleColor.DarkGreen);
+                        Print.Text($"{Program.inventory[typeOfPotion].Title} healing potion\n", ConsoleColor.DarkGreen);
                     }
                 } 
             }

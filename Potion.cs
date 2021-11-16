@@ -14,19 +14,19 @@ namespace EternityRPG
                 case 1:
                     Cost = 45;
                     HealingPower = 100;
-                    Title = "Small healing potion";
+                    Title = "Small";
                     break;
 
                 case 2:
                     Cost = 95;
                     HealingPower = 200;
-                    Title = "Medium healing potion";
+                    Title = "Medium";
                     break;
 
                 case 3:
                     Cost = 190;
                     HealingPower = 400;
-                    Title = "Big healing potion";
+                    Title = "Big";
                     break;
             }
         }

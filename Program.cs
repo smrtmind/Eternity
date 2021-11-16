@@ -9,6 +9,7 @@ namespace EternityRPG
         public static int DefeatedEnemiesOverall { get; set; }
         public static int DefeatedBossesOverall { get; set; }
         private static int biomeType { get; set; }
+        private static int amountOfPotions { get; set; }
 
         private static Random random = new Random();
         private static Player player = new Player();
@@ -113,6 +114,10 @@ namespace EternityRPG
                 new Weapon(player.Class, weaponType: 2)
             };
 
+            for (int i = 0; i < inventory.Length; i++)
+                if (inventory[i] is Potion)
+                    amountOfPotions++;
+
             Print.Text("The adventure begins\n");
             Print.RainbowLoading();
             Console.Clear();
@@ -178,7 +183,7 @@ namespace EternityRPG
                     while (choice == 0 || choice > maxLocations)
                     {
                         Console.Clear();
-                        Print.SelectLocation(bosses, inventory, biomes, maxLocations);
+                        Print.SelectLocation(bosses, biomes, maxLocations);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -195,7 +200,7 @@ namespace EternityRPG
                     if (input == "<") continue;
 
                     //enter to the secret location, if you already killed three bosses
-                    if (choice == 4)
+                    if (choice == biomes.Length)
                     {
                         yesOrNo = string.Empty;
                         while (yesOrNo != "y" && yesOrNo != "n")
@@ -356,7 +361,7 @@ namespace EternityRPG
                         Print.HealingOptions(inventory);
 
                         choice = default;
-                        while (choice == 0 || choice > 3)
+                        while (choice == 0 || choice > amountOfPotions)
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -371,7 +376,7 @@ namespace EternityRPG
                             }
                         }
 
-                        if (choice > 0 && choice <= 3)
+                        if (choice > 0 && choice <= amountOfPotions)
                         {
                             //if you have potion
                             if (inventory[choice - 1].Amount > 0)
@@ -390,7 +395,7 @@ namespace EternityRPG
                             }
 
                             //if you don't have any potions
-                            else Print.Text($"\n\tYou don't have {inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
+                            else Print.Text($"\n\tYou don't have {inventory[choice - 1].Title} healing potion\n", ConsoleColor.DarkRed);
 
                             //enemy does his turn, after you tried to heal
                             NextAttack(enemy, enemy.GenerateDamage());
