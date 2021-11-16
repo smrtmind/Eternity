@@ -39,8 +39,6 @@ namespace EternityRPG
             else return new Mage(Name, Gender, Class);
         }
 
-        public double GenerateDamage(Item weapon) => random.Next((int)MinDamage, (int)MaxDamage) + weapon.Damage;
-
         public void LevelUp(int exp)
         {
             if (exp >= NextLvl)
