@@ -471,7 +471,7 @@ namespace EternityRPG
                     for (int i = 0; i < inventory.Length; i++)
                     {
                         if (inventory[i].WeaponIsBought)
-                            return player.GenerateDamage(inventory);
+                            return player.GenerateDamage(inventory[i]);
                     }
                     //otherwise only base damage of player
                     return player.GenerateDamage();
