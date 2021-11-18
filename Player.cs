@@ -109,10 +109,10 @@ namespace EternityRPG
                     {
                         int typeOfPotion = random.Next(0, 3);
 
-                        Program.inventory[typeOfPotion].Amount++;
+                        Game.inventory[typeOfPotion].Amount++;
                         Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);
                         Print.Text("has dropped ");
-                        Print.Text($"{Program.inventory[typeOfPotion].Title} healing potion\n", ConsoleColor.DarkGreen);
+                        Print.Text($"{Game.inventory[typeOfPotion].Title} healing potion\n", ConsoleColor.DarkGreen);
                     }
                 } 
             }

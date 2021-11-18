@@ -258,9 +258,9 @@ namespace EternityRPG
             Text(" GOLD:            ");
             Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
             Text(" enemies killed:  ");
-            Text($"{Program.DefeatedEnemiesOverall}\n", ConsoleColor.Green);
+            Text($"{Game.DefeatedEnemiesOverall}\n", ConsoleColor.Green);
             Text(" bosses killed:   ");
-            Text($"{Program.DefeatedBossesOverall}\n", ConsoleColor.Green);
+            Text($"{Game.DefeatedBossesOverall}\n", ConsoleColor.Green);
 
             //if you have bought any weapon
             for (int i = 0; i < inventory.Length; i++)

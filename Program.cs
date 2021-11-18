@@ -5,32 +5,7 @@ namespace EternityRPG
 {
     class Program
     {
-        private static int DefeatedEnemiesToFightTheBoss { get; set; }
-        public static int DefeatedEnemiesOverall { get; set; }
-        public static int DefeatedBossesOverall { get; set; }
         private static int biomeType { get; set; }
-        private static int amountOfPotions { get; set; }
-
-        private static Random random = new Random();
-        private static Player player = new Player();
-        public static Item[] inventory;
-        private static Enemy enemy;
-
-        private static Enemy[] bosses = new Enemy[]
-        {
-            new Boss(bossType: 1),
-            new Boss(bossType: 2),
-            new Boss(bossType: 3),
-            new Boss(bossType: 4)
-        };
-
-        public static Biome[] biomes = new Biome[]
-        {
-            new Biome(biomeType: 1),
-            new Biome(biomeType: 2),
-            new Biome(biomeType: 3),
-            new Biome(biomeType: 4)
-        };
 
         static void Main(string[] args)
         {
@@ -58,7 +33,7 @@ namespace EternityRPG
                 input = Console.ReadLine();
                 Console.ResetColor();
 
-                player.SetName(input);
+                Game.player.SetName(input);
 
                 //selection of player's gender
                 Print.GenderOptions();
@@ -71,7 +46,7 @@ namespace EternityRPG
                     int.TryParse(input, out choice);
                     Console.ResetColor();
 
-                    player.SetGender(choice);
+                    Game.player.SetGender(choice);
                 }
 
                 //selection of player's class
@@ -85,7 +60,7 @@ namespace EternityRPG
                     int.TryParse(input, out choice);
                     Console.ResetColor();
 
-                    player.SetClass(choice);
+                    Game.player.SetClass(choice);
                 }
 
                 yesOrNo = string.Empty;
@@ -93,7 +68,7 @@ namespace EternityRPG
                 {
                     Console.Clear();
                     //card of player before start of the game
-                    Print.PlayerShortInfo(player);
+                    Print.PlayerShortInfo(Game.player);
                     Print.Question("Are you ready to start the adventure with this character?");
 
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -104,20 +79,9 @@ namespace EternityRPG
             }
 
             //creating player and weapons according to chosen class
-            player = player.CreatePlayer();
-            inventory = new Item[]
-            {
-                new Potion(potionType: 1),
-                new Potion(potionType: 2),
-                new Potion(potionType: 3),
-                new Weapon(player.Class, weaponType: 1),
-                new Weapon(player.Class, weaponType: 2)
-            };
-
-            for (int i = 0; i < inventory.Length; i++)
-                if (inventory[i] is Potion)
-                    amountOfPotions++;
-
+            Game.player = Game.player.CreatePlayer();
+            Game.InitializeWorld();
+            
             Print.Text("The adventure begins\n");
             Print.RainbowLoading();
             Console.Clear();
@@ -146,7 +110,7 @@ namespace EternityRPG
                     while (input != "<")
                     {
                         Console.Clear();
-                        Print.ShopOptions(player, inventory);
+                        Print.ShopOptions(Game.player, Game.inventory);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -158,8 +122,8 @@ namespace EternityRPG
 
                         int.TryParse(input, out choice);
                         //trying to buy something
-                        if (choice > 0 && choice <= inventory.Length)
-                            inventory[choice - 1].Buy(player, inventory, choice);
+                        if (choice > 0 && choice <= Game.inventory.Length)
+                            Game.inventory[choice - 1].Buy(Game.player, Game.inventory, choice);
                     }
                 }
 
@@ -170,20 +134,20 @@ namespace EternityRPG
                     int deathCounter = default;
 
                     //checking if you killed enough bosses to unlock final location
-                    foreach (var boss in bosses)
+                    foreach (var boss in Game.bosses)
                         if (boss.IsDead)
                             deathCounter++;
 
-                    if (deathCounter == bosses.Length - 1) 
-                        maxLocations = biomes.Length;
+                    if (deathCounter == Game.bosses.Length - 1) 
+                        maxLocations = Game.biomes.Length;
                     else 
-                        maxLocations = biomes.Length - 1;
+                        maxLocations = Game.biomes.Length - 1;
 
                     choice = default;
                     while (choice == 0 || choice > maxLocations)
                     {
                         Console.Clear();
-                        Print.SelectLocation(bosses, biomes, maxLocations);
+                        Print.SelectLocation(Game.bosses, Game.biomes, maxLocations);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
 
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -200,7 +164,7 @@ namespace EternityRPG
                     if (input == "<") continue;
 
                     //enter to the secret location, if you already killed three bosses
-                    if (choice == biomes.Length)
+                    if (choice == Game.biomes.Length)
                     {
                         yesOrNo = string.Empty;
                         while (yesOrNo != "y" && yesOrNo != "n")
@@ -220,10 +184,10 @@ namespace EternityRPG
                             BattleZone(bossBattle: true);
 
                             //if you win final battle
-                            if (bosses[biomeType].IsDead)
+                            if (Game.bosses[biomeType].IsDead)
                             {
                                 Console.Clear();
-                                Print.TheEnd(player, inventory);
+                                Print.TheEnd(Game.player, Game.inventory);
                                 break;
                             }
                         }
@@ -234,7 +198,7 @@ namespace EternityRPG
                     {
                         Console.Clear();
                         //printing full info about the location, only once in each location, according to the chosen location
-                        Print.Text($"{biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
+                        Print.Text($"{Game.biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
                         //start battle section with regular enemies
                         BattleZone();
                     }
@@ -243,15 +207,15 @@ namespace EternityRPG
                 //******************** PLAYER STATS ********************
                 if (selectDirection == 3)
                 {
-                    Print.PlayerStatistics(player, inventory);
+                    Print.PlayerStatistics(Game.player, Game.inventory);
                     Print.PressEnter();
                 }
 
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
-                if (DefeatedEnemiesToFightTheBoss == bosses[biomeType].CounterToReachTheBoss && !bosses[biomeType].IsDead)
+                if (Game.DefeatedEnemiesToFightTheBoss == Game.bosses[biomeType].CounterToReachTheBoss && !Game.bosses[biomeType].IsDead)
                 {
                     Print.BoosFight();
-                    Print.Text($"\tGet ready for battle, the {bosses[biomeType].Name} is coming...\n\n");
+                    Print.Text($"\tGet ready for battle, the {Game.bosses[biomeType].Name} is coming...\n\n");
                     Print.PressEnter();
                     Console.Clear();
                     //start boss fight
@@ -259,7 +223,7 @@ namespace EternityRPG
                 }
 
                 //if you were killed in the battle
-                if (player.IsDead) break;
+                if (Game.player.IsDead) break;
             }
         }
 
@@ -269,7 +233,7 @@ namespace EternityRPG
             if (!bossBattle)
             {
                 //setting counter of defeated enemies to 0 before the start of each battle
-                DefeatedEnemiesToFightTheBoss = 0;
+                Game.DefeatedEnemiesToFightTheBoss = 0;
             }
 
             string yesOrNo = string.Empty;
@@ -280,22 +244,22 @@ namespace EternityRPG
                 yesOrNo = string.Empty;
 
                 //printing short name of the location before each regular enemy
-                Print.Text($"Location: {biomes[biomeType].ShortTitle}\n", ConsoleColor.DarkCyan);
+                Print.Text($"Location: {Game.biomes[biomeType].ShortTitle}\n", ConsoleColor.DarkCyan);
 
                 if (!bossBattle)
                 {
                     //create new enemy randomly every time when the cycle starts again, according to the chosen location
-                    enemy = biomes[biomeType].CreateEnemy();
-                    Print.RainbowLoading(random.Next(1, 9));
+                    Game.enemy = Game.biomes[biomeType].CreateEnemy();
+                    Print.RainbowLoading(Game.random.Next(1, 9));
 
                     //print randomly generated phrase when new enemy appear
-                    Print.Text(Print.EntryBattlePhrase(enemy));
+                    Print.Text(Print.EntryBattlePhrase(Game.enemy));
                 }
 
                 else
                 {
-                    enemy = bosses[biomeType];
-                    Print.Text($"\n{enemy.Name}\n\n");
+                    Game.enemy = Game.bosses[biomeType];
+                    Print.Text($"\n{Game.enemy.Name}\n\n");
                 }
 
                 Print.BattleOptions();
@@ -311,57 +275,57 @@ namespace EternityRPG
                     //manual fight - 1 && automatic fight - 2
                     if (battleChoice == 1 || battleChoice == 2)
                     {
-                        while (player.HP > 0 || enemy.HP > 0)
+                        while (Game.player.HP > 0 || Game.enemy.HP > 0)
                         {
-                            NextAttack(player, PlayerDamage());
+                            NextAttack(Game.player, PlayerDamage());
 
                             //if an enemy is dead
-                            if (enemy.IsDead)
+                            if (Game.enemy.IsDead)
                             {
-                                player.Gold += enemy.Gold;
-                                player.Exp += enemy.Exp;
+                                Game.player.Gold += Game.enemy.Gold;
+                                Game.player.Exp += Game.enemy.Exp;
                                 //check if player has enough experience to get new level
-                                player.LevelUp(player.Exp);
-                                Print.PlayerStatistics(player, inventory);
+                                Game.player.LevelUp(Game.player.Exp);
+                                Print.PlayerStatistics(Game.player, Game.inventory);
 
                                 if (!bossBattle)
                                 {
-                                    DefeatedEnemiesOverall++;
-                                    DefeatedEnemiesToFightTheBoss++;
+                                    Game.DefeatedEnemiesOverall++;
+                                    Game.DefeatedEnemiesToFightTheBoss++;
                                     break;
                                 }
 
                                 else
                                 {
-                                    DefeatedBossesOverall++;
+                                    Game.DefeatedBossesOverall++;
                                     Print.PressEnter();
                                     Console.Clear();
                                     return;
                                 }
                             }
 
-                            NextAttack(enemy, enemy.GenerateDamage());
+                            NextAttack(Game.enemy, Game.enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.IsDead) return;
+                            if (Game.player.IsDead) return;
                             //if the player has low hp
-                            if (player.HP <= player.DangerousLevelOfHealth()) break;
+                            if (Game.player.HP <= Game.player.DangerousLevelOfHealth()) break;
                             //if manual fight, break to choose next option
                             if (battleChoice == 1) break;
                             //else continue automatic fight 
                             else Thread.Sleep(500);
                         }
 
-                        if (enemy.IsDead) break;
+                        if (Game.enemy.IsDead) break;
                     }
 
                     //battle optins => healing options
                     if (battleChoice == 3)
                     {
-                        Print.HealingOptions(inventory);
+                        Print.HealingOptions(Game.inventory);
 
                         choice = default;
-                        while (choice == 0 || choice > amountOfPotions)
+                        while (choice == 0 || choice > Game.AmountOfPotions())
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
                             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -376,32 +340,32 @@ namespace EternityRPG
                             }
                         }
 
-                        if (choice > 0 && choice <= amountOfPotions)
+                        if (choice > 0 && choice <= Game.AmountOfPotions())
                         {
                             //if you have potion
-                            if (inventory[choice - 1].Amount > 0)
+                            if (Game.inventory[choice - 1].Amount > 0)
                             {
-                                inventory[choice - 1].Use(player, inventory, choice);
+                                Game.inventory[choice - 1].Use(Game.player, Game.inventory, choice);
 
                                 //if player's current health equal or greater than maximum health
-                                if (player.HP > player.MaxHP)
+                                if (Game.player.HP > Game.player.MaxHP)
                                 {
-                                    player.HP = player.MaxHP;
+                                    Game.player.HP = Game.player.MaxHP;
                                     Print.Text("\n\tmax health\n", ConsoleColor.DarkGreen);
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{inventory[choice - 1].HealingPower} health. {player.Name} have {player.HP} now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{Game.inventory[choice - 1].HealingPower} health. {Game.player.Name} have {Game.player.HP} now\n", ConsoleColor.DarkGreen);
                             }
 
                             //if you don't have any potions
-                            else Print.Text($"\n\tYou don't have {inventory[choice - 1].Title} healing potion\n", ConsoleColor.DarkRed);
+                            else Print.Text($"\n\tYou don't have {Game.inventory[choice - 1].Title} healing potion\n", ConsoleColor.DarkRed);
 
                             //enemy does his turn, after you tried to heal
-                            NextAttack(enemy, enemy.GenerateDamage());
+                            NextAttack(Game.enemy, Game.enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.IsDead) return;
+                            if (Game.player.IsDead) return;
                         }
                     }
 
@@ -410,18 +374,18 @@ namespace EternityRPG
                     {
                         //calculating the player's chance to escape randomly
                         //if you succeed in escaping
-                        if (random.Next(0, 100) > enemy.ChanceToInterruptTheEscape)
+                        if (Game.random.Next(0, 100) > Game.enemy.ChanceToInterruptTheEscape)
                         {
                             //lost 10 percent of all gold you own
-                            double penalty = (int)((player.Gold / 100) * 10);
-                            player.Gold -= penalty;
+                            double penalty = (int)((Game.player.Gold / 100) * 10);
+                            Game.player.Gold -= penalty;
 
-                            if (player.Gold <= 0) player.Gold = 0;
+                            if (Game.player.Gold <= 0) Game.player.Gold = 0;
 
                             Print.Text("\n\tYou escaped successfully", ConsoleColor.DarkGreen);
                             Print.Text($"\n\t-{penalty} gold", ConsoleColor.DarkRed);
                             Print.Text(", ");
-                            Print.Text($"{player.Gold} gold ", ConsoleColor.DarkYellow);
+                            Print.Text($"{Game.player.Gold} gold ", ConsoleColor.DarkYellow);
                             Print.Text("remaining\n\n");
 
                             Print.PressEnter();
@@ -432,27 +396,27 @@ namespace EternityRPG
                         //you can't avoid a battle with some enemies
                         else
                         {
-                            if (enemy.ChanceToInterruptTheEscape == 100)
-                                Print.Text($"\n\tyou can't escape from the {enemy.Name}\n", ConsoleColor.DarkRed);
+                            if (Game.enemy.ChanceToInterruptTheEscape == 100)
+                                Print.Text($"\n\tyou can't escape from the {Game.enemy.Name}\n", ConsoleColor.DarkRed);
                             else
                                 Print.Text("\n\tfailed to escape\n", ConsoleColor.DarkRed);
 
                             //if you failed to escape, an enemy does his attack
-                            NextAttack(enemy, enemy.GenerateDamage());
+                            NextAttack(Game.enemy, Game.enemy.GenerateDamage());
 
                             //if the player is dead
-                            if (player.IsDead) return;
+                            if (Game.player.IsDead) return;
                         }
                     }
                 }
 
-                if (DefeatedEnemiesToFightTheBoss == bosses[biomeType].CounterToReachTheBoss && !bosses[biomeType].IsDead) return;
+                if (Game.DefeatedEnemiesToFightTheBoss == Game.bosses[biomeType].CounterToReachTheBoss && !Game.bosses[biomeType].IsDead) return;
 
                 //asking if you want to continue grinding or not
                 yesOrNo = string.Empty;
                 while (yesOrNo != "y" && yesOrNo != "n")
                 {
-                    Print.Question($"Farm more at the {biomes[biomeType].ShortTitle}?", ConsoleColor.Cyan);
+                    Print.Question($"Farm more at the {Game.biomes[biomeType].ShortTitle}?", ConsoleColor.Cyan);
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     yesOrNo = Console.ReadLine().ToLower();
@@ -464,22 +428,22 @@ namespace EternityRPG
 
                 void NextAttack(Character attacker, double damage)
                 {
-                    if (random.Next(0, 100) > attacker.CritChance)
-                        attacker.Attack(player, enemy, damage);
+                    if (Game.random.Next(0, 100) > attacker.CritChance)
+                        attacker.Attack(Game.player, Game.enemy, damage);
                     else
-                        attacker.Attack(player, enemy, damage, crit: true);
+                        attacker.Attack(Game.player, Game.enemy, damage, crit: true);
                 }
 
                 double PlayerDamage()
                 {
                     //if player bought weapon, it will generate damage + weapon damage
-                    for (int i = 0; i < inventory.Length; i++)
+                    for (int i = 0; i < Game.inventory.Length; i++)
                     {
-                        if (inventory[i].WeaponIsBought)
-                            return player.GenerateDamage() + inventory[i].Damage;
+                        if (Game.inventory[i].WeaponIsBought)
+                            return Game.player.GenerateDamage() + Game.inventory[i].Damage;
                     }
                     //otherwise only base damage of player
-                    return player.GenerateDamage();
+                    return Game.player.GenerateDamage();
                 }
             }
         }
