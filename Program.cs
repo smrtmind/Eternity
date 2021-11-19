@@ -27,15 +27,13 @@ namespace EternityRPG
             {
                 yesOrNo = string.Empty;
 
-                //selection of player's name
+                //selection of player's name ********************
                 Print.Text("Enter your name or press ENTER: ");
                 Console.ForegroundColor = ConsoleColor.Green;
-                input = Console.ReadLine();
+                Game.player.SetName(Console.ReadLine());
                 Console.ResetColor();
 
-                Game.player.SetName(input);
-
-                //selection of player's gender
+                //selection of player's gender ********************
                 Print.GenderOptions();
                 do
                 {
@@ -47,7 +45,7 @@ namespace EternityRPG
                 while (choice == 0 || choice > Game.Genders.Count);
                 Game.player.SetGender(choice);
 
-                //selection of player's class
+                //selection of player's class ********************
                 Print.PlayerClassOptions();
                 do
                 {

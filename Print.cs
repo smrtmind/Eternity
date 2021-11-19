@@ -182,14 +182,17 @@ namespace EternityRPG
         public static void BattleOptions()
         {
             Text("What are you going to do?");
-            Text(" [1] ", ConsoleColor.Green);
-            Text("attack\n");
-            Text(" [2] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("auto attack\n");
-            Text(" [3] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("heal\n");
-            Text(" [4] ".PadLeft(30, ' '), ConsoleColor.Green);
-            Text("run away\n\n");
+
+            for (int i = 0; i < Game.battleOptions.Count; i++)
+            {
+                if (i == 0)
+                    Text($" [{i + 1}] ", ConsoleColor.Green);
+                else
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+
+                Text($"{Game.battleOptions[i + 1]}\n");
+            }
+            Text("\n");
         }
 
         public static void HealingOptions(Item[] potions)//battle optins => healing options

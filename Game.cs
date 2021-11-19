@@ -28,6 +28,14 @@ namespace EternityRPG
             { 2, "archer" },
             { 3, "mage" }
         };
+        
+        public static Dictionary<int, string> battleOptions = new Dictionary<int, string>
+        {
+            { 1, "attack" },
+            { 2, "auto attack" },
+            { 3, "heal" },
+            { 4, "run away" }
+        };
 
         public static void InitializeWorld()
         {
