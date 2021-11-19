@@ -12,25 +12,16 @@ namespace EternityRPG
 
         public Player() { }
 
-        public void SetName(string keyBoardInput)
+        public void SetName(string name)
         {
-            if (keyBoardInput.Length > 0)
-                Name = keyBoardInput;
+            if (name.Length > 0)
+                Name = name;
             else Name = "Ash";
         }
 
-        public void SetGender(int choice)
-        {
-            if (choice == 1) Gender = "male";
-            if (choice == 2) Gender = "female";
-        }
+        public void SetGender(int choice) => Gender = Game.Genders[choice];
 
-        public void SetClass(int choice)
-        {
-            if (choice == 1) Class = "warrior";
-            if (choice == 2) Class = "archer";
-            if (choice == 3) Class = "mage";
-        }
+        public void SetClass(int choice) => Class = Game.Classes[choice];
 
         public Player CreatePlayer()
         {
@@ -114,7 +105,7 @@ namespace EternityRPG
                         Print.Text("has dropped ");
                         Print.Text($"{Game.inventory[typeOfPotion].Title} healing potion\n", ConsoleColor.DarkGreen);
                     }
-                } 
+                }
             }
             //otherwise continue    
             else

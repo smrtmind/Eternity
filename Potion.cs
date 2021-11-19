@@ -37,10 +37,10 @@ namespace EternityRPG
             {
                 player.Gold -= Cost;
                 Amount++;
-                Print.Text($"\t\t\t  +1 {Title}\n", ConsoleColor.DarkGreen);
+                Print.Text($"\t\t\t  +1 {Title} healing potion\n", ConsoleColor.DarkGreen);
             }
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
-            Thread.Sleep(2000);
+            Thread.Sleep(1500);
         }
 
         public override void Use(Player player, Item[] inventory, int choice)

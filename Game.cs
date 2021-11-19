@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EternityRPG
 {
@@ -14,6 +15,19 @@ namespace EternityRPG
         public static Enemy[] bosses;
         public static Biome[] biomes;
         public static Item[] inventory;
+
+        public static Dictionary<int, string> Genders = new Dictionary<int, string>
+        {
+            { 1, "male" },
+            { 2, "female" }
+        };
+
+        public static Dictionary<int, string> Classes = new Dictionary<int, string>
+        {
+            { 1, "warrior" },
+            { 2, "archer" },
+            { 3, "mage" }
+        };
 
         public static void InitializeWorld()
         {
@@ -42,6 +56,35 @@ namespace EternityRPG
                 new Weapon(player.Class, weaponType: 2)
             };
         }
+
+        /*
+        public static void InitializeWorld(bool hardMode)
+        {
+            int sizeOfWorld;
+            HardMode = hardMode;
+
+            if (HardMode) 
+                sizeOfWorld = 6;
+            else sizeOfWorld = 4;
+
+            bosses = new Enemy[sizeOfWorld];
+            for (int i = 0; i < bosses.Length; i++)
+                bosses[i] = new Boss(bossType: i + 1);
+
+            biomes = new Biome[sizeOfWorld];
+            for (int i = 0; i < bosses.Length; i++)
+                biomes[i] = new Biome(biomeType: i + 1);
+
+            inventory = new Item[]
+            {
+                new Potion(potionType: 1),
+                new Potion(potionType: 2),
+                new Potion(potionType: 3),
+                new Weapon(player.Class, weaponType: 1),
+                new Weapon(player.Class, weaponType: 2)
+            };
+        }
+         */
 
         public static int AmountOfPotions()
         {

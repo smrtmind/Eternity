@@ -36,21 +36,33 @@ namespace EternityRPG
         public static void GenderOptions()//selection of player's gender
         {
             Text("\nChoose your character's gender:");
-            Text(" [1] ", ConsoleColor.Green);
-            Text("male\n");
-            Text(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
-            Text("female\n\n");
+
+            for (int i = 0; i < Game.Genders.Count; i++)
+            {
+                if (i == 0)
+                    Text($" [{i + 1}] ", ConsoleColor.Green);
+                else
+                    Text($" [{i + 1}] ".PadLeft(36, ' '), ConsoleColor.Green);
+
+                Text($"{Game.Genders[i + 1]}\n");
+            }
+            Text("\n");
         }
 
         public static void PlayerClassOptions()//selection of the player class before start of the game
         {
             Text("\nChoose your character's class: ");
-            Text(" [1] ", ConsoleColor.Green);
-            Text("warrior\n");
-            Text(" [2] ".PadLeft(36, ' '), ConsoleColor.Green);
-            Text("archer\n");
-            Text(" [3] ".PadLeft(36, ' '), ConsoleColor.Green);
-            Text("mage\n\n");
+
+            for (int i = 0; i < Game.Classes.Count; i++)
+            {
+                if (i == 0)
+                    Text($" [{i + 1}] ", ConsoleColor.Green);
+                else
+                    Text($" [{i + 1}] ".PadLeft(36, ' '), ConsoleColor.Green);
+
+                Text($"{Game.Classes[i + 1]}\n");
+            }
+            Text("\n");
         }
 
         public static void PlayerShortInfo(Player player)//card of player before start of the game

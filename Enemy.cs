@@ -7,6 +7,21 @@ namespace EternityRPG
         public int CounterToReachTheBoss { get; protected set; }
         public int ChanceToInterruptTheEscape { get; protected set; }
 
+        /*
+        public override double GenerateDamage()
+        {
+            if (Game.HardMode)
+            {
+                double damage = random.Next((int)MinDamage, (int)MaxDamage);
+                return damage + (int)((damage / 100) * 20);
+            }
+                
+            else
+                return random.Next((int)MinDamage, (int)MaxDamage);
+        }
+         */
+
+
         public override void Attack(Player player, Enemy enemy, double damage, bool crit = false)
         {
             Print.Text($"\t{enemy.Name} ", ConsoleColor.DarkMagenta);

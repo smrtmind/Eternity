@@ -37,31 +37,27 @@ namespace EternityRPG
 
                 //selection of player's gender
                 Print.GenderOptions();
-                choice = default;
-                while (choice == 0 || choice > 2)
+                do
                 {
                     Print.Text("choose gender: ".PadLeft(47, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
-                    input = Console.ReadLine();
-                    int.TryParse(input, out choice);
+                    int.TryParse(Console.ReadLine(), out choice);
                     Console.ResetColor();
-
-                    Game.player.SetGender(choice);
                 }
+                while (choice == 0 || choice > Game.Genders.Count);
+                Game.player.SetGender(choice);
 
                 //selection of player's class
                 Print.PlayerClassOptions();
-                choice = default;
-                while (choice == 0 || choice > 3)
+                do
                 {
                     Print.Text("choose class: ".PadLeft(46, ' '));
                     Console.ForegroundColor = ConsoleColor.Green;
-                    input = Console.ReadLine();
-                    int.TryParse(input, out choice);
+                    int.TryParse(Console.ReadLine(), out choice);
                     Console.ResetColor();
-
-                    Game.player.SetClass(choice);
                 }
+                while (choice == 0 || choice > Game.Classes.Count);
+                Game.player.SetClass(choice);
 
                 yesOrNo = string.Empty;
                 while (yesOrNo != "y" && yesOrNo != "n")
