@@ -338,7 +338,7 @@ namespace EternityRPG
             return entryPhrase[random.Next(0, 10)];
         }
 
-        public static void RainbowLoading(int length = 8)
+        public static void RainbowLoading(int length = 8, bool consoleClear = false)
         {
             Text("\n");
             for (int i = 0; i <= length; i++)
@@ -364,6 +364,8 @@ namespace EternityRPG
             Text("|", ConsoleColor.Cyan, slow: true);
             Text("|", ConsoleColor.DarkBlue, slow: true);
             Text("|\n", ConsoleColor.DarkMagenta, slow: true);
+
+            if (consoleClear) Console.Clear();
         }
 
         public static void PressEnter()

@@ -15,12 +15,11 @@ namespace EternityRPG
 
             Print.GameTitle();
             Print.PressEnter();
-            Print.RainbowLoading();
-            Console.Clear();
+            Print.RainbowLoading(consoleClear: true);
             Print.Text("Hello, traveler. I can't remember your", ConsoleColor.Cyan);
             Print.Text(" name ", ConsoleColor.DarkYellow);
             Print.Text("Can you help me with this?\n\n", ConsoleColor.Cyan);
-            Thread.Sleep(2000);
+            Thread.Sleep(1500);
 
             //******************** SECTION OF CREATING A PLAYER ********************
             while (yesOrNo != "y")
@@ -79,8 +78,7 @@ namespace EternityRPG
             Game.InitializeWorld();
 
             Print.AdventureBegins();
-            Print.RainbowLoading();
-            Console.Clear();
+            Print.RainbowLoading(consoleClear: true);
 
             //******************** SECTION OF THE MAIN GAMEPLAY ********************
             while (true)
