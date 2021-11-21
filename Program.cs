@@ -194,7 +194,7 @@ namespace EternityRPG
                     {
                         Console.Clear();
                         //printing full info about the location, only once in each location, according to the chosen location
-                        Print.Text($"{Game.biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slowText: true);
+                        Print.Text($"{Game.biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slow: true);
                         //start battle section with regular enemies
                         BattleZone();
                     }

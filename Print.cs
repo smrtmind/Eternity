@@ -224,19 +224,19 @@ namespace EternityRPG
 
         public static void BoosFight()
         {
-            Text($@"{"\t"} ___    ___    ___   ___       ___   ___    ___   _  _   _____ {"\n"}", ConsoleColor.DarkYellow);
-            Text($@"{"\t"}| _ )  / _ \  / __| / __|     | __| |_ _|  / __| | || | |_   _|{"\n"}", ConsoleColor.Red);
-            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     | _|   | |  | (_ | | __ |   | |  {"\n"}", ConsoleColor.DarkRed);
-            Text($@"{"\t"}|___/  \___/  |___/ |___/     |_|   |___|  \___| |_||_|   |_|  {"\n\n"}", ConsoleColor.DarkMagenta);
+            Text($@"{"\t"} ___    ___    ___   ___       ___   ___    ___   _  _   _____ {"\n"}", ConsoleColor.DarkYellow, slow: true, line: true);
+            Text($@"{"\t"}| _ )  / _ \  / __| / __|     | __| |_ _|  / __| | || | |_   _|{"\n"}", ConsoleColor.Red, slow: true, line: true);
+            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     | _|   | |  | (_ | | __ |   | |  {"\n"}", ConsoleColor.DarkRed, slow: true, line: true);
+            Text($@"{"\t"}|___/  \___/  |___/ |___/     |_|   |___|  \___| |_||_|   |_|  {"\n\n"}", ConsoleColor.DarkMagenta, slow: true, line: true);
         }
 
         public static void YouDied()
         {
-            Text($@"{"\t"}__   __   ___    _   _       ___    ___   ___   ___  {"\n"}", ConsoleColor.DarkYellow);
-            Text($@"{"\t"}\ \ / /  / _ \  | | | |     |   \  |_ _| | __| |   \ {"\n"}", ConsoleColor.Red);
-            Text($@"{"\t"} \ V /  | (_) | | |_| |     | |) |  | |  | _|  | |) |{"\n"}", ConsoleColor.DarkRed);
-            Text($@"{"\t"}  |_|    \___/   \___/      |___/  |___| |___| |___/ {"\n\n"}", ConsoleColor.DarkMagenta);
-            Text("your journey is over :(".PadLeft(45, ' '), ConsoleColor.Red);
+            Text($@"{"\t"}__   __   ___    _   _       ___    ___   ___   ___  {"\n"}", ConsoleColor.DarkYellow, slow: true, line: true);
+            Text($@"{"\t"}\ \ / /  / _ \  | | | |     |   \  |_ _| | __| |   \ {"\n"}", ConsoleColor.Red, slow: true, line: true);
+            Text($@"{"\t"} \ V /  | (_) | | |_| |     | |) |  | |  | _|  | |) |{"\n"}", ConsoleColor.DarkRed, slow: true, line: true);
+            Text($@"{"\t"}  |_|    \___/   \___/      |___/  |___| |___| |___/ {"\n\n"}", ConsoleColor.DarkMagenta, slow: true, line: true);
+            Text("your journey is over :(".PadLeft(45, ' '), ConsoleColor.Red, slow: true);
 
             Thread.Sleep(3000);
             Text("\n\nPress Enter to exit");
@@ -245,34 +245,30 @@ namespace EternityRPG
 
         public static void BossVanquished()
         {
-            Text($@"{"\t"} ___    ___    ___   ___     __   __    _     _  _    ___    _   _   ___   ___   _  _   ___   ___  {"\n"}", ConsoleColor.Cyan);
-            Text($@"{"\t"}| _ )  / _ \  / __| / __|    \ \ / /   /_\   | \| |  / _ \  | | | | |_ _| / __| | || | | __| |   \ {"\n"}", ConsoleColor.DarkCyan);
-            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     \ V /   / _ \  | .` | | (_) | | |_| |  | |  \__ \ | __ | | _|  | |) |{"\n"}", ConsoleColor.Blue);
-            Text($@"{"\t"}|___/  \___/  |___/ |___/      \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkBlue);
+            Text($@"{"\t"} ___    ___    ___   ___     __   __    _     _  _    ___    _   _   ___   ___   _  _   ___   ___  {"\n"}", ConsoleColor.Cyan, slow: true, line: true);
+            Text($@"{"\t"}| _ )  / _ \  / __| / __|    \ \ / /   /_\   | \| |  / _ \  | | | | |_ _| / __| | || | | __| |   \ {"\n"}", ConsoleColor.DarkCyan, slow: true, line: true);
+            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     \ V /   / _ \  | .` | | (_) | | |_| |  | |  \__ \ | __ | | _|  | |) |{"\n"}", ConsoleColor.Blue, slow: true, line: true);
+            Text($@"{"\t"}|___/  \___/  |___/ |___/      \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkBlue, slow: true, line: true);
         }
 
         public static void AdventureBegins()
         {
-            Text($@"{"\t"}   _     ___   __   __  ___   _  _   _____   _   _   ___   ___       ___   ___    ___   ___   _  _   ___ {"\n"}", ConsoleColor.Green);
-            Thread.Sleep(400);
-            Text($@"{"\t"}  /_\   |   \  \ \ / / | __| | \| | |_   _| | | | | | _ \ | __|     | _ ) | __|  / __| |_ _| | \| | / __|{"\n"}", ConsoleColor.DarkGreen);
-            Thread.Sleep(400);
-            Text($@"{"\t"} /(_)\  | |) |  \ V /  | _|  | .` |   | |   | |_| | |   / | _|      | _ \ | _|  | (_ |  | |  | .` | \__ \{"\n"}", ConsoleColor.Blue);
-            Thread.Sleep(400);
-            Text($@"{"\t"}/_/ \_\ |___/    \_/   |___| |_|\_|   |_|    \___/  |_|_\ |___|     |___/ |___|  \___| |___| |_|\_| |___/{"\n\n"}", ConsoleColor.DarkBlue);
-            Thread.Sleep(400);
+            Text($@"{"\t"}   _     ___   __   __  ___   _  _   _____   _   _   ___   ___       ___   ___    ___   ___   _  _   ___ {"\n"}", ConsoleColor.Green, slow: true, line: true);
+            Text($@"{"\t"}  /_\   |   \  \ \ / / | __| | \| | |_   _| | | | | | _ \ | __|     | _ ) | __|  / __| |_ _| | \| | / __|{"\n"}", ConsoleColor.DarkGreen, slow: true, line: true);
+            Text($@"{"\t"} /(_)\  | |) |  \ V /  | _|  | .` |   | |   | |_| | |   / | _|      | _ \ | _|  | (_ |  | |  | .` | \__ \{"\n"}", ConsoleColor.Blue, slow: true, line: true);
+            Text($@"{"\t"}/_/ \_\ |___/    \_/   |___| |_|\_|   |_|    \___/  |_|_\ |___|     |___/ |___|  \___| |___| |_|\_| |___/{"\n\n"}", ConsoleColor.DarkBlue, slow: true, line: true);
         }
 
         public static void TheEnd(Player player, Item[] inventory)
         {
-            Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.Cyan);
-            Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkCyan);
-            Text($@"{"\t"}    ) (   | )   ( || (    \/    | (    \/|  \  ( || (  \  ){"\n"}", ConsoleColor.Blue);
-            Text($@"{"\t"}    | |   | (___) || (__        | (__    |   \ | || |   ) |{"\n"}", ConsoleColor.DarkBlue);
-            Text($@"{"\t"}    | |   |  ___  ||  __)       |  __)   | (\ \) || |   | |{ "\n"}", ConsoleColor.DarkMagenta);
-            Text($@"{"\t"}    | |   | (   ) || (          | (      | | \   || |   ) |{"\n"}", ConsoleColor.DarkBlue);
-            Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.Blue);
-            Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.Cyan);
+            Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.Cyan, slow: true, line: true);
+            Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkCyan, slow: true, line: true);
+            Text($@"{"\t"}    ) (   | )   ( || (    \/    | (    \/|  \  ( || (  \  ){"\n"}", ConsoleColor.Blue, slow: true, line: true);
+            Text($@"{"\t"}    | |   | (___) || (__        | (__    |   \ | || |   ) |{"\n"}", ConsoleColor.DarkBlue, slow: true, line: true);
+            Text($@"{"\t"}    | |   |  ___  ||  __)       |  __)   | (\ \) || |   | |{ "\n"}", ConsoleColor.DarkMagenta, slow: true, line: true);
+            Text($@"{"\t"}    | |   | (   ) || (          | (      | | \   || |   ) |{"\n"}", ConsoleColor.DarkBlue, slow: true, line: true);
+            Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.Blue, slow: true, line: true);
+            Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.Cyan, slow: true, line: true);
 
             Text("\n");
             Text("".PadLeft(45, '>') + "\n", ConsoleColor.Magenta);
@@ -311,14 +307,14 @@ namespace EternityRPG
 
         public static void GameTitle()
         {
-            Text($@"{"\t"} _______ _________ _______  _______  _       __________________         {"\n"}", ConsoleColor.Cyan);
-            Text($@"{"\t"}(  ____ \\__   __/(  ____ \(  ____ )( (    /|\__   __/\__   __/|\     /|{"\n"}", ConsoleColor.DarkCyan);
-            Text($@"{"\t"}| (    \/   ) (   | (    \/| (    )||  \  ( |   ) (      ) (   ( \   / ){"\n"}", ConsoleColor.Blue);
-            Text($@"{"\t"}| (__       | |   | (__    | (____)||   \ | |   | |      | |    \ (_) / {"\n"}", ConsoleColor.DarkBlue);
-            Text($@"{"\t"}|  __)      | |   |  __)   |     __)| (\ \) |   | |      | |     \   /  {"\n"}", ConsoleColor.DarkMagenta);
-            Text($@"{"\t"}| (         | |   | (      | (\ (   | | \   |   | |      | |      ) (   {"\n"}", ConsoleColor.DarkBlue);
-            Text($@"{"\t"}| (____/\   | |   | (____/\| ) \ \__| )  \  |___) (___   | |      | |   {"\n"}", ConsoleColor.Blue);
-            Text($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.Cyan);
+            Text($@"{"\t"} _______ _________ _______  _______  _       __________________         {"\n"}", ConsoleColor.Cyan, slow: true, line: true);
+            Text($@"{"\t"}(  ____ \\__   __/(  ____ \(  ____ )( (    /|\__   __/\__   __/|\     /|{"\n"}", ConsoleColor.DarkCyan, slow: true, line: true);
+            Text($@"{"\t"}| (    \/   ) (   | (    \/| (    )||  \  ( |   ) (      ) (   ( \   / ){"\n"}", ConsoleColor.Blue, slow: true, line: true);
+            Text($@"{"\t"}| (__       | |   | (__    | (____)||   \ | |   | |      | |    \ (_) / {"\n"}", ConsoleColor.DarkBlue, slow: true, line: true);
+            Text($@"{"\t"}|  __)      | |   |  __)   |     __)| (\ \) |   | |      | |     \   /  {"\n"}", ConsoleColor.DarkMagenta, slow: true, line: true);
+            Text($@"{"\t"}| (         | |   | (      | (\ (   | | \   |   | |      | |      ) (   {"\n"}", ConsoleColor.DarkBlue, slow: true, line: true);
+            Text($@"{"\t"}| (____/\   | |   | (____/\| ) \ \__| )  \  |___) (___   | |      | |   {"\n"}", ConsoleColor.Blue, slow: true, line: true);
+            Text($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.Cyan, slow: true, line: true);
         }
 
         public static string EntryBattlePhrase(Character enemy)
@@ -347,27 +343,27 @@ namespace EternityRPG
             Text("\n");
             for (int i = 0; i <= length; i++)
             {
-                Text("|", ConsoleColor.Red, slowText: true);
-                Text("|", ConsoleColor.DarkYellow, slowText: true);
-                Text("|", ConsoleColor.Yellow, slowText: true);
-                Text("|", ConsoleColor.Green, slowText: true);
-                Text("|", ConsoleColor.Cyan, slowText: true);
-                Text("|", ConsoleColor.DarkBlue, slowText: true);
-                Text("|", ConsoleColor.DarkMagenta, slowText: true);
-                Text("|", ConsoleColor.DarkBlue, slowText: true);
-                Text("|", ConsoleColor.Cyan, slowText: true);
-                Text("|", ConsoleColor.Green, slowText: true);
-                Text("|", ConsoleColor.Yellow, slowText: true);
-                Text("|", ConsoleColor.DarkYellow, slowText: true);
+                Text("|", ConsoleColor.Red, slow: true);
+                Text("|", ConsoleColor.DarkYellow, slow: true);
+                Text("|", ConsoleColor.Yellow, slow: true);
+                Text("|", ConsoleColor.Green, slow: true);
+                Text("|", ConsoleColor.Cyan, slow: true);
+                Text("|", ConsoleColor.DarkBlue, slow: true);
+                Text("|", ConsoleColor.DarkMagenta, slow: true);
+                Text("|", ConsoleColor.DarkBlue, slow: true);
+                Text("|", ConsoleColor.Cyan, slow: true);
+                Text("|", ConsoleColor.Green, slow: true);
+                Text("|", ConsoleColor.Yellow, slow: true);
+                Text("|", ConsoleColor.DarkYellow, slow: true);
             }
 
-            Text("|", ConsoleColor.Red, slowText: true);
-            Text("|", ConsoleColor.DarkYellow, slowText: true);
-            Text("|", ConsoleColor.Yellow, slowText: true);
-            Text("|", ConsoleColor.Green, slowText: true);
-            Text("|", ConsoleColor.Cyan, slowText: true);
-            Text("|", ConsoleColor.DarkBlue, slowText: true);
-            Text("|\n", ConsoleColor.DarkMagenta, slowText: true);
+            Text("|", ConsoleColor.Red, slow: true);
+            Text("|", ConsoleColor.DarkYellow, slow: true);
+            Text("|", ConsoleColor.Yellow, slow: true);
+            Text("|", ConsoleColor.Green, slow: true);
+            Text("|", ConsoleColor.Cyan, slow: true);
+            Text("|", ConsoleColor.DarkBlue, slow: true);
+            Text("|\n", ConsoleColor.DarkMagenta, slow: true);
         }
 
         public static void PressEnter()
@@ -440,19 +436,28 @@ namespace EternityRPG
             Text("".PadLeft(45, '<') + "\n\n", ConsoleColor.Magenta);
         }
 
-        public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slowText = false, int speed = 5)
+        public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slow = false, bool line = false, int speed = 5)
         {
             //slowly printing in the specified color
-            if (slowText)
+            if (slow)
             {
-                char[] letters = text.ToCharArray();
-
                 Console.ForegroundColor = color;
 
-                foreach (char element in letters)
+                if (line)
                 {
-                    Console.Write(element);
-                    Thread.Sleep(speed);
+                    Console.Write(text);
+                    Thread.Sleep(200);
+                }
+
+                else
+                {
+                    char[] letters = text.ToCharArray();
+
+                    foreach (char element in letters)
+                    {
+                        Console.Write(element);
+                        Thread.Sleep(speed);
+                    }
                 }
 
                 Console.ResetColor();
