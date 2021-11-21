@@ -16,19 +16,26 @@ namespace EternityRPG
         public static Biome[] biomes;
         public static Item[] inventory;
 
-        public static Dictionary<int, string> Genders = new Dictionary<int, string>
+        public static Dictionary<int, string> genders = new Dictionary<int, string>
         {
             { 1, "male" },
             { 2, "female" }
         };
 
-        public static Dictionary<int, string> Classes = new Dictionary<int, string>
+        public static Dictionary<int, string> classes = new Dictionary<int, string>
         {
             { 1, "warrior" },
             { 2, "archer" },
             { 3, "mage" }
         };
-        
+
+        public static Dictionary<int, string> directions = new Dictionary<int, string>
+        {
+            { 1, "shop" },
+            { 2, "locations" },
+            { 3, "stats" }
+        };
+
         public static Dictionary<int, string> battleOptions = new Dictionary<int, string>
         {
             { 1, "attack" },

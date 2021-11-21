@@ -7,44 +7,40 @@ namespace EternityRPG
     {
         public static void ChangeDirection()//options to choose between shop, locations
         {
-            Text(@"   ___        /           _             _            _______________ " + "\n", ConsoleColor.Blue);
-            Text(@"  |___|      /           |\     /|\     /|          |               |" + "\n", ConsoleColor.Blue);
-            Text(@"  _| |_     / /\           \     |     /            |  CLASS .....  |" + "\n", ConsoleColor.Blue);
-            Text(@" |     |   / | |            \    |    /             |  EXP   .....  |" + "\n", ConsoleColor.Blue);
-            Text(@" | HP  |  /  | |                                    |  GOLD  .....  |" + "\n", ConsoleColor.Blue);
-            Text(@" |_____| /   | |              \  O                  |_______________|" + "\n", ConsoleColor.Blue);
-            Text("        /  __|_|__             \\/\u25A0\\ _                      | |       " + "\n", ConsoleColor.Blue);
-            Text("       /      \u25A0                  \u25A0 |_|                     | |       " + "\n", ConsoleColor.Blue);
-            Text("      /       \u25A0                 / \\                        |_|       " + "\n\n", ConsoleColor.Blue);
-            Text("     [1] ", ConsoleColor.Cyan);
-            Text("shop");
-            Text("\t\t   [2] ", ConsoleColor.Cyan);
-            Text("locations");
-            Text("\t     [3] ", ConsoleColor.Cyan);
-            Text("player stats\n\n");
-        }
+            Text(@"   ___        /           _             _         _______________ " + "\n", ConsoleColor.Blue);
+            Text(@"  |___|      /           |\     /|\     /|       |               |" + "\n", ConsoleColor.Blue);
+            Text(@"  _| |_     / /\           \     |     /         |  CLASS .....  |" + "\n", ConsoleColor.Blue);
+            Text(@" |     |   / | |            \    |    /          |  EXP   .....  |" + "\n", ConsoleColor.Blue);
+            Text(@" | HP  |  /  | |                                 |  GOLD  .....  |" + "\n", ConsoleColor.Blue);
+            Text(@" |_____| /   | |              \  O               |_______________|" + "\n", ConsoleColor.Blue);
+            Text("        /  __|_|__             \\/\u25A0\\ _                   | |       " + "\n", ConsoleColor.Blue);
+            Text("       /      \u25A0                  \u25A0 |_|                  | |       " + "\n", ConsoleColor.Blue);
+            Text("      /       \u25A0                 / \\                     |_|       " + "\n\n", ConsoleColor.Blue);
 
-        public static void Question(string text, ConsoleColor color = ConsoleColor.Green)
-        {
-            Text($"{text}");
-            Text(" [y] ", color);
-            Text("/");
-            Text(" [n]", color);
-            Text(": ");
+            for (int i = 0; i < Game.directions.Count; i++)
+            {
+                if (i == 0)
+                    Text($"\t[{i + 1}] ", ConsoleColor.Cyan);
+                else
+                    Text($"\t\t[{i + 1}] ", ConsoleColor.Cyan);
+
+                Text($"{Game.directions[i + 1]}");
+            }
+            Text("\n\n");
         }
 
         public static void GenderOptions()//selection of player's gender
         {
             Text("\nChoose your character's gender:");
 
-            for (int i = 0; i < Game.Genders.Count; i++)
+            for (int i = 0; i < Game.genders.Count; i++)
             {
                 if (i == 0)
                     Text($" [{i + 1}] ", ConsoleColor.Green);
                 else
                     Text($" [{i + 1}] ".PadLeft(36, ' '), ConsoleColor.Green);
 
-                Text($"{Game.Genders[i + 1]}\n");
+                Text($"{Game.genders[i + 1]}\n");
             }
             Text("\n");
         }
@@ -53,40 +49,47 @@ namespace EternityRPG
         {
             Text("\nChoose your character's class: ");
 
-            for (int i = 0; i < Game.Classes.Count; i++)
+            for (int i = 0; i < Game.classes.Count; i++)
             {
                 if (i == 0)
                     Text($" [{i + 1}] ", ConsoleColor.Green);
                 else
                     Text($" [{i + 1}] ".PadLeft(36, ' '), ConsoleColor.Green);
 
-                Text($"{Game.Classes[i + 1]}\n");
+                Text($"{Game.classes[i + 1]}\n");
             }
             Text("\n");
         }
 
         public static void PlayerShortInfo(Player player)//card of player before start of the game
         {
-            Text("".PadLeft(25, '>') + "\n", ConsoleColor.Magenta);
-            Text("Your character\n", ConsoleColor.DarkYellow);
+            Text("".PadLeft(45, '>') + "\n", ConsoleColor.Magenta);
+            Text(" Your character\n\n", ConsoleColor.DarkYellow);
+            Text(" name:\t\t");
 
             if (player.Name == "Ash")
             {
-                Text("name:\t");
-                Text($"{player.Name} ", ConsoleColor.Green);
+                Text($"{player.Name} ", ConsoleColor.DarkCyan);
                 Text("(default)\n");
             }
             else
-            {
-                Text("name:\t");
-                Text($"{player.Name}\n", ConsoleColor.Green);
-            }
+                Text($"{player.Name}\n", ConsoleColor.DarkCyan);
 
-            Text("gender:\t");
-            Text($"{player.Gender}\n", ConsoleColor.Green);
-            Text("class:\t");
-            Text($"{player.Class}\n", ConsoleColor.Green);
-            Text("".PadLeft(25, '<') + "\n\n", ConsoleColor.Magenta);
+            Text(" gender:\t");
+            Text($"{player.Gender}\n", ConsoleColor.DarkGray);
+            Text(" class:\t\t");
+            Text($"{player.Class}\n", ConsoleColor.DarkGreen);
+            Text(" HP:\t\t");
+            Text($"{player.MaxHP}\n", ConsoleColor.Green);
+            Text(" DMG:\t\t");
+            Text($"{player.MinDamage}", ConsoleColor.DarkGreen);
+            Text(" - ");
+            Text($"{player.MaxDamage}\n", ConsoleColor.DarkGreen);
+            Text(" CRIT:\t\t");
+            Text($"{player.CritChance}\n", ConsoleColor.Green);
+            Text(" LUCK:\t\t");
+            Text($"{player.Luck}\n", ConsoleColor.DarkGreen);
+            Text("".PadLeft(45, '<') + "\n\n", ConsoleColor.Magenta);
         }
 
         public static void ShopOptions(Player player, Item[] inventory)
@@ -140,7 +143,7 @@ namespace EternityRPG
         {
             Text(@" _       ___     ___     _     _____   ___    ___    _  _   ___ " + "\n", ConsoleColor.DarkYellow);
             Text(@"| |     / _ \   / __|   /_\   |_   _| |_ _|  / _ \  | \| | / __|" + "\n", ConsoleColor.Red);
-            Text(@"| |__  | (_) | | (__   / _ \    | |    | |  | (_) | | .` | \__ \" + "\n", ConsoleColor.DarkRed);
+            Text(@"| |__  | (_) | | (__   /(_)\    | |    | |  | (_) | | .` | \__ \" + "\n", ConsoleColor.DarkRed);
             Text(@"|____|  \___/   \___| /_/ \_\   |_|   |___|  \___/  |_|\_| |___/" + "\n\n", ConsoleColor.DarkMagenta);
 
             Text("Where do you want to go? ");
@@ -221,18 +224,18 @@ namespace EternityRPG
 
         public static void BoosFight()
         {
-            Text($@"{"\t"} ___    ___    ___   ___       ___   ___    ___   _  _   _____ {"\n"}", ConsoleColor.DarkYellow, false, 2);
-            Text($@"{"\t"}| _ )  / _ \  / __| / __|     | __| |_ _|  / __| | || | |_   _|{"\n"}", ConsoleColor.Red, false, 2);
-            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     | _|   | |  | (_ | | __ |   | |  {"\n"}", ConsoleColor.DarkRed, false, 2);
-            Text($@"{"\t"}|___/  \___/  |___/ |___/     |_|   |___|  \___| |_||_|   |_|  {"\n\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Text($@"{"\t"} ___    ___    ___   ___       ___   ___    ___   _  _   _____ {"\n"}", ConsoleColor.DarkYellow);
+            Text($@"{"\t"}| _ )  / _ \  / __| / __|     | __| |_ _|  / __| | || | |_   _|{"\n"}", ConsoleColor.Red);
+            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     | _|   | |  | (_ | | __ |   | |  {"\n"}", ConsoleColor.DarkRed);
+            Text($@"{"\t"}|___/  \___/  |___/ |___/     |_|   |___|  \___| |_||_|   |_|  {"\n\n"}", ConsoleColor.DarkMagenta);
         }
 
         public static void YouDied()
         {
-            Text($@"{"\t"}__   __   ___    _   _       ___    ___   ___   ___  {"\n"}", ConsoleColor.DarkYellow, false, 2);
-            Text($@"{"\t"}\ \ / /  / _ \  | | | |     |   \  |_ _| | __| |   \ {"\n"}", ConsoleColor.Red, false, 2);
-            Text($@"{"\t"} \ V /  | (_) | | |_| |     | |) |  | |  | _|  | |) |{"\n"}", ConsoleColor.DarkRed, false, 2);
-            Text($@"{"\t"}  |_|    \___/   \___/      |___/  |___| |___| |___/ {"\n\n"}", ConsoleColor.DarkMagenta, false, 2);
+            Text($@"{"\t"}__   __   ___    _   _       ___    ___   ___   ___  {"\n"}", ConsoleColor.DarkYellow);
+            Text($@"{"\t"}\ \ / /  / _ \  | | | |     |   \  |_ _| | __| |   \ {"\n"}", ConsoleColor.Red);
+            Text($@"{"\t"} \ V /  | (_) | | |_| |     | |) |  | |  | _|  | |) |{"\n"}", ConsoleColor.DarkRed);
+            Text($@"{"\t"}  |_|    \___/   \___/      |___/  |___| |___| |___/ {"\n\n"}", ConsoleColor.DarkMagenta);
             Text("your journey is over :(".PadLeft(45, ' '), ConsoleColor.Red);
 
             Thread.Sleep(3000);
@@ -242,39 +245,50 @@ namespace EternityRPG
 
         public static void BossVanquished()
         {
-            Text($@"{"\t"} ___    ___    ___   ___    __   __    _     _  _    ___    _   _   ___   ___   _  _   ___   ___  {"\n"}", ConsoleColor.Cyan, false, 2);
-            Text($@"{"\t"}| _ )  / _ \  / __| / __|   \ \ / /   /_\   | \| |  / _ \  | | | | |_ _| / __| | || | | __| |   \ {"\n"}", ConsoleColor.DarkCyan, false, 2);
-            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \    \ V /   / _ \  | .` | | (_) | | |_| |  | |  \__ \ | __ | | _|  | |) |{"\n"}", ConsoleColor.Blue, false, 2);
-            Text($@"{"\t"}|___/  \___/  |___/ |___/     \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkBlue, false, 2);
+            Text($@"{"\t"} ___    ___    ___   ___     __   __    _     _  _    ___    _   _   ___   ___   _  _   ___   ___  {"\n"}", ConsoleColor.Cyan);
+            Text($@"{"\t"}| _ )  / _ \  / __| / __|    \ \ / /   /_\   | \| |  / _ \  | | | | |_ _| / __| | || | | __| |   \ {"\n"}", ConsoleColor.DarkCyan);
+            Text($@"{"\t"}| _ \ | (_) | \__ \ \__ \     \ V /   / _ \  | .` | | (_) | | |_| |  | |  \__ \ | __ | | _|  | |) |{"\n"}", ConsoleColor.Blue);
+            Text($@"{"\t"}|___/  \___/  |___/ |___/      \_/   /_/ \_\ |_|\_|  \__\_\  \___/  |___| |___/ |_||_| |___| |___/ {"\n"}", ConsoleColor.DarkBlue);
+        }
+
+        public static void AdventureBegins()
+        {
+            Text($@"{"\t"}   _     ___   __   __  ___   _  _   _____   _   _   ___   ___       ___   ___    ___   ___   _  _   ___ {"\n"}", ConsoleColor.Green);
+            Thread.Sleep(400);
+            Text($@"{"\t"}  /_\   |   \  \ \ / / | __| | \| | |_   _| | | | | | _ \ | __|     | _ ) | __|  / __| |_ _| | \| | / __|{"\n"}", ConsoleColor.DarkGreen);
+            Thread.Sleep(400);
+            Text($@"{"\t"} /(_)\  | |) |  \ V /  | _|  | .` |   | |   | |_| | |   / | _|      | _ \ | _|  | (_ |  | |  | .` | \__ \{"\n"}", ConsoleColor.Blue);
+            Thread.Sleep(400);
+            Text($@"{"\t"}/_/ \_\ |___/    \_/   |___| |_|\_|   |_|    \___/  |_|_\ |___|     |___/ |___|  \___| |___| |_|\_| |___/{"\n\n"}", ConsoleColor.DarkBlue);
+            Thread.Sleep(400);
         }
 
         public static void TheEnd(Player player, Item[] inventory)
         {
-            Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.Cyan, false, 2);
-            Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkCyan, false, 2);
-            Text($@"{"\t"}    ) (   | )   ( || (    \/    | (    \/|  \  ( || (  \  ){"\n"}", ConsoleColor.Blue, false, 2);
-            Text($@"{"\t"}    | |   | (___) || (__        | (__    |   \ | || |   ) |{"\n"}", ConsoleColor.DarkBlue, false, 2);
-            Text($@"{"\t"}    | |   |  ___  ||  __)       |  __)   | (\ \) || |   | |{ "\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Text($@"{"\t"}    | |   | (   ) || (          | (      | | \   || |   ) |{"\n"}", ConsoleColor.DarkBlue, false, 2);
-            Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.Blue, false, 2);
-            Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.Cyan, false, 2);
+            Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.Cyan);
+            Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkCyan);
+            Text($@"{"\t"}    ) (   | )   ( || (    \/    | (    \/|  \  ( || (  \  ){"\n"}", ConsoleColor.Blue);
+            Text($@"{"\t"}    | |   | (___) || (__        | (__    |   \ | || |   ) |{"\n"}", ConsoleColor.DarkBlue);
+            Text($@"{"\t"}    | |   |  ___  ||  __)       |  __)   | (\ \) || |   | |{ "\n"}", ConsoleColor.DarkMagenta);
+            Text($@"{"\t"}    | |   | (   ) || (          | (      | | \   || |   ) |{"\n"}", ConsoleColor.DarkBlue);
+            Text($@"{"\t"}    | |   | )   ( || (____/\    | (____/\| )  \  || (__/  ){"\n"}", ConsoleColor.Blue);
+            Text($@"{"\t"}    )_(   |/     \|(_______/    (_______/|/    )_)(______/ {"\n"}", ConsoleColor.Cyan);
 
             Text("\n");
-            Text("".PadLeft(42, '>') + "\n", ConsoleColor.Magenta);
+            Text("".PadLeft(45, '>') + "\n", ConsoleColor.Magenta);
             Text($" {player.Name}", ConsoleColor.DarkCyan);
             Text(" / ");
             Text($"{player.Gender}", ConsoleColor.DarkGray);
             Text(" / ");
             Text($"{player.Class}\n\n", ConsoleColor.DarkGreen);
-            Text(" LVL:             ");
-            Text($"{player.Lvl}\n", ConsoleColor.Green);
-            Text(" EXP:             ");
+            Text(" LVL:\t\t ");
+            Text($"{player.Lvl}\n", ConsoleColor.DarkGreen);
+            Text(" EXP:\t\t ");
             Text($"{player.Exp}\n", ConsoleColor.Green);
-            Text(" GOLD:            ");
-            Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
-            Text(" enemies killed:  ");
-            Text($"{Game.DefeatedEnemiesOverall}\n", ConsoleColor.Green);
-            Text(" bosses killed:   ");
+            Text($" GOLD:\t\t {player.Gold}\n", ConsoleColor.DarkYellow);
+            Text(" enemies killed: ");
+            Text($"{Game.DefeatedEnemiesOverall}\n", ConsoleColor.DarkGreen);
+            Text(" bosses killed:\t ");
             Text($"{Game.DefeatedBossesOverall}\n", ConsoleColor.Green);
 
             //if you have bought any weapon
@@ -282,13 +296,13 @@ namespace EternityRPG
             {
                 if (inventory[i].WeaponIsBought)
                 {
-                    Text(" weapon:          ");
-                    Text($"{inventory[i].Title}\n", ConsoleColor.DarkRed);
+                    Text(" weapon:\t ");
+                    Text($"{inventory[i].Title}\n", ConsoleColor.DarkCyan);
                     break;
                 }
             }
 
-            Text("".PadLeft(42, '<') + "\n\n", ConsoleColor.Magenta);
+            Text("".PadLeft(45, '<') + "\n\n", ConsoleColor.Magenta);
 
             Thread.Sleep(3000);
             Text("Press Enter to exit");
@@ -297,14 +311,14 @@ namespace EternityRPG
 
         public static void GameTitle()
         {
-            Text($@"{"\t"} _______ _________ _______  _______  _       __________________         {"\n"}", ConsoleColor.Cyan, false, 2);
-            Text($@"{"\t"}(  ____ \\__   __/(  ____ \(  ____ )( (    /|\__   __/\__   __/|\     /|{"\n"}", ConsoleColor.DarkCyan, false, 2);
-            Text($@"{"\t"}| (    \/   ) (   | (    \/| (    )||  \  ( |   ) (      ) (   ( \   / ){"\n"}", ConsoleColor.Blue, false, 2);
-            Text($@"{"\t"}| (__       | |   | (__    | (____)||   \ | |   | |      | |    \ (_) / {"\n"}", ConsoleColor.DarkBlue, false, 2);
-            Text($@"{"\t"}|  __)      | |   |  __)   |     __)| (\ \) |   | |      | |     \   /  {"\n"}", ConsoleColor.DarkMagenta, false, 2);
-            Text($@"{"\t"}| (         | |   | (      | (\ (   | | \   |   | |      | |      ) (   {"\n"}", ConsoleColor.DarkBlue, false, 2);
-            Text($@"{"\t"}| (____/\   | |   | (____/\| ) \ \__| )  \  |___) (___   | |      | |   {"\n"}", ConsoleColor.Blue, false, 2);
-            Text($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.Cyan, false, 2);
+            Text($@"{"\t"} _______ _________ _______  _______  _       __________________         {"\n"}", ConsoleColor.Cyan);
+            Text($@"{"\t"}(  ____ \\__   __/(  ____ \(  ____ )( (    /|\__   __/\__   __/|\     /|{"\n"}", ConsoleColor.DarkCyan);
+            Text($@"{"\t"}| (    \/   ) (   | (    \/| (    )||  \  ( |   ) (      ) (   ( \   / ){"\n"}", ConsoleColor.Blue);
+            Text($@"{"\t"}| (__       | |   | (__    | (____)||   \ | |   | |      | |    \ (_) / {"\n"}", ConsoleColor.DarkBlue);
+            Text($@"{"\t"}|  __)      | |   |  __)   |     __)| (\ \) |   | |      | |     \   /  {"\n"}", ConsoleColor.DarkMagenta);
+            Text($@"{"\t"}| (         | |   | (      | (\ (   | | \   |   | |      | |      ) (   {"\n"}", ConsoleColor.DarkBlue);
+            Text($@"{"\t"}| (____/\   | |   | (____/\| ) \ \__| )  \  |___) (___   | |      | |   {"\n"}", ConsoleColor.Blue);
+            Text($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.Cyan);
         }
 
         public static string EntryBattlePhrase(Character enemy)
@@ -365,38 +379,65 @@ namespace EternityRPG
 
         public static void PlayerStatistics(Player player, Item[] inventory)
         {
+            bool weaponIsBought = false;
+
             Text("\n");
-            Text("".PadLeft(39, '>') + "\n", ConsoleColor.Magenta);
+            Text("".PadLeft(45, '>') + "\n", ConsoleColor.Magenta);
             Text($" {player.Name}", ConsoleColor.DarkCyan);
             Text(" / ");
             Text($"{player.Gender}", ConsoleColor.DarkGray);
             Text(" / ");
             Text($"{player.Class}\n\n", ConsoleColor.DarkGreen);
-            Text(" LVL:      ");
-            Text($"{player.Lvl}\n", ConsoleColor.Green);
-            Text(" HP:       ");
-            Text($"{player.HP}\t", ConsoleColor.Green);
-            Text("/ ");
-            Text($"max {player.MaxHP}\n", ConsoleColor.DarkCyan);
-            Text(" EXP:      ");
+            Text(" LVL:\t\t");
+            Text($"{player.Lvl}\n", ConsoleColor.DarkGreen);
+            Text(" EXP:\t\t");
             Text($"{player.Exp}\t", ConsoleColor.Green);
             Text("/ ");
             Text($"lvl {player.NextLvl}\n", ConsoleColor.DarkCyan);
-            Text(" GOLD:     ");
-            Text($"{player.Gold}\n", ConsoleColor.DarkYellow);
+            Text(" HP:\t\t");
+            Text($"{player.HP}\t", ConsoleColor.DarkGreen);
+            Text("/ ");
+            Text($"max {player.MaxHP}\n", ConsoleColor.DarkCyan);
+            Text(" DMG:\t\t");
+
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i].WeaponIsBought)
+                {
+                    weaponIsBought = true;
+                    Text($"{player.MinDamage + Game.inventory[i].Damage}", ConsoleColor.Green);
+                    Text(" - ");
+                    Text($"{player.MaxDamage + Game.inventory[i].Damage}\n", ConsoleColor.Green);
+                }
+            }
+
+            if (!weaponIsBought)
+            {
+                Text($"{player.MinDamage}", ConsoleColor.Green);
+                Text(" - ");
+                Text($"{player.MaxDamage}\n", ConsoleColor.Green);
+            }
+            
+            Text(" CRIT:\t\t");
+            Text($"{player.CritChance}\n", ConsoleColor.DarkGreen);
+            Text(" LUCK:\t\t");
+            Text($"{player.Luck}\n\n", ConsoleColor.Green);
+
+            Text($" GOLD:\t\t{player.Gold}\n", ConsoleColor.DarkYellow);
 
             //if you have bought any weapon
             for (int i = 0; i < inventory.Length; i++)
             {
                 if (inventory[i].WeaponIsBought)
                 {
-                    Text(" weapon:   ");
-                    Text($"{inventory[i].Title}\n", ConsoleColor.DarkRed);
+                    Text(" weapon:\t");
+                    Text($"{inventory[i].Title}  ", ConsoleColor.DarkCyan);
+                    Text($"+{inventory[i].Damage} DMG\n", ConsoleColor.DarkRed);
                     break;
                 }
             }
 
-            Text("".PadLeft(39, '<') + "\n\n", ConsoleColor.Magenta);
+            Text("".PadLeft(45, '<') + "\n\n", ConsoleColor.Magenta);
         }
 
         public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slowText = false, int speed = 5)
@@ -424,6 +465,15 @@ namespace EternityRPG
                 Console.Write(text);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+        }
+
+        public static void Question(string text, ConsoleColor color = ConsoleColor.Green)
+        {
+            Text($"{text}");
+            Text(" [y] ", color);
+            Text("/");
+            Text(" [n]", color);
+            Text(": ");
         }
     }
 }

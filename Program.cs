@@ -42,7 +42,7 @@ namespace EternityRPG
                     int.TryParse(Console.ReadLine(), out choice);
                     Console.ResetColor();
                 }
-                while (choice == 0 || choice > Game.Genders.Count);
+                while (choice == 0 || choice > Game.genders.Count);
                 Game.player.SetGender(choice);
 
                 //selection of player's class ********************
@@ -54,8 +54,11 @@ namespace EternityRPG
                     int.TryParse(Console.ReadLine(), out choice);
                     Console.ResetColor();
                 }
-                while (choice == 0 || choice > Game.Classes.Count);
+                while (choice == 0 || choice > Game.classes.Count);
                 Game.player.SetClass(choice);
+
+                //creating player according to the chosen name/gender/class
+                Game.player = Game.player.CreatePlayer();
 
                 yesOrNo = string.Empty;
                 while (yesOrNo != "y" && yesOrNo != "n")
@@ -72,11 +75,10 @@ namespace EternityRPG
                 Console.Clear();
             }
 
-            //creating player and weapons according to chosen class
-            Game.player = Game.player.CreatePlayer();
+            //creating weapons (according to the chosen class) / enemies / bosses / locations
             Game.InitializeWorld();
-            
-            Print.Text("The adventure begins\n");
+
+            Print.AdventureBegins();
             Print.RainbowLoading();
             Console.Clear();
 
@@ -85,13 +87,13 @@ namespace EternityRPG
             {
                 //******************** CHOOSING DIRECTION ********************
                 int selectDirection = default;
-                while (selectDirection == 0 || selectDirection > 3)
+                while (selectDirection == 0 || selectDirection > Game.directions.Count)
                 {
                     Console.Clear();
                     //change your direction
                     Print.ChangeDirection();
 
-                    Print.Text("make your choice: ".PadLeft(23, ' '));
+                    Print.Text("\tmake your choice: ");
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     int.TryParse(Console.ReadLine(), out selectDirection);
                     Console.ResetColor();

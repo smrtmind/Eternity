@@ -19,9 +19,9 @@ namespace EternityRPG
             else Name = "Ash";
         }
 
-        public void SetGender(int choice) => Gender = Game.Genders[choice];
+        public void SetGender(int choice) => Gender = Game.genders[choice];
 
-        public void SetClass(int choice) => Class = Game.Classes[choice];
+        public void SetClass(int choice) => Class = Game.classes[choice];
 
         public Player CreatePlayer()
         {

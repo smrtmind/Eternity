@@ -14,7 +14,7 @@
                 MaxHP = 200;
                 MinDamage = 7;
                 MaxDamage = 12;
-                CritChance = 10;
+                CritChance = 5;
                 Luck = 1;
             }
             //female
@@ -23,7 +23,7 @@
                 MaxHP = 180;
                 MinDamage = 5;
                 MaxDamage = 10;
-                CritChance = 15;
+                CritChance = 10;
                 Luck = 5;
             }
 
