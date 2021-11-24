@@ -53,7 +53,6 @@ C:\docs\code\Eternity\bin\Debug\net5.0\EternityRPG.runtimeconfig.dev.json
 C:\docs\code\Eternity\bin\Debug\net5.0\EternityRPG.dll
 C:\docs\code\Eternity\bin\Debug\net5.0\ref\EternityRPG.dll
 C:\docs\code\Eternity\bin\Debug\net5.0\EternityRPG.pdb
-C:\docs\code\Eternity\obj\Debug\net5.0\EternityRPG.csproj.AssemblyReference.cache
 C:\docs\code\Eternity\obj\Debug\net5.0\EternityRPG.GeneratedMSBuildEditorConfig.editorconfig
 C:\docs\code\Eternity\obj\Debug\net5.0\EternityRPG.AssemblyInfoInputs.cache
 C:\docs\code\Eternity\obj\Debug\net5.0\EternityRPG.AssemblyInfo.cs
