@@ -46,6 +46,22 @@ namespace EternityRPG
 
         public static void InitializeWorld(int worldSize = 4)
         {
+            //creating player according to the chosen name/gender/class
+            switch (player.Class)
+            {
+                case "warrior":
+                    player = new Warrior(player.Name, player.Gender, player.Class);
+                    break;
+
+                case "archer":
+                    player = new Archer(player.Name, player.Gender, player.Class);
+                    break;
+
+                case "mage":
+                    player = new Mage(player.Name, player.Gender, player.Class);
+                    break;
+            }
+
             bosses = new Enemy[worldSize];
             biomes = new Biome[worldSize];
 

@@ -50,8 +50,8 @@ namespace EternityRPG
                 while (choice == 0 || choice > Game.classes.Count);
                 Game.player.SetClass(choice);
 
-                //creating player according to the chosen name/gender/class
-                Game.player = Game.player.CreatePlayer();
+                //creating player / weapons (according to the chosen class) / enemies / bosses / locations
+                Game.InitializeWorld();
 
                 do
                 {
@@ -64,9 +64,6 @@ namespace EternityRPG
                 while (yesOrNo != "y" && yesOrNo != "n");
                 Console.Clear();
             }
-
-            //creating weapons (according to the chosen class) / enemies / bosses / locations
-            Game.InitializeWorld();
 
             Print.AdventureBegins();
             Print.RainbowLoading(consoleClear: true);

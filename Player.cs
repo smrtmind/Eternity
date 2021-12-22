@@ -23,13 +23,6 @@ namespace EternityRPG
 
         public void SetClass(int choice) => Class = Game.classes[choice];
 
-        public Player CreatePlayer()
-        {
-            if (Class == "warrior") return new Warrior(Name, Gender, Class);
-            if (Class == "archer") return new Archer(Name, Gender, Class);
-            else return new Mage(Name, Gender, Class);
-        }
-
         public void LevelUp(int exp)
         {
             if (exp >= NextLvl)
