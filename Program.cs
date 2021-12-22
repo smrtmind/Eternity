@@ -62,7 +62,6 @@ namespace EternityRPG
                 yesOrNo = string.Empty;
                 while (yesOrNo != "y" && yesOrNo != "n")
                 {
-                    Console.Clear();
                     //card of player before start of the game
                     Print.PlayerShortInfo(Game.player);
                     Print.Question("Are you ready to start the adventure with this character?");
@@ -87,7 +86,6 @@ namespace EternityRPG
                 int selectDirection = default;
                 while (selectDirection == 0 || selectDirection > Game.directions.Count)
                 {
-                    Console.Clear();
                     //change your direction
                     Print.ChangeDirection();
 
@@ -100,10 +98,8 @@ namespace EternityRPG
                 //******************** SHOP ********************
                 if (selectDirection == 1)
                 {
-                    input = string.Empty;
-                    while (input != "<")
+                    do
                     {
-                        Console.Clear();
                         Print.ShopOptions(Game.player, Game.inventory);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
 
@@ -111,14 +107,12 @@ namespace EternityRPG
                         input = Console.ReadLine();
                         Console.ResetColor();
 
-                        //exit from the shop
-                        if (input == "<") break;
-
                         int.TryParse(input, out choice);
                         //trying to buy something
                         if (choice > 0 && choice <= Game.inventory.Length)
                             Game.inventory[choice - 1].Buy(Game.player, Game.inventory, choice);
                     }
+                    while (input != "<");
                 }
 
                 //******************** LOCATIONS ********************
@@ -140,7 +134,6 @@ namespace EternityRPG
                     choice = default;
                     while (choice == 0 || choice > maxLocations)
                     {
-                        Console.Clear();
                         Print.SelectLocation(Game.bosses, Game.biomes, maxLocations);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
 
@@ -180,7 +173,6 @@ namespace EternityRPG
                             //if you win final battle
                             if (Game.bosses[biomeType].IsDead)
                             {
-                                Console.Clear();
                                 Print.TheEnd(Game.player, Game.inventory);
                                 break;
                             }
@@ -190,9 +182,8 @@ namespace EternityRPG
                     //starting battle section according to the chosen location
                     else
                     {
-                        Console.Clear();
                         //printing full info about the location, only once in each location, according to the chosen location
-                        Print.Text($"{Game.biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slow: true);
+                        Print.Text($"{Game.biomes[biomeType].LocationInfo}\n", ConsoleColor.DarkGreen, slow: true, consoleClear: true);
                         //start battle section with regular enemies
                         BattleZone();
                     }
@@ -228,7 +219,7 @@ namespace EternityRPG
             }
 
             string yesOrNo = string.Empty;
-            while (yesOrNo.ToLower() != "n")
+            while (yesOrNo != "n")
             {
                 int choice = default;
                 string keyBoardInput = string.Empty;
@@ -250,7 +241,7 @@ namespace EternityRPG
                 else
                 {
                     Game.enemy = Game.bosses[biomeType];
-                    Print.Text($"\n{Game.enemy.Name}\n\n");
+                    Print.Text($"\nBOSS: {Game.enemy.Name}\n\n", ConsoleColor.DarkRed);
                 }
 
                 Print.BattleOptions();
@@ -290,7 +281,6 @@ namespace EternityRPG
                                 {
                                     Game.DefeatedBossesOverall++;
                                     Print.PressEnter();
-                                    Console.Clear();
                                     return;
                                 }
                             }
@@ -380,7 +370,6 @@ namespace EternityRPG
                             Print.Text("remaining\n\n");
 
                             Print.PressEnter();
-                            Console.Clear();
                             return;
                         }
 
@@ -404,8 +393,7 @@ namespace EternityRPG
                 if (Game.DefeatedEnemiesToFightTheBoss == Game.bosses[biomeType].CounterToReachTheBoss && !Game.bosses[biomeType].IsDead) return;
 
                 //asking if you want to continue grinding or not
-                yesOrNo = string.Empty;
-                while (yesOrNo != "y" && yesOrNo != "n")
+                do
                 {
                     Print.Question($"Farm more at the {Game.biomes[biomeType].ShortTitle}?", ConsoleColor.Cyan);
 
@@ -413,9 +401,9 @@ namespace EternityRPG
                     yesOrNo = Console.ReadLine().ToLower();
                     Console.ResetColor();
 
-                    if (yesOrNo == "y" || yesOrNo == "n")
-                        Console.Clear();
+                    if (yesOrNo == "y") Console.Clear();
                 }
+                while (yesOrNo != "y" && yesOrNo != "n");
 
                 void NextAttack(Character attacker, double damage)
                 {

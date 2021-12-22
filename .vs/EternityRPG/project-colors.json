@@ -35,7 +35,17 @@
       "ProjectGuid": "e3503984-fbe0-46c1-8fcb-d68312074cc0",
       "DisplayName": "EternityRPG",
       "ColorIndex": 6
+    },
+    "6a79f8cd-c2a9-496e-be80-3113b502bb17": {
+      "ProjectGuid": "6a79f8cd-c2a9-496e-be80-3113b502bb17",
+      "DisplayName": "EternityRPG",
+      "ColorIndex": 7
+    },
+    "af9e6375-7ed7-4fae-bb83-d15be12708b0": {
+      "ProjectGuid": "af9e6375-7ed7-4fae-bb83-d15be12708b0",
+      "DisplayName": "EternityRPG",
+      "ColorIndex": 8
     }
   },
-  "NextColorIndex": 7
+  "NextColorIndex": 9
 }

@@ -7,6 +7,8 @@ namespace EternityRPG
     {
         public static void ChangeDirection()//options to choose between shop, locations
         {
+            Console.Clear();
+
             Text(@"   ___        /           _             _         _______________ " + "\n", ConsoleColor.Blue);
             Text(@"  |___|      /           |\     /|\     /|       |               |" + "\n", ConsoleColor.Blue);
             Text(@"  _| |_     / /\           \     |     /         |  CLASS .....  |" + "\n", ConsoleColor.Blue);
@@ -63,6 +65,8 @@ namespace EternityRPG
 
         public static void PlayerShortInfo(Player player)//card of player before start of the game
         {
+            Console.Clear();
+
             Text("".PadLeft(45, '>') + "\n", ConsoleColor.Magenta);
             Text(" Your character\n\n", ConsoleColor.DarkYellow);
             Text(" name:\t\t");
@@ -94,6 +98,8 @@ namespace EternityRPG
 
         public static void ShopOptions(Player player, Item[] inventory)
         {
+            Console.Clear();
+
             Text(@" ___   _  _    ___    ___ " + "\n", ConsoleColor.DarkYellow);
             Text(@"/ __| | || |  / _ \  | _ \" + "\n", ConsoleColor.Red);
             Text(@"\__ \ | __ | | (_) | |  _/" + "\n", ConsoleColor.DarkRed);
@@ -141,6 +147,8 @@ namespace EternityRPG
 
         public static void SelectLocation(Enemy[] bosses, Biome[] biomes, int maxLocations)
         {
+            Console.Clear();
+
             Text(@" _       ___     ___     _     _____   ___    ___    _  _   ___ " + "\n", ConsoleColor.DarkYellow);
             Text(@"| |     / _ \   / __|   /_\   |_   _| |_ _|  / _ \  | \| | / __|" + "\n", ConsoleColor.Red);
             Text(@"| |__  | (_) | | (__   /(_)\    | |    | |  | (_) | | .` | \__ \" + "\n", ConsoleColor.DarkRed);
@@ -261,6 +269,8 @@ namespace EternityRPG
 
         public static void TheEnd(Player player, Item[] inventory)
         {
+            Console.Clear();
+
             Text($@"{"\t"} _________          _______      _______  _        ______  { "\n"}", ConsoleColor.Cyan, slow: true, line: true);
             Text($@"{"\t"} \__   __/|\     /|(  ____ \    (  ____ \( (    /|(  __  \ {"\n"}", ConsoleColor.DarkCyan, slow: true, line: true);
             Text($@"{"\t"}    ) (   | )   ( || (    \/    | (    \/|  \  ( || (  \  ){"\n"}", ConsoleColor.Blue, slow: true, line: true);
@@ -438,8 +448,10 @@ namespace EternityRPG
             Text("".PadLeft(45, '<') + "\n\n", ConsoleColor.Magenta);
         }
 
-        public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slow = false, bool line = false, int speed = 5)
+        public static void Text(string text, ConsoleColor color = ConsoleColor.White, bool slow = false, bool line = false, int speed = 5, bool consoleClear = false)
         {
+            if (consoleClear) Console.Clear();
+
             //slowly printing in the specified color
             if (slow)
             {
