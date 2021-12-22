@@ -28,18 +28,14 @@ namespace EternityRPG
 
                 //selection of player's name ********************
                 Print.Text("Enter your name or press ENTER: ");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Game.player.SetName(Console.ReadLine());
-                Console.ResetColor();
+                Game.player.SetName(GetPlayerInput(ConsoleColor.Green));
 
                 //selection of player's gender ********************
                 Print.GenderOptions();
                 do
                 {
                     Print.Text("choose gender: ".PadLeft(47, ' '));
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    int.TryParse(Console.ReadLine(), out choice);
-                    Console.ResetColor();
+                    int.TryParse(GetPlayerInput(ConsoleColor.Green), out choice);
                 }
                 while (choice == 0 || choice > Game.genders.Count);
                 Game.player.SetGender(choice);
@@ -49,9 +45,7 @@ namespace EternityRPG
                 do
                 {
                     Print.Text("choose class: ".PadLeft(46, ' '));
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    int.TryParse(Console.ReadLine(), out choice);
-                    Console.ResetColor();
+                    int.TryParse(GetPlayerInput(ConsoleColor.Green), out choice);
                 }
                 while (choice == 0 || choice > Game.classes.Count);
                 Game.player.SetClass(choice);
@@ -59,17 +53,15 @@ namespace EternityRPG
                 //creating player according to the chosen name/gender/class
                 Game.player = Game.player.CreatePlayer();
 
-                yesOrNo = string.Empty;
-                while (yesOrNo != "y" && yesOrNo != "n")
+                do
                 {
                     //card of player before start of the game
                     Print.PlayerShortInfo(Game.player);
                     Print.Question("Are you ready to start the adventure with this character?");
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    yesOrNo = Console.ReadLine().ToLower();
-                    Console.ResetColor();
+                    yesOrNo = GetPlayerInput(ConsoleColor.Green);
                 }
+                while (yesOrNo != "y" && yesOrNo != "n");
                 Console.Clear();
             }
 
@@ -90,9 +82,7 @@ namespace EternityRPG
                     Print.ChangeDirection();
 
                     Print.Text("\tmake your choice: ");
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    int.TryParse(Console.ReadLine(), out selectDirection);
-                    Console.ResetColor();
+                    int.TryParse(GetPlayerInput(ConsoleColor.Cyan), out selectDirection);
                 }
 
                 //******************** SHOP ********************
@@ -102,12 +92,10 @@ namespace EternityRPG
                     {
                         Print.ShopOptions(Game.player, Game.inventory);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
-
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        input = Console.ReadLine();
-                        Console.ResetColor();
-
+                        
+                        input = GetPlayerInput(ConsoleColor.Green);
                         int.TryParse(input, out choice);
+
                         //trying to buy something
                         if (choice > 0 && choice <= Game.inventory.Length)
                             Game.inventory[choice - 1].Buy(Game.player, Game.inventory, choice);
@@ -136,10 +124,7 @@ namespace EternityRPG
                     {
                         Print.SelectLocation(Game.bosses, Game.biomes, maxLocations);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
-
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        input = Console.ReadLine();
-                        Console.ResetColor();
+                        input = GetPlayerInput(ConsoleColor.Green);
 
                         //exit from choosing locations
                         if (input == "<") break;
@@ -158,10 +143,7 @@ namespace EternityRPG
                         {
                             Console.Clear();
                             Print.Question($"Are you ready for final battle?", ConsoleColor.Cyan);
-
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            yesOrNo = Console.ReadLine().ToLower();
-                            Console.ResetColor();
+                            yesOrNo = GetPlayerInput(ConsoleColor.Cyan);
                         }
                         Console.Clear();
 
@@ -248,11 +230,10 @@ namespace EternityRPG
 
                 while (true)
                 {
-                    Console.Write("choose action: ".PadLeft(41, ' '));
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    keyBoardInput = Console.ReadLine();
+                    Print.Text("choose action: ".PadLeft(41, ' '));
+
+                    keyBoardInput = GetPlayerInput(ConsoleColor.Green);
                     int.TryParse(keyBoardInput, out int battleChoice);
-                    Console.ResetColor();
 
                     //manual fight - 1 && automatic fight - 2
                     if (battleChoice == 1 || battleChoice == 2)
@@ -309,10 +290,9 @@ namespace EternityRPG
                         while (choice == 0 || choice > Game.AmountOfPotions())
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
-                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                            keyBoardInput = Console.ReadLine();
+
+                            keyBoardInput = GetPlayerInput(ConsoleColor.DarkYellow);
                             int.TryParse(keyBoardInput, out choice);
-                            Console.ResetColor();
 
                             if (keyBoardInput == "<")
                             {
@@ -396,10 +376,7 @@ namespace EternityRPG
                 do
                 {
                     Print.Question($"Farm more at the {Game.biomes[biomeType].ShortTitle}?", ConsoleColor.Cyan);
-
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    yesOrNo = Console.ReadLine().ToLower();
-                    Console.ResetColor();
+                    yesOrNo = GetPlayerInput(ConsoleColor.Cyan);
 
                     if (yesOrNo == "y") Console.Clear();
                 }
@@ -425,6 +402,15 @@ namespace EternityRPG
                     return Game.player.GenerateDamage();
                 }
             }
+        }
+
+        private static string GetPlayerInput(ConsoleColor color = ConsoleColor.White)
+        {
+            Console.ForegroundColor = color;
+            string input = Console.ReadLine().ToLower();
+            Console.ResetColor();
+
+            return input;
         }
     }
 }
