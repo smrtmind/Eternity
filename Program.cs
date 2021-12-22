@@ -81,7 +81,7 @@ namespace EternityRPG
             Print.RainbowLoading(consoleClear: true);
 
             //******************** SECTION OF THE MAIN GAMEPLAY ********************
-            while (true)
+            while (!Game.player.IsDead)
             {
                 //******************** CHOOSING DIRECTION ********************
                 int selectDirection = default;
@@ -215,9 +215,6 @@ namespace EternityRPG
                     //start boss fight
                     BattleZone(bossBattle: true);
                 }
-
-                //if you were killed in the battle
-                if (Game.player.IsDead) break;
             }
         }
 
