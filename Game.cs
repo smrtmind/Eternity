@@ -44,7 +44,7 @@ namespace EternityRPG
             { 4, "run away" }
         };
 
-        public static void InitializeWorld(int worldSize = 4)
+        public static void CreatePlayer()
         {
             //creating player according to the chosen name/gender/class
             switch (player.Class)
@@ -61,7 +61,10 @@ namespace EternityRPG
                     player = new Mage(player.Name, player.Gender, player.Class);
                     break;
             }
+        }
 
+        public static void InitializeWorld(int worldSize = 4)
+        {
             bosses = new Enemy[worldSize];
             biomes = new Biome[worldSize];
 
