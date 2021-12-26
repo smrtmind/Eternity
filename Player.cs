@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace EternityRPG
 {
@@ -15,7 +16,8 @@ namespace EternityRPG
         public void SetName(string name)
         {
             if (name.Length > 0)
-                Name = name;
+                Name = name.First().ToString().ToUpper() + name.Substring(1);
+                
             else Name = "Ash";
         }
 

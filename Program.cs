@@ -435,7 +435,6 @@ namespace EternityRPG
                     double damage = Game.player.GenerateDamage();
 
                     //if player bought weapon, it will generate damage + weapon damage
-
                     for (int i = 0; i < Game.inventory.Length; i++)
                     {
                         if (Game.inventory[i].WeaponIsBought)
@@ -445,6 +444,7 @@ namespace EternityRPG
                         }
                     }
 
+                    //additional damage will be added if player use elixir
                     for (int i = 0; i < Game.inventory.Length; i++)
                     {
                         if (Game.inventory[i].BuffIsActive && Game.inventory[i].DurationOfEffect > 0)
@@ -458,7 +458,7 @@ namespace EternityRPG
                         }
                     }
 
-                    //otherwise only base damage of player
+                    //returning all calculated damage
                     return damage;
                 }
             }
