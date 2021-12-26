@@ -9,7 +9,8 @@
         public bool WeaponIsBought { get; set; } = false;
         public int Damage { get; set; }
         public bool BuffIsActive { get; set; } = false;
-        public int DurationOfEffect { get; set; }
+        public int MaxDurationOfEffect { get; set; }
+        public int CurrentDurationOfEffect { get; set; }
         public int BuffPower { get; set; }
 
         public abstract void Buy(Player player, Item[] inventory, int choice);

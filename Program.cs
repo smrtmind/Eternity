@@ -356,7 +356,7 @@ namespace EternityRPG
                             {
                                 Game.inventory[choice + Buff.AmountOfBuffs() - 1].Use(Game.player, Game.inventory, choice);
 
-                                Print.Text($"\n\t+{Game.inventory[choice + Buff.AmountOfBuffs() - 1].BuffPower} DMG for {Game.inventory[choice + Buff.AmountOfBuffs() - 1].DurationOfEffect} hits\n", ConsoleColor.DarkBlue);
+                                Print.Text($"\n\t+{Game.inventory[choice + Buff.AmountOfBuffs() - 1].BuffPower} DMG for {Game.inventory[choice + Buff.AmountOfBuffs() - 1].MaxDurationOfEffect} hits\n", ConsoleColor.DarkBlue);
                             }
 
                             //if you don't have any potions
@@ -447,14 +447,16 @@ namespace EternityRPG
                     //additional damage will be added if player use elixir
                     for (int i = 0; i < Game.inventory.Length; i++)
                     {
-                        if (Game.inventory[i].BuffIsActive && Game.inventory[i].DurationOfEffect > 0)
+                        if (Game.inventory[i].BuffIsActive && Game.inventory[i].CurrentDurationOfEffect > 0)
                         {
-                            Game.inventory[i].DurationOfEffect--;
+                            damage += Game.inventory[i].BuffPower;
+                            Game.inventory[i].CurrentDurationOfEffect--;
 
-                            if (Game.inventory[i].DurationOfEffect == 0)
+                            if (Game.inventory[i].CurrentDurationOfEffect == 0)
+                            {
                                 Game.inventory[i].BuffIsActive = false;
-
-                            return damage += Game.inventory[i].BuffPower;
+                                break;
+                            }
                         }
                     }
 

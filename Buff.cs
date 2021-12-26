@@ -13,21 +13,24 @@ namespace EternityRPG
             {
                 case 1:
                     Cost = 110;
-                    DurationOfEffect = 7;
+                    MaxDurationOfEffect = 7;
+                    CurrentDurationOfEffect = MaxDurationOfEffect;
                     BuffPower = 30;
                     Title = "Small";
                     break;
 
                 case 2:
                     Cost = 235;
-                    DurationOfEffect = 5;
+                    MaxDurationOfEffect = 5;
+                    CurrentDurationOfEffect = MaxDurationOfEffect;
                     BuffPower = 70;
                     Title = "Average";
                     break;
 
                 case 3:
                     Cost = 390;
-                    DurationOfEffect = 3;
+                    MaxDurationOfEffect = 3;
+                    CurrentDurationOfEffect = MaxDurationOfEffect;
                     BuffPower = 200;
                     Title = "Huge";
                     break;
@@ -54,6 +57,7 @@ namespace EternityRPG
 
             //using new one
             inventory[choice + AmountOfBuffs() - 1].BuffIsActive = true;
+            inventory[choice + AmountOfBuffs() - 1].CurrentDurationOfEffect = Game.inventory[choice + AmountOfBuffs() - 1].MaxDurationOfEffect;
             Amount--;
         }
 

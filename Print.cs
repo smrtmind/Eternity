@@ -141,7 +141,7 @@ namespace EternityRPG
                         Text($"+{inventory[i].BuffPower} DMG", ConsoleColor.DarkGray);
 
                     Text(" / ");
-                    Text($"{inventory[i].DurationOfEffect} hits\t", ConsoleColor.DarkGray);
+                    Text($"{inventory[i].MaxDurationOfEffect} hits\t", ConsoleColor.DarkGray);
                     Text($"{inventory[i].Cost} gold", ConsoleColor.DarkYellow);
                     Text(" / ");
                     Text($"you have {inventory[i].Amount}\n", ConsoleColor.Cyan);
