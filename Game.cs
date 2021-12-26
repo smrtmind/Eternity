@@ -31,9 +31,9 @@ namespace EternityRPG
 
         public static Dictionary<int, string> directions = new Dictionary<int, string>
         {
-            { 1, "shop" },
-            { 2, "locations" },
-            { 3, "stats" }
+            { 1, "SHOP" },
+            { 2, "LOCATIONS" },
+            { 3, "STATS" }
         };
 
         public static Dictionary<int, string> battleOptions = new Dictionary<int, string>

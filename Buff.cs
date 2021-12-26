@@ -51,13 +51,15 @@ namespace EternityRPG
 
         public override void Use(Player player, Item[] inventory, int choice)
         {
+            int x = choice + AmountOfBuffs() - 1;
+
             //turning all elixirs to false before buying new one
             for (int i = 0; i < inventory.Length; i++)
                 inventory[i].BuffIsActive = false;
 
             //using new one
-            inventory[choice + AmountOfBuffs() - 1].BuffIsActive = true;
-            inventory[choice + AmountOfBuffs() - 1].CurrentDurationOfEffect = Game.inventory[choice + AmountOfBuffs() - 1].MaxDurationOfEffect;
+            inventory[x].BuffIsActive = true;
+            inventory[x].CurrentDurationOfEffect = Game.inventory[x].MaxDurationOfEffect;
             Amount--;
         }
 

@@ -442,7 +442,8 @@ namespace EternityRPG
 
         public static void PlayerStatistics(Player player, Item[] inventory)
         {
-            bool weaponIsBought = false;
+            double minDamage = player.MinDamage;
+            double maxDamage = player.MaxDamage;
 
             Text("\n");
             Text("".PadLeft(45, '>') + "\n", ConsoleColor.Magenta);
@@ -467,19 +468,20 @@ namespace EternityRPG
             {
                 if (inventory[i].WeaponIsBought)
                 {
-                    weaponIsBought = true;
-                    Text($"{player.MinDamage + Game.inventory[i].Damage}", ConsoleColor.Green);
-                    Text(" - ");
-                    Text($"{player.MaxDamage + Game.inventory[i].Damage}\n", ConsoleColor.Green);
+                    minDamage += inventory[i].Damage;
+                    maxDamage += inventory[i].Damage;
+                }
+
+                if (inventory[i].BuffIsActive)
+                {
+                    minDamage += inventory[i].BuffPower;
+                    maxDamage += inventory[i].BuffPower;
                 }
             }
 
-            if (!weaponIsBought)
-            {
-                Text($"{player.MinDamage}", ConsoleColor.Green);
-                Text(" - ");
-                Text($"{player.MaxDamage}\n", ConsoleColor.Green);
-            }
+            Text($"{minDamage}", ConsoleColor.Green);
+            Text(" - ");
+            Text($"{maxDamage}\n", ConsoleColor.Green);
 
             Text(" CRIT:\t\t");
             Text($"{player.CritChance}\n", ConsoleColor.DarkGreen);
@@ -493,9 +495,23 @@ namespace EternityRPG
             {
                 if (inventory[i].WeaponIsBought)
                 {
-                    Text(" weapon:\t");
+                    Text(" WEAPON:\t");
                     Text($"{inventory[i].Title}  ", ConsoleColor.DarkCyan);
                     Text($"+{inventory[i].Damage} DMG\n", ConsoleColor.DarkRed);
+                    break;
+                }
+            }
+
+            //if you have active buff
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i].BuffIsActive)
+                {
+                    Text(" ELIXIR:\t");
+                    Text($"{inventory[i].Title}  ", ConsoleColor.DarkCyan);
+                    Text($"+{inventory[i].BuffPower} DMG", ConsoleColor.DarkRed);
+                    Text($" / ");
+                    Text($"{inventory[i].CurrentDurationOfEffect} hits left\n", ConsoleColor.DarkRed);
                     break;
                 }
             }

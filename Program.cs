@@ -302,10 +302,12 @@ namespace EternityRPG
 
                         if (choice > 0 && choice <= Potion.AmountOfPotions())
                         {
+                            int x = choice - 1;
+
                             //if you have potion
-                            if (Game.inventory[choice - 1].Amount > 0)
+                            if (Game.inventory[x].Amount > 0)
                             {
-                                Game.inventory[choice - 1].Use(Game.player, Game.inventory, choice);
+                                Game.inventory[x].Use(Game.player, Game.inventory, choice);
 
                                 //if player's current health equal or greater than maximum health
                                 if (Game.player.HP > Game.player.MaxHP)
@@ -315,11 +317,11 @@ namespace EternityRPG
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{Game.inventory[choice - 1].HealingPower} HP. {Game.player.Name} have {Game.player.HP} HP now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{Game.inventory[x].HealingPower} HP. {Game.player.Name} have {Game.player.HP} HP now\n", ConsoleColor.DarkGreen);
                             }
 
                             //if you don't have any potions
-                            else Print.Text($"\n\tYou don't have {Game.inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
+                            else Print.Text($"\n\tYou don't have {Game.inventory[x].Title}\n", ConsoleColor.DarkRed);
 
                             //enemy does his turn, after you tried to heal
                             NextAttack(Game.enemy, Game.enemy.GenerateDamage());
@@ -351,16 +353,20 @@ namespace EternityRPG
 
                         if (choice > 0 && choice <= Buff.AmountOfBuffs())
                         {
-                            //if you have elixir
-                            if (Game.inventory[choice + Buff.AmountOfBuffs() - 1].Amount > 0)
-                            {
-                                Game.inventory[choice + Buff.AmountOfBuffs() - 1].Use(Game.player, Game.inventory, choice);
+                            int x = choice + Buff.AmountOfBuffs() - 1;
 
-                                Print.Text($"\n\t+{Game.inventory[choice + Buff.AmountOfBuffs() - 1].BuffPower} DMG for {Game.inventory[choice + Buff.AmountOfBuffs() - 1].MaxDurationOfEffect} hits\n", ConsoleColor.DarkBlue);
+                            //if you have elixir
+                            if (Game.inventory[x].Amount > 0)
+                            {
+                                Game.inventory[x].Use(Game.player, Game.inventory, choice);
+
+                                Print.Text($"\n\t+{Game.inventory[x].BuffPower} DMG", ConsoleColor.DarkRed);
+                                Print.Text($" / ");
+                                Print.Text($"{Game.inventory[x].CurrentDurationOfEffect} hits left\n", ConsoleColor.DarkRed);
                             }
 
                             //if you don't have any potions
-                            else Print.Text($"\n\tYou don't have {Game.inventory[choice + Buff.AmountOfBuffs() - 1].Title} elixir of strength\n", ConsoleColor.DarkRed);
+                            else Print.Text($"\n\tYou don't have {Game.inventory[x].Title} elixir of strength\n", ConsoleColor.DarkRed);
 
                             //enemy does his turn, after you tried to heal
                             NextAttack(Game.enemy, Game.enemy.GenerateDamage());

@@ -105,7 +105,12 @@
       "ProjectGuid": "6204bbe1-db81-43c1-b92e-aca3a522c5a8",
       "DisplayName": "EternityRPG",
       "ColorIndex": 4
+    },
+    "f34087f7-1732-42a9-83e0-9544c6745824": {
+      "ProjectGuid": "f34087f7-1732-42a9-83e0-9544c6745824",
+      "DisplayName": "EternityRPG",
+      "ColorIndex": 5
     }
   },
-  "NextColorIndex": 5
+  "NextColorIndex": 6
 }
