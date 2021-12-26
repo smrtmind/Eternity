@@ -105,18 +105,43 @@ namespace EternityRPG
             Text(@"\__ \ | __ | | (_) | |  _/" + "\n", ConsoleColor.DarkRed);
             Text(@"|___/ |_||_|  \___/  |_|  " + "\n\n", ConsoleColor.DarkMagenta);
 
-            Text("What do you want to buy? ");
+            Text("What do you want to buy?");
 
+            Text("Healing equipment".PadLeft(23, ' ') + "\n", ConsoleColor.DarkGreen);
             for (int i = 0; i < inventory.Length; i++)
             {
                 if (inventory[i] is Potion)
                 {
-                    if (i == 0)
-                        Text($" [{i + 1}] ", ConsoleColor.Green);
-                    else
-                        Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkGreen);
+                    Text($"{inventory[i].Title}\t");
+                    Text($"+{inventory[i].HealingPower} HP \t", ConsoleColor.DarkGray);
 
-                    Text($"{inventory[i].Title} healing potion\t");
+                    if (inventory[i].Cost.ToString().Length <= 2)
+                        Text($"{inventory[i].Cost} gold ", ConsoleColor.DarkYellow);
+                    else
+                        Text($"{inventory[i].Cost} gold", ConsoleColor.DarkYellow);
+
+                    Text($" / ");
+                    Text($"you have {inventory[i].Amount}\n", ConsoleColor.Cyan);
+                }
+            }
+            Text("\n");
+
+            Text("Elixirs of strength".PadLeft(49, ' ') + "\n", ConsoleColor.DarkMagenta);
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] is Buff)
+                {
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkMagenta);
+                    Text($"{inventory[i].Title}\t");
+
+                    if (inventory[i].BuffPower.ToString().Length <= 2)
+                        Text($"+{inventory[i].BuffPower}  DMG", ConsoleColor.DarkGray);
+                    else
+                        Text($"+{inventory[i].BuffPower} DMG", ConsoleColor.DarkGray);
+
+                    Text(" / ");
+                    Text($"{inventory[i].DurationOfEffect} hits\t", ConsoleColor.DarkGray);
                     Text($"{inventory[i].Cost} gold", ConsoleColor.DarkYellow);
                     Text(" / ");
                     Text($"you have {inventory[i].Amount}\n", ConsoleColor.Cyan);
@@ -125,22 +150,28 @@ namespace EternityRPG
             Text("\n");
 
             //you can see weapon according to the selected class of player
+            Text("Weapons".PadLeft(37, ' ') + "\n", ConsoleColor.DarkBlue);
             for (int i = 0; i < inventory.Length; i++)
             {
                 if (inventory[i] is Weapon)
                 {
-                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
-                    Text($"{inventory[i].Title}\t", ConsoleColor.DarkCyan);
-                    Text($"+{inventory[i].Damage}\t", ConsoleColor.DarkRed);
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkBlue);
+                    Text($"{inventory[i].Title}\t");
+
+                    if (inventory[i].Damage.ToString().Length <= 2)
+                        Text($"+{inventory[i].Damage}  DMG\t", ConsoleColor.DarkGray);
+                    else
+                        Text($"+{inventory[i].Damage} DMG\t", ConsoleColor.DarkGray);
+
                     Text($"{inventory[i].Cost} gold\n", ConsoleColor.DarkYellow);
                 }
             }
             Text("\n");
 
             //gold in your bag
-            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.Green);
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
             Text($"exit");
-            Text($"\t\t\t{player.Gold} ", ConsoleColor.Green);
+            Text($"\t\t\t\t{player.Gold} ", ConsoleColor.Green);
             Text("gold ", ConsoleColor.DarkYellow);
             Text("in your bag\n\n");
         }
@@ -159,7 +190,7 @@ namespace EternityRPG
             int index = default;
             int counterToLastLocation = maxLocations;
 
-            if (maxLocations == biomes.Length) 
+            if (maxLocations == biomes.Length)
                 counterToLastLocation--;
 
             while (index < counterToLastLocation)
@@ -197,40 +228,64 @@ namespace EternityRPG
             for (int i = 0; i < Game.battleOptions.Count; i++)
             {
                 if (i == 0)
-                    Text($" [{i + 1}] ", ConsoleColor.Green);
+                    Text($" [{i + 1}] ", ConsoleColor.DarkGray);
                 else
-                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.Green);
+                    Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkGray);
 
                 Text($"{Game.battleOptions[i + 1]}\n");
             }
             Text("\n");
         }
 
-        public static void HealingOptions(Item[] potions)//battle optins => healing options
+        public static void HealingOptions(Item[] inventory)//battle optins => healing options
         {
             Text("\n");
-            Text("Choose a potion:".PadLeft(25, ' '));
+            Text("Choose an item to heal:".PadLeft(25, ' '));
 
-            for (int i = 0; i < potions.Length; i++)
+            for (int i = 0; i < inventory.Length; i++)
             {
-                if (potions[i] is Potion)
+                if (inventory[i] is Potion)
                 {
                     if (i == 0)
-                        Text($" [{i + 1}] ", ConsoleColor.DarkYellow);
+                        Text($" [{i + 1}] ", ConsoleColor.DarkGreen);
                     else
-                        Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
+                        Text($" [{i + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkGreen);
 
-                    Text($"{potions[i].Title}\t");
-                    Text($"{potions[i].Amount}\n", ConsoleColor.DarkYellow);
+                    Text($"{inventory[i].Title}\t");
+                    Text($"{inventory[i].Amount}\n", ConsoleColor.DarkGreen);
                 }
             }
             Text("\n");
 
-            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkYellow);
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkGreen);
             Text($"back\n\n");
         }
 
-        public static void BoosFight()
+        public static void BuffOptions(Item[] inventory)//battle optins => buff options
+        {
+            Text("\n");
+            Text("Choose an elixir:".PadLeft(25, ' '));
+
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] is Buff)
+                {
+                    if (i == Potion.AmountOfPotions())
+                        Text($" [{i - Potion.AmountOfPotions() + 1}] ", ConsoleColor.DarkMagenta);
+                    else
+                        Text($" [{i - Potion.AmountOfPotions() + 1}] ".PadLeft(30, ' '), ConsoleColor.DarkMagenta);
+
+                    Text($"{inventory[i].Title}\t");
+                    Text($"{inventory[i].Amount}\n", ConsoleColor.DarkMagenta);
+                }
+            }
+            Text("\n");
+
+            Text(" [<] ".PadLeft(30, ' '), ConsoleColor.DarkMagenta);
+            Text($"back\n\n");
+        }
+
+        public static void BossFight()
         {
             Text($@"{"\t"} ___    ___    ___   ___       ___   ___    ___   _  _   _____ {"\n"}", ConsoleColor.DarkYellow, slow: true, line: true);
             Text($@"{"\t"}| _ )  / _ \  / __| / __|     | __| |_ _|  / __| | || | |_   _|{"\n"}", ConsoleColor.Red, slow: true, line: true);
@@ -425,7 +480,7 @@ namespace EternityRPG
                 Text(" - ");
                 Text($"{player.MaxDamage}\n", ConsoleColor.Green);
             }
-            
+
             Text(" CRIT:\t\t");
             Text($"{player.CritChance}\n", ConsoleColor.DarkGreen);
             Text(" LUCK:\t\t");

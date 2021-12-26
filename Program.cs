@@ -91,8 +91,8 @@ namespace EternityRPG
                     {
                         Print.ShopOptions(Game.player, Game.inventory);
                         Console.Write("make your choice: ".PadLeft(44, ' '));
-                        
-                        input = GetPlayerInput(ConsoleColor.Green);
+
+                        input = GetPlayerInput(ConsoleColor.DarkYellow);
                         int.TryParse(input, out choice);
 
                         //trying to buy something
@@ -113,9 +113,9 @@ namespace EternityRPG
                         if (boss.IsDead)
                             deathCounter++;
 
-                    if (deathCounter == Game.bosses.Length - 1) 
+                    if (deathCounter == Game.bosses.Length - 1)
                         maxLocations = Game.biomes.Length;
-                    else 
+                    else
                         maxLocations = Game.biomes.Length - 1;
 
                     choice = default;
@@ -180,7 +180,7 @@ namespace EternityRPG
                 //if you killed enough enemies in the location, you can fight with boss of this location, if it is not dead
                 if (Game.DefeatedEnemiesToFightTheBoss == Game.bosses[biomeType].CounterToReachTheBoss && !Game.bosses[biomeType].IsDead)
                 {
-                    Print.BoosFight();
+                    Print.BossFight();
                     Print.Text($"\tGet ready for battle, the {Game.bosses[biomeType].Name} is coming...\n\n");
                     Print.PressEnter();
                     Console.Clear();
@@ -231,7 +231,7 @@ namespace EternityRPG
                 {
                     Print.Text("choose action: ".PadLeft(41, ' '));
 
-                    keyBoardInput = GetPlayerInput(ConsoleColor.Green);
+                    keyBoardInput = GetPlayerInput(ConsoleColor.DarkGray);
                     int.TryParse(keyBoardInput, out int battleChoice);
 
                     //manual fight - 1 && automatic fight - 2
@@ -286,11 +286,11 @@ namespace EternityRPG
                         Print.HealingOptions(Game.inventory);
 
                         choice = default;
-                        while (choice == 0 || choice > Game.AmountOfPotions())
+                        while (choice == 0 || choice > Potion.AmountOfPotions())
                         {
                             Console.Write("make your choice: ".PadLeft(44, ' '));
 
-                            keyBoardInput = GetPlayerInput(ConsoleColor.DarkYellow);
+                            keyBoardInput = GetPlayerInput(ConsoleColor.DarkGreen);
                             int.TryParse(keyBoardInput, out choice);
 
                             if (keyBoardInput == "<")
@@ -300,7 +300,7 @@ namespace EternityRPG
                             }
                         }
 
-                        if (choice > 0 && choice <= Game.AmountOfPotions())
+                        if (choice > 0 && choice <= Potion.AmountOfPotions())
                         {
                             //if you have potion
                             if (Game.inventory[choice - 1].Amount > 0)
@@ -311,15 +311,56 @@ namespace EternityRPG
                                 if (Game.player.HP > Game.player.MaxHP)
                                 {
                                     Game.player.HP = Game.player.MaxHP;
-                                    Print.Text("\n\tmax health\n", ConsoleColor.DarkGreen);
+                                    Print.Text("\n\tmax HP\n", ConsoleColor.DarkGreen);
                                 }
 
                                 //if not => heal
-                                else Print.Text($"\n\t+{Game.inventory[choice - 1].HealingPower} health. {Game.player.Name} have {Game.player.HP} now\n", ConsoleColor.DarkGreen);
+                                else Print.Text($"\n\t+{Game.inventory[choice - 1].HealingPower} HP. {Game.player.Name} have {Game.player.HP} HP now\n", ConsoleColor.DarkGreen);
                             }
 
                             //if you don't have any potions
-                            else Print.Text($"\n\tYou don't have {Game.inventory[choice - 1].Title} healing potion\n", ConsoleColor.DarkRed);
+                            else Print.Text($"\n\tYou don't have {Game.inventory[choice - 1].Title}\n", ConsoleColor.DarkRed);
+
+                            //enemy does his turn, after you tried to heal
+                            NextAttack(Game.enemy, Game.enemy.GenerateDamage());
+
+                            //if the player is dead
+                            if (Game.player.IsDead) return;
+                        }
+                    }
+
+                    //battle optins => buff options
+                    if (battleChoice == 4)
+                    {
+                        Print.BuffOptions(Game.inventory);
+
+                        choice = default;
+                        while (choice == 0 || choice > Buff.AmountOfBuffs())
+                        {
+                            Console.Write("make your choice: ".PadLeft(44, ' '));
+
+                            keyBoardInput = GetPlayerInput(ConsoleColor.DarkMagenta);
+                            int.TryParse(keyBoardInput, out choice);
+
+                            if (keyBoardInput == "<")
+                            {
+                                Print.Text("\n");
+                                break;
+                            }
+                        }
+
+                        if (choice > 0 && choice <= Buff.AmountOfBuffs())
+                        {
+                            //if you have elixir
+                            if (Game.inventory[choice + Buff.AmountOfBuffs() - 1].Amount > 0)
+                            {
+                                Game.inventory[choice + Buff.AmountOfBuffs() - 1].Use(Game.player, Game.inventory, choice);
+
+                                Print.Text($"\n\t+{Game.inventory[choice + Buff.AmountOfBuffs() - 1].BuffPower} DMG for {Game.inventory[choice + Buff.AmountOfBuffs() - 1].DurationOfEffect} hits\n", ConsoleColor.DarkBlue);
+                            }
+
+                            //if you don't have any potions
+                            else Print.Text($"\n\tYou don't have {Game.inventory[choice + Buff.AmountOfBuffs() - 1].Title} elixir of strength\n", ConsoleColor.DarkRed);
 
                             //enemy does his turn, after you tried to heal
                             NextAttack(Game.enemy, Game.enemy.GenerateDamage());
@@ -330,7 +371,7 @@ namespace EternityRPG
                     }
 
                     //trying to run away from the enemy
-                    if (battleChoice == 4)
+                    if (battleChoice == 5)
                     {
                         //calculating the player's chance to escape randomly
                         //if you succeed in escaping
@@ -391,14 +432,34 @@ namespace EternityRPG
 
                 double PlayerDamage()
                 {
+                    double damage = Game.player.GenerateDamage();
+
                     //if player bought weapon, it will generate damage + weapon damage
+
                     for (int i = 0; i < Game.inventory.Length; i++)
                     {
                         if (Game.inventory[i].WeaponIsBought)
-                            return Game.player.GenerateDamage() + Game.inventory[i].Damage;
+                        {
+                            damage += Game.inventory[i].Damage;
+                            break;
+                        }
                     }
+
+                    for (int i = 0; i < Game.inventory.Length; i++)
+                    {
+                        if (Game.inventory[i].BuffIsActive && Game.inventory[i].DurationOfEffect > 0)
+                        {
+                            Game.inventory[i].DurationOfEffect--;
+
+                            if (Game.inventory[i].DurationOfEffect == 0)
+                                Game.inventory[i].BuffIsActive = false;
+
+                            return damage += Game.inventory[i].BuffPower;
+                        }
+                    }
+
                     //otherwise only base damage of player
-                    return Game.player.GenerateDamage();
+                    return damage;
                 }
             }
         }

@@ -17,21 +17,21 @@
   <Class Name="EternityRPG.Character" Collapsed="true">
     <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAACgACAgAAAAAEAAAAAEAQAQIACAAAAAAQAACAAAAE=</HashCode>
+      <HashCode>QAACgAAAgAAAAAEAAAAAEAQAQIACAAAAAAQAAAAAAAE=</HashCode>
       <FileName>Character.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EternityRPG.Enemy" Collapsed="true">
     <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAgEAAAAIAAAAAAAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EternityRPG.Item" Collapsed="true">
     <Position X="5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAIACAAAAAAEAAAAAAABCAAAAMAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gIIAIACAAAAAAEAAAAAAADCAAAAMAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Item.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -52,14 +52,14 @@
   <Class Name="EternityRPG.Player" Collapsed="true">
     <Position X="7.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAEAAAAAAAGAAAIAAAABAIAAgAAAAAAAQSAAAAA=</HashCode>
+      <HashCode>AAAgAAAAAAAAAACAABIAAABBAIAAgAAAAAAAQQAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EternityRPG.Potion" Collapsed="true">
-    <Position X="4" Y="5.75" Width="1.5" />
+    <Position X="3" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAEAAAA=</HashCode>
       <FileName>Potion.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -71,10 +71,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EternityRPG.Weapon" Collapsed="true">
-    <Position X="6" Y="5.75" Width="1.5" />
+    <Position X="5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Weapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EternityRPG.Buff" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Buff.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -14,19 +14,19 @@ namespace EternityRPG
                 case 1:
                     Cost = 45;
                     HealingPower = 100;
-                    Title = "Small";
+                    Title = "Light bandage";
                     break;
 
                 case 2:
                     Cost = 95;
                     HealingPower = 200;
-                    Title = "Medium";
+                    Title = "Pain reliever";
                     break;
 
                 case 3:
                     Cost = 190;
                     HealingPower = 400;
-                    Title = "Big";
+                    Title = "Strong aid kit";
                     break;
             }
         }
@@ -37,7 +37,7 @@ namespace EternityRPG
             {
                 player.Gold -= Cost;
                 Amount++;
-                Print.Text($"\t\t\t  +1 {Title} healing potion\n", ConsoleColor.DarkGreen);
+                Print.Text($"\t\t\t  +1 {Title}\n", ConsoleColor.DarkGreen);
             }
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
             Thread.Sleep(1500);
@@ -47,6 +47,17 @@ namespace EternityRPG
         {
             player.HP += HealingPower;
             Amount--;
+        }
+
+        public static int AmountOfPotions()
+        {
+            int amountOfPotions = default;
+
+            for (int i = 0; i < Game.inventory.Length; i++)
+                if (Game.inventory[i] is Potion)
+                    amountOfPotions++;
+
+            return amountOfPotions;
         }
     }
 }

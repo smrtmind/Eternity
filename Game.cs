@@ -40,8 +40,9 @@ namespace EternityRPG
         {
             { 1, "attack" },
             { 2, "auto attack" },
-            { 3, "heal" },
-            { 4, "run away" }
+            { 3, "healing items" },
+            { 4, "power elixirs" },
+            { 5, "run away" }
         };
 
         public static void CreatePlayer()
@@ -79,20 +80,12 @@ namespace EternityRPG
                 new Potion(potionType: 1),
                 new Potion(potionType: 2),
                 new Potion(potionType: 3),
+                new Buff(buffType: 1),
+                new Buff(buffType: 2),
+                new Buff(buffType: 3),
                 new Weapon(player.Class, weaponType: 1),
                 new Weapon(player.Class, weaponType: 2)
             };
-        }
-
-        public static int AmountOfPotions()
-        {
-            int amountOfPotions = default;
-
-            for (int i = 0; i < inventory.Length; i++)
-                if (inventory[i] is Potion)
-                    amountOfPotions++;
-
-            return amountOfPotions;
         }
     }
 }

@@ -40,5 +40,7 @@ It is a console D&D like text based game. It was one of my training projects, wh
 
 ⭐Male and female heroes have different base characteristics. 
 
+⭐Created buff system. It can be used limited amount of attacks.
+
 # Info
 Ofcourse I added some "visuals", to this console project. It must be more pleasant to play. In conclusion I can say that this game is absolutely correct working and can be traversed from start to finish. There are two point of exiting from this game, one is THE END and the other one is YOU DIED :)

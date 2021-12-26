@@ -9,52 +9,53 @@ namespace EternityRPG
 
         private void GetWeapon(string playerClass, int weaponType)
         {
-            if (weaponType == 1)
+            switch (weaponType)
             {
-                switch (playerClass)
-                {
-                    case "warrior":
-                        Title = "Crystal Sword";
-                        Damage = 90;
-                        Cost = 3100;
-                        break;
+                case 1:
+                    switch (playerClass)
+                    {
+                        case "warrior":
+                            Title = "Crystal Sword";
+                            Damage = 90;
+                            Cost = 3100;
+                            break;
 
-                    case "archer":
-                        Title = "Poisoned Bow";
-                        Damage = 80;
-                        Cost = 3200;
-                        break;
+                        case "archer":
+                            Title = "Poisoned Bow";
+                            Damage = 80;
+                            Cost = 3200;
+                            break;
 
-                    case "mage":
-                        Title = "Staff of Pain";
-                        Damage = 70;
-                        Cost = 3050;
-                        break;
-                }
-            }
+                        case "mage":
+                            Title = "Staff of Pain";
+                            Damage = 70;
+                            Cost = 3050;
+                            break;
+                    }
+                    break;
 
-            if (weaponType == 2)
-            {
-                switch (playerClass)
-                {
-                    case "warrior":
-                        Title = "Dark Sword";
-                        Damage = 150;
-                        Cost = 6700;
-                        break;
+                case 2:
+                    switch (playerClass)
+                    {
+                        case "warrior":
+                            Title = "Dark Sword";
+                            Damage = 150;
+                            Cost = 6700;
+                            break;
 
-                    case "archer":
-                        Title = "Bloody Bow";
-                        Damage = 155;
-                        Cost = 6650;
-                        break;
+                        case "archer":
+                            Title = "Bloody Bow";
+                            Damage = 155;
+                            Cost = 6650;
+                            break;
 
-                    case "mage":
-                        Title = "Staff of Light";
-                        Damage = 185;
-                        Cost = 6900;
-                        break;
-                }
+                        case "mage":
+                            Title = "Staff of Light";
+                            Damage = 185;
+                            Cost = 6900;
+                            break;
+                    }
+                    break;
             }
         }
 
