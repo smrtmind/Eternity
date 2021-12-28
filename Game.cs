@@ -42,7 +42,8 @@ namespace EternityRPG
             { 2, "auto attack" },
             { 3, "healing items" },
             { 4, "power elixirs" },
-            { 5, "run away" }
+            { 5, "show player stats" },
+            { 6, "run away" }
         };
 
         public static void CreatePlayer()

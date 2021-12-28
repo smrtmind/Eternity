@@ -216,7 +216,7 @@ namespace EternityRPG
                     Print.RainbowLoading(Game.random.Next(1, 9));
 
                     //print randomly generated phrase when new enemy appear
-                    Print.Text(Print.EntryBattlePhrase(Game.enemy));
+                    Print.EntryBattlePhrase(Game.enemy);
                 }
 
                 else
@@ -376,8 +376,12 @@ namespace EternityRPG
                         }
                     }
 
+                    //show player stats
+                    if (battleChoice == 5) 
+                        Print.PlayerStatistics(Game.player, Game.inventory);
+
                     //trying to run away from the enemy
-                    if (battleChoice == 5)
+                    if (battleChoice == 6)
                     {
                         //calculating the player's chance to escape randomly
                         //if you succeed in escaping

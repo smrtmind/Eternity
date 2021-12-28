@@ -39,6 +39,7 @@ namespace EternityRPG
                 Amount++;
                 Print.Text($"\t\t\t  +1 {Title}\n", ConsoleColor.DarkGreen);
             }
+
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
             Thread.Sleep(1500);
         }

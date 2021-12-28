@@ -67,6 +67,7 @@ namespace EternityRPG
                 Use(player, inventory, choice);
                 Print.Text($"\t\t\t  {Title} purchased and equipped\n", ConsoleColor.DarkCyan);
             }
+
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
             Thread.Sleep(2000);
         }

@@ -28,7 +28,7 @@
             }
 
             HP = MaxHP;        
-            Gold = 0;
+            Gold = 100000;
             Exp = 0;
             NormalAttackPhrase = "throws a fireball";
             CriticalAttackPhrase = "causes a firestorm";

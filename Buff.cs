@@ -9,32 +9,31 @@ namespace EternityRPG
 
         private void GetBuff(int buffType)
         {
-            switch (buffType)
+            if (buffType == 1)
             {
-                case 1:
-                    Cost = 110;
-                    MaxDurationOfEffect = 7;
-                    CurrentDurationOfEffect = MaxDurationOfEffect;
-                    BuffPower = 30;
-                    Title = "Small";
-                    break;
-
-                case 2:
-                    Cost = 235;
-                    MaxDurationOfEffect = 5;
-                    CurrentDurationOfEffect = MaxDurationOfEffect;
-                    BuffPower = 70;
-                    Title = "Average";
-                    break;
-
-                case 3:
-                    Cost = 390;
-                    MaxDurationOfEffect = 3;
-                    CurrentDurationOfEffect = MaxDurationOfEffect;
-                    BuffPower = 200;
-                    Title = "Huge";
-                    break;
+                Cost = 110;
+                MaxDurationOfEffect = 7;
+                BuffPower = 30;
+                Title = "Small";
             }
+
+            else if (buffType == 2)
+            {
+                Cost = 235;
+                MaxDurationOfEffect = 5;
+                BuffPower = 70;
+                Title = "Average";
+            }
+
+            else if (buffType == 3)
+            {
+                Cost = 390;
+                MaxDurationOfEffect = 3;
+                BuffPower = 200;
+                Title = "Huge";
+            }
+
+            CurrentDurationOfEffect = MaxDurationOfEffect;
         }
 
         public override void Buy(Player player, Item[] inventory, int choice)
@@ -45,6 +44,7 @@ namespace EternityRPG
                 Amount++;
                 Print.Text($"\t\t\t  +1 {Title} elixir of strength\n", ConsoleColor.DarkGreen);
             }
+
             else Print.Text("not enough gold".PadLeft(41, ' ') + "\n", ConsoleColor.DarkRed);
             Thread.Sleep(1500);
         }

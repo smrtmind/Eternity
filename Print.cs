@@ -382,7 +382,7 @@ namespace EternityRPG
             Text($@"{"\t"}(_______/   )_(   (_______/|/   \__/|/    )_)\_______/   )_(      \_/   {"\n\n"}", ConsoleColor.Cyan, slow: true, line: true);
         }
 
-        public static string EntryBattlePhrase(Character enemy)
+        public static void EntryBattlePhrase(Character enemy)
         {
             Random random = new Random();
 
@@ -400,7 +400,7 @@ namespace EternityRPG
                 $"\nYou meet the gaze of {enemy.Name}, it looks at you, you look at him.\n\n"
             };
 
-            return entryPhrase[random.Next(0, 10)];
+            Text($"{entryPhrase[random.Next(0, 10)]}");
         }
 
         public static void RainbowLoading(int length = 8, bool consoleClear = false)
