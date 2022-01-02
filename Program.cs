@@ -288,7 +288,7 @@ namespace EternityRPG
                         choice = default;
                         while (choice == 0 || choice > Potion.AmountOfPotions())
                         {
-                            Console.Write("make your choice: ".PadLeft(44, ' '));
+                            Print.Text("make your choice: ".PadLeft(44, ' '));
 
                             keyBoardInput = GetPlayerInput(ConsoleColor.DarkGreen);
                             int.TryParse(keyBoardInput, out choice);
@@ -339,7 +339,7 @@ namespace EternityRPG
                         choice = default;
                         while (choice == 0 || choice > Buff.AmountOfBuffs())
                         {
-                            Console.Write("make your choice: ".PadLeft(44, ' '));
+                            Print.Text("make your choice: ".PadLeft(44, ' '));
 
                             keyBoardInput = GetPlayerInput(ConsoleColor.DarkMagenta);
                             int.TryParse(keyBoardInput, out choice);
@@ -365,10 +365,10 @@ namespace EternityRPG
                                 Print.Text($"{Game.inventory[x].CurrentDurationOfEffect} hits left\n", ConsoleColor.DarkRed);
                             }
 
-                            //if you don't have any potions
+                            //if you don't have any elixirs
                             else Print.Text($"\n\tYou don't have {Game.inventory[x].Title} elixir of strength\n", ConsoleColor.DarkRed);
 
-                            //enemy does his turn, after you tried to heal
+                            //enemy does his turn, after you tried to use buff
                             NextAttack(Game.enemy, Game.enemy.GenerateDamage());
 
                             //if the player is dead
